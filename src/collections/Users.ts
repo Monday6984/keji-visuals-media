@@ -1,21 +1,19 @@
-import type { Access, CollectionConfig, FieldAccess } from 'payload'
+import type { Access, CollectionConfig } from 'payload'
 
-const isAdmin = (user: unknown): boolean =>
-  Boolean(user && typeof user === 'object' && 'role' in user && user.role === 'admin')
+import { adminOnly, adminOnlyField, isAdminUser } from '@/access'
 
-const adminOnly: Access = ({ req }) => isAdmin(req.user)
 const adminOrSelf: Access = ({ req }) => {
   if (!req.user) return false
-  if (isAdmin(req.user)) return true
+  if (isAdminUser(req.user)) return true
   return { id: { equals: req.user.id } }
 }
-const adminOnlyField: FieldAccess = ({ req }) => isAdmin(req.user)
 
 // Monie (admin) and Keji (editor). Editors manage content but not users.
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
+    group: 'Admin',
   },
   auth: {
     maxLoginAttempts: 5,

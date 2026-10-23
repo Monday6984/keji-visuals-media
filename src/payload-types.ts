@@ -67,8 +67,15 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    categories: Category;
+    stories: Story;
+    films: Film;
+    packages: Package;
+    testimonials: Testimonial;
+    faqs: Faq;
+    enquiries: Enquiry;
     media: Media;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,8 +83,15 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    stories: StoriesSelect<false> | StoriesSelect<true>;
+    films: FilmsSelect<false> | FilmsSelect<true>;
+    packages: PackagesSelect<false> | PackagesSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    faqs: FaqsSelect<false> | FaqsSelect<true>;
+    enquiries: EnquiriesSelect<false> | EnquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +101,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    about: About;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -119,31 +139,30 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "categories".
  */
-export interface User {
+export interface Category {
   id: number;
-  name?: string | null;
-  role: 'admin' | 'editor';
+  name: string;
+  /**
+   * Used in the web address. Leave blank to create it from the title.
+   */
+  slug: string;
+  /**
+   * One sentence shown in the category index, e.g. "Natural, romantic and uniquely yours."
+   */
+  line?: string | null;
+  /**
+   * Opening paragraph on the category page.
+   */
+  intro?: string | null;
+  cover?: (number | null) | Media;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  resetPasswordRequestedAt?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -207,6 +226,262 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stories".
+ */
+export interface Story {
+  id: number;
+  /**
+   * e.g. "Tolu & Femi"
+   */
+  title: string;
+  /**
+   * Used in the web address. Leave blank to create it from the title.
+   */
+  slug: string;
+  /**
+   * Films are managed in the Films collection.
+   */
+  category: number | Category;
+  cover: number | Media;
+  /**
+   * One or two sentences for story cards.
+   */
+  excerpt?: string | null;
+  date?: string | null;
+  /**
+   * e.g. "Ibadan"
+   */
+  location?: string | null;
+  chapters: {
+    /**
+     * e.g. "Getting ready"
+     */
+    title: string;
+    /**
+     * Used in the web address. Leave blank to create it from the title.
+     */
+    slug: string;
+    /**
+     * In the order they should appear. You can select or upload several at once.
+     */
+    images: (number | Media)[];
+    /**
+     * Optional: photos from this chapter to show full width, usually wide landscapes.
+     */
+    breathers?: (number | Media)[] | null;
+    id?: string | null;
+  }[];
+  /**
+   * Optional YouTube or Vimeo link for this story’s film.
+   */
+  filmUrl?: string | null;
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "films".
+ */
+export interface Film {
+  id: number;
+  title: string;
+  /**
+   * Used in the web address. Leave blank to create it from the title.
+   */
+  slug: string;
+  type: 'wedding' | 'brand' | 'documentary' | 'corporate';
+  /**
+   * YouTube or Vimeo link.
+   */
+  embedUrl: string;
+  /**
+   * Still shown before the film plays.
+   */
+  poster: number | Media;
+  description?: string | null;
+  /**
+   * Optional: the photo story from the same day.
+   */
+  story?: (number | null) | Story;
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packages".
+ */
+export interface Package {
+  id: number;
+  /**
+   * e.g. "The Full Story"
+   */
+  name: string;
+  /**
+   * Small label above the name, e.g. "Signature"
+   */
+  tier?: string | null;
+  /**
+   * e.g. "Traditional and white wedding — one story, two days."
+   */
+  tagline?: string | null;
+  /**
+   * Which tab it appears under on the Packages page.
+   */
+  category: number | Category;
+  priceDisplay: 'exact' | 'from' | 'enquire';
+  priceNGN?: number | null;
+  priceGBP?: number | null;
+  /**
+   * e.g. "8 hours" or "Both days"
+   */
+  duration?: string | null;
+  /**
+   * e.g. "300+ edited images"
+   */
+  imageCount?: string | null;
+  /**
+   * e.g. "Delivered in 4 weeks"
+   */
+  turnaround?: string | null;
+  inclusions?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Highlights this package on its tab.
+   */
+  mostBooked?: boolean | null;
+  /**
+   * Untick to hide from the site without deleting.
+   */
+  visible?: boolean | null;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: number;
+  /**
+   * e.g. "Ada & Tunde"
+   */
+  names: string;
+  quote: string;
+  /**
+   * Testimonials stay hidden from the site until this is ticked.
+   */
+  consent?: boolean | null;
+  category?: (number | null) | Category;
+  story?: (number | null) | Story;
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: number;
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  group: 'beforeYouBook' | 'packages' | 'general';
+  /**
+   * Lower numbers appear first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enquiries".
+ */
+export interface Enquiry {
+  id: number;
+  names: string;
+  email: string;
+  phone?: string | null;
+  shootType: 'traditional' | 'white' | 'traditional-white' | 'pre-wedding' | 'event' | 'portrait' | 'film';
+  date?: string | null;
+  location?: string | null;
+  /**
+   * Package chosen on the site, if any.
+   */
+  package?: string | null;
+  message?: string | null;
+  status: 'new' | 'replied' | 'booked' | 'closed';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  role: 'admin' | 'editor';
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -230,12 +505,40 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'categories';
+        value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'stories';
+        value: number | Story;
+      } | null)
+    | ({
+        relationTo: 'films';
+        value: number | Film;
+      } | null)
+    | ({
+        relationTo: 'packages';
+        value: number | Package;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'faqs';
+        value: number | Faq;
+      } | null)
+    | ({
+        relationTo: 'enquiries';
+        value: number | Enquiry;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -281,28 +584,134 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "categories_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
-  role?: T;
+  slug?: T;
+  line?: T;
+  intro?: T;
+  cover?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  resetPasswordRequestedAt?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stories_select".
+ */
+export interface StoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  cover?: T;
+  excerpt?: T;
+  date?: T;
+  location?: T;
+  chapters?:
     | T
     | {
+        title?: T;
+        slug?: T;
+        images?: T;
+        breathers?: T;
         id?: T;
-        createdAt?: T;
-        expiresAt?: T;
       };
+  filmUrl?: T;
+  featured?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "films_select".
+ */
+export interface FilmsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  type?: T;
+  embedUrl?: T;
+  poster?: T;
+  description?: T;
+  story?: T;
+  featured?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "packages_select".
+ */
+export interface PackagesSelect<T extends boolean = true> {
+  name?: T;
+  tier?: T;
+  tagline?: T;
+  category?: T;
+  priceDisplay?: T;
+  priceNGN?: T;
+  priceGBP?: T;
+  duration?: T;
+  imageCount?: T;
+  turnaround?: T;
+  inclusions?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  mostBooked?: T;
+  visible?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  names?: T;
+  quote?: T;
+  consent?: T;
+  category?: T;
+  story?: T;
+  featured?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  group?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "enquiries_select".
+ */
+export interface EnquiriesSelect<T extends boolean = true> {
+  names?: T;
+  email?: T;
+  phone?: T;
+  shootType?: T;
+  date?: T;
+  location?: T;
+  package?: T;
+  message?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -372,6 +781,31 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  resetPasswordRequestedAt?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -409,6 +843,202 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Shown on the site.
+   */
+  email?: string | null;
+  /**
+   * Where enquiry emails are sent. Not shown publicly.
+   */
+  enquiryRecipient?: string | null;
+  /**
+   * As displayed, e.g. "+234 903 491 7020"
+   */
+  phone?: string | null;
+  /**
+   * Country code + number, digits only, e.g. 2349034917020
+   */
+  whatsapp?: string | null;
+  socials?:
+    | {
+        platform: 'instagram' | 'tiktok' | 'youtube' | 'vimeo' | 'facebook' | 'x';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Where Keji is based. Not confirmed yet.
+   */
+  city?: string | null;
+  /**
+   * e.g. "Across Nigeria and the UK"
+   */
+  serviceArea?: string | null;
+  /**
+   * Pairs of photos that rotate in the homepage hero. Captions come from each photo.
+   */
+  heroSlides?:
+    | {
+        left: number | Media;
+        right: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  homePackages?: (number | Package)[] | null;
+  homeTestimonial?: (number | null) | Testimonial;
+  depositPercent?: number | null;
+  /**
+   * e.g. "2 weeks before the day"
+   */
+  balanceDue?: string | null;
+  /**
+   * e.g. "6 weeks, film to follow"
+   */
+  turnaround?: string | null;
+  quoteFactors?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  addOns?:
+    | {
+        name: string;
+        priceDisplay: 'exact' | 'from' | 'enquire';
+        priceNGN?: number | null;
+        priceGBP?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  gbpNote?: string | null;
+  seoTitle?: string | null;
+  seoDescription?: string | null;
+  /**
+   * 1200×630 works best.
+   */
+  shareImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  /**
+   * e.g. "Behind the lens"
+   */
+  headline?: string | null;
+  /**
+   * Short version, used on the homepage.
+   */
+  intro?: string | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  portrait?: (number | null) | Media;
+  values?:
+    | {
+        name: string;
+        line: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  email?: T;
+  enquiryRecipient?: T;
+  phone?: T;
+  whatsapp?: T;
+  socials?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  city?: T;
+  serviceArea?: T;
+  heroSlides?:
+    | T
+    | {
+        left?: T;
+        right?: T;
+        id?: T;
+      };
+  homePackages?: T;
+  homeTestimonial?: T;
+  depositPercent?: T;
+  balanceDue?: T;
+  turnaround?: T;
+  quoteFactors?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  addOns?:
+    | T
+    | {
+        name?: T;
+        priceDisplay?: T;
+        priceNGN?: T;
+        priceGBP?: T;
+        id?: T;
+      };
+  gbpNote?: T;
+  seoTitle?: T;
+  seoDescription?: T;
+  shareImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  headline?: T;
+  intro?: T;
+  bio?: T;
+  portrait?: T;
+  values?:
+    | T
+    | {
+        name?: T;
+        line?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

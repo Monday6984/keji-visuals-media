@@ -22,8 +22,9 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 - Discovery, stack and design direction: **approved**.
 - Pitch mockup: done (`docs/mockup/`). Uses colour-block placeholders — real photos pending from client.
 - Phase 3 upload spike: **passed** on a Vercel preview (23 Oct 2026). See `docs/spike-report.md` for results and open items.
-- Phase 3 foundation in place: Payload 3.92 + Next 16.3, Neon (migrations only, `push: false`), R2 with `clientUploads`, Media + Users collections, Tailwind tokens. Work is on branch `phase-3/foundation`; production branch is `main`.
-- **Next: rest of Phase 3 — remaining collections + globals, then a staging URL.**
+- Phase 3 foundation in place: Payload 3.92 + Next 16.3, Neon (migrations only, `push: false`), R2 with `clientUploads`, Tailwind tokens. Work is on branch `phase-3/foundation`; production branch is `main`.
+- Content model built (all collections + globals below). Categories, About values and contact details are seeded by migration.
+- **Next: staging URL, then Phase 4 templates.**
 - Still waiting on from Keji: logo files, unwatermarked photos, rates, copy, testimonials, city/service area, domain.
 
 ## Stack (approved — don't change without asking)
@@ -49,12 +50,12 @@ Monie creates the Neon project, R2 bucket + S3 API token, and Vercel project. Se
 ## Content model (Payload)
 - **Media** (upload): `alt` (required), caption, focal point + crop enabled; generated WebP sizes ~640/1024/1600/2400; `blurDataURL` generated in a hook with sharp; width/height.
 - **Categories**: name, slug, cover, intro, order. Seed: Weddings, Pre-Weddings, Events, Portraits, Films.
-- **Stories** (galleries): title, slug, category, cover, **chapters[]** (title + images), optional film embed URL (YouTube/Vimeo), date, location, featured, order, published.
-- **Films**: title, slug, type (wedding / brand / documentary), embed URL, poster, description, featured.
-- **Packages**: name, category (incl. photo + film bundles), price NGN + optional GBP, `priceDisplay` (exact / from / enquire), duration, image count, turnaround, inclusions[], add-ons[], mostBooked, visible, order.
+- **Stories** (galleries): title, slug, category, cover, **chapters[]** (title, slug, `images` multi-select + `breathers` subset shown full width), optional film embed URL (YouTube/Vimeo), date, location, featured, order. Uses Payload **drafts** instead of a `published` flag. Field validation runs on publish, not on draft saves.
+- **Films**: title, slug, type (wedding / brand / documentary / corporate), embed URL, poster, description, optional story, featured, order, drafts. The Films *category* page redirects to `/films`, and stories can't be filed under Films.
+- **Packages**: name, tier label, tagline, category (incl. photo + film bundles), price NGN + optional GBP, `priceDisplay` (exact / from / enquire), duration, image count, turnaround, inclusions[], mostBooked, visible, order. **Add-ons are one shared list** in Site Settings → Booking (decided 23 Oct 2026), not per package.
 - **Testimonials**, **FAQs** (incl. "Before you book" questions).
-- **Enquiries**: saved from the contact form and emailed.
-- **Globals**: Site Settings (logo, contact, WhatsApp, socials, city/service area, SEO defaults, hero picks), About.
+- **Enquiries**: saved from the contact form and emailed. Fields include an optional phone/WhatsApp field. The public API can't create or read them; the form's server endpoint saves with `overrideAccess` and must pass `status: 'new'`.
+- **Globals**: Site Settings (contact, WhatsApp, socials, city/service area, homepage hero pairs + packages teaser + testimonial, booking terms + add-ons, SEO defaults), About. The **logo lives in the codebase**, not the CMS, because SVG uploads are an XSS risk.
 - **Users**: Keji (editor), Monie (admin); `maxLoginAttempts` + lockout.
 
 ## Sitemap

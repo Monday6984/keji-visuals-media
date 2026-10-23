@@ -48,6 +48,7 @@ export const Media: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Library',
     defaultColumns: ['filename', 'alt', 'width', 'height', 'updatedAt'],
   },
   hooks: {
