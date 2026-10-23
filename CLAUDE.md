@@ -21,7 +21,9 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 ## Status
 - Discovery, stack and design direction: **approved**.
 - Pitch mockup: done (`docs/mockup/`). Uses colour-block placeholders — real photos pending from client.
-- **Next: Phase 3 — foundation + day-one upload spike.**
+- Phase 3 upload spike: **passed** on a Vercel preview (23 Oct 2026). See `docs/spike-report.md` for results and open items.
+- Phase 3 foundation in place: Payload 3.92 + Next 16.3, Neon (migrations only, `push: false`), R2 with `clientUploads`, Media + Users collections, Tailwind tokens. Work is on branch `phase-3/foundation`; production branch is `main`.
+- **Next: rest of Phase 3 — remaining collections + globals, then a staging URL.**
 - Still waiting on from Keji: logo files, unwatermarked photos, rates, copy, testimonials, city/service area, domain.
 
 ## Stack (approved — don't change without asking)
@@ -29,7 +31,7 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 - **Postgres on Neon** (not Supabase — free Supabase projects pause after a week idle).
 - **Cloudflare R2** for media via `@payloadcms/storage-s3`: R2 S3 endpoint, `region: 'auto'`, `forcePathStyle: true`, **`clientUploads: true`** (Vercel caps server uploads at 4.5 MB). Serve from an R2 custom domain (e.g. `media.<domain>`) via `generateFileURL`. Not `@payloadcms/storage-r2` (that one is for Cloudflare Workers).
 - **Tailwind CSS**, TypeScript.
-- **Vercel Pro** hosting (Hobby forbids commercial use).
+- **Vercel** hosting. Monie's decision (23 Oct 2026): stay on **Hobby** for now. Note that Hobby's terms forbid commercial use and Pro was the original plan.
 - **Umami** analytics (cookie-less).
 - **PhotoSwipe** is the only planned UI dependency (lightbox).
 - Built for Keji specifically — not a reusable starter.

@@ -5,12 +5,13 @@ import type { Media as MediaDoc } from '@/payload-types'
 import { mediaFileURL, mediaFolder } from '@/lib/mediaURL'
 
 // Served widths for the custom next/image loader. Originals are never linked publicly.
+// Payload's default (withoutEnlargement unset) skips sizes wider than the upload, so small
+// images get no duplicate sizes.
 const widths = { sm: 640, md: 1024, lg: 1600, xl: 2400 } as const
 
 const imageSizes: ImageSize[] = Object.entries(widths).map(([name, width]) => ({
   name,
   width,
-  withoutEnlargement: true,
   formatOptions: { format: 'webp', options: { quality: 80 } },
 }))
 
