@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Keji Visuals — Mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#16140F}a:hover{color:#6B6436}
+.cap{font-family:Montserrat,sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.phone{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(22,20,15,.25),0 24px 60px rgba(22,20,15,.18);flex:0 0 auto}
+.bar{position:absolute;left:12px;right:12px;bottom:14px;display:flex;gap:10px;padding:8px;border-radius:999px;background:rgba(22,20,15,.92)}
+.bar a{flex:1 1 0;min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.chip{flex:0 0 auto;min-height:40px;padding:0 16px;display:flex;align-items:center;border-radius:999px;border:1px solid rgba(22,20,15,.3);font-family:Montserrat,sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#16140F}
+.ib{width:44px;height:44px;border-radius:999px;border:1px solid rgba(22,20,15,.3);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ph{display:flex;align-items:flex-end;padding:12px;box-sizing:border-box}
+.mask{display:block;overflow:hidden;padding-bottom:.06em}
+.rise{display:block;animation:kv-rise 1.1s cubic-bezier(.2,.7,.1,1) both}
+.fadeup{animation:kv-fadeup 1s cubic-bezier(.2,.7,.1,1) both}
+.frame{position:relative;overflow:hidden;border-radius:2px;background:#16140F;animation:kv-wipe 1.4s cubic-bezier(.7,0,.2,1) both}
+.layer{position:absolute;inset:0;display:flex;align-items:flex-end;padding:12px;box-sizing:border-box;transition:opacity 1.4s ease,filter 1.8s ease,transform 6s ease-out}
+.br{position:absolute;width:18px;height:18px;border-color:#EFEDE0;border-style:solid;border-width:0;animation:kv-focus 1.2s cubic-bezier(.2,.7,.1,1) both;z-index:2}
+.br.tl{top:10px;left:10px;border-top-width:2px;border-left-width:2px}.br.tr{top:10px;right:10px;border-top-width:2px;border-right-width:2px}
+.br.bl{bottom:10px;left:10px;border-bottom-width:2px;border-left-width:2px}.br.brr{bottom:10px;right:10px;border-bottom-width:2px;border-right-width:2px}
+.seg{flex:1 1 0;height:44px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;align-items:center}
+.seg span{display:block;width:100%;height:2px;background:rgba(22,20,15,.18);position:relative;overflow:hidden}
+.seg span i{position:absolute;left:0;top:0;bottom:0;background:#6B6436}
+.seg:focus-visible,.ib:focus-visible{outline:3px solid #6B6436;outline-offset:2px}
+@keyframes kv-rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes kv-fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes kv-wipe{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes kv-focus{from{opacity:0;transform:scale(1.9)}to{opacity:1;transform:none}}
+@keyframes kv-fill{from{width:0}to{width:100%}}
+@media (prefers-reduced-motion: reduce){.rise,.fadeup,.frame,.br{animation:none!important}.layer{transition:opacity .01s!important;transform:none!important}.seg span i{animation:none!important;width:100%}}
+</style>
+</helmet>
+<div style="width: 1320px; height: 980px; box-sizing: border-box; padding: 40px 30px; background: #E4E1D3; display: flex; gap: 25px; justify-content: center; font-family: Montserrat, sans-serif; color: #16140F">
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p class="cap" style="margin: 0; color: #3A372F; font-weight: 600">01 · Home</p>
+<div class="phone" style="background: #EFEDE0">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 12px">
+<span style="display: flex; align-items: center; gap: 8px"><svg width="26" height="17" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#8A8150" stroke-width="2.4" stroke-linejoin="round"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg><span style="font-family: Cinzel, serif; font-size: 15px; letter-spacing: 0.16em">KEJI VISUALS</span></span>
+<button type="button" class="ib" aria-label="Open menu"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true" stroke="#16140F" stroke-width="1.6"><path d="M0 1h18M0 6h18M0 11h18"></path></svg></button>
+</div>
+<div style="padding: 6px 20px 0">
+<div class="frame" style="height: 340px; animation-delay: 0.15s">
+<sc-for list="{{layers}}" as="L" hint-placeholder-count="3"><div class="layer" aria-hidden="{{L.hidden}}" style="{{L.style}}"><span class="cap" style="{{L.lc}}">Placeholder · {{L.label}}</span></div></sc-for>
+<span class="br tl" aria-hidden="true" style="animation-delay: 1.2s"></span><span class="br tr" aria-hidden="true" style="animation-delay: 1.25s"></span><span class="br bl" aria-hidden="true" style="animation-delay: 1.3s"></span><span class="br brr" aria-hidden="true" style="animation-delay: 1.35s"></span>
+</div>
+<div class="fadeup" style="display: flex; align-items: center; gap: 10px; margin-top: 4px; animation-delay: 1.1s">
+<span class="cap" aria-live="polite" style="flex: 0 1 auto; color: #57534A; white-space: nowrap">{{cap}}</span>
+<div role="group" aria-label="Hero photos" style="flex: 1 1 auto; display: flex; gap: 6px">
+<sc-for list="{{segs}}" as="sg" hint-placeholder-count="3"><button type="button" class="seg" onClick="{{sg.go}}" aria-label="Show photo {{sg.n}}" aria-current="{{sg.current}}"><span><i style="{{sg.fill}}"></i></span></button></sc-for>
+</div>
+<button type="button" class="ib" onClick="{{toggle}}" aria-label="{{ppLabel}}"><sc-if value="{{paused}}" hint-placeholder-val="{{ false }}"><svg width="10" height="12" viewBox="0 0 12 14" aria-hidden="true"><path d="M1 1 L11 7 L1 13 Z" fill="#16140F"></path></svg></sc-if><sc-if value="{{playing}}" hint-placeholder-val="{{ true }}"><svg width="10" height="12" viewBox="0 0 12 14" aria-hidden="true"><path d="M2 1v12M10 1v12" stroke="#16140F" stroke-width="2.4"></path></svg></sc-if></button>
+</div>
+<h1 style="margin: 14px 0 0; font-family: Cinzel, serif; font-weight: 500; font-size: 40px; line-height: 1.04"><span class="mask"><span class="rise" style="animation-delay: 0.3s">Your moment.</span></span><span class="mask"><span class="rise" style="color: #A9A06B; animation-delay: 0.5s">Your story.</span></span></h1>
+<p class="fadeup" style="margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: #3A372F; animation-delay: 0.85s">Timeless. Genuine. Beautiful.</p>
+</div>
+<nav aria-label="Categories" class="fadeup" style="display: flex; gap: 8px; padding: 18px 20px 0; overflow-x: auto; animation-delay: 1s">
+<a href="Story.dc.html" class="chip" style="background: #16140F; color: #EFEDE0; border-color: #16140F">Weddings</a>
+<a href="Story.dc.html" class="chip">Pre-weddings</a>
+<a href="Story.dc.html" class="chip">Events</a>
+<a href="Story.dc.html" class="chip">Portraits</a>
+<a href="Story.dc.html" class="chip">Films</a>
+</nav>
+<div class="bar"><a href="Packages.dc.html" style="background: #EFEDE0; color: #16140F">Book</a><a href="https://wa.me/2349034917020" style="border: 1px solid rgba(239,237,224,0.6); color: #EFEDE0">WhatsApp</a></div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p class="cap" style="margin: 0; color: #3A372F; font-weight: 600">02 · Wedding story</p>
+<div class="phone" style="background: #EFEDE0">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px">
+<a href="Main.dc.html" class="ib" aria-label="Back to home" style="text-decoration: none">←</a>
+<span class="cap" style="color: #57534A">Weddings</span>
+<button type="button" class="ib" aria-label="Share story"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#16140F" stroke-width="1.5"><path d="M8 11V2M4 5l4-4 4 4M2 9v5h12V9"></path></svg></button>
+</div>
+<div style="padding: 4px 20px 0">
+<h1 style="margin: 0; font-family: Cinzel, serif; font-weight: 500; font-size: 32px; line-height: 1.08">[Couple <span style="color: #A9A06B">names</span>]</h1>
+<p class="cap" style="margin: 10px 0 18px; color: #57534A">Traditional + white · [City]</p>
+<div class="ph" style="height: 430px; background: #4B2E5A"><span class="cap" style="color: #FFFFFF">Placeholder · full-width portrait</span></div>
+<p class="cap" style="margin: 8px 0 12px; color: #57534A">No. 006 · Couple entrance</p>
+<div style="display: flex; gap: 10px">
+<div class="ph" style="flex: 1 1 0; height: 200px; background: #6E8A2A"><span class="cap" style="color: #FFFFFF">Pair</span></div>
+<div class="ph" style="flex: 1 1 0; height: 200px; background: #C79A3A"><span class="cap" style="color: #16140F">Pair</span></div>
+</div>
+</div>
+<button type="button" aria-label="Jump to chapter, current: Traditional ceremony" style="position: absolute; left: 50%; transform: translateX(-50%); bottom: 92px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(22,20,15,0.25); background: #F7F5EE; font-family: Montserrat, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #16140F; cursor: pointer">02 · Traditional ceremony ▴</button>
+<div class="bar"><a href="Packages.dc.html" style="background: #EFEDE0; color: #16140F">Book a similar day</a><a href="https://wa.me/2349034917020" style="border: 1px solid rgba(239,237,224,0.6); color: #EFEDE0">WhatsApp</a></div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p class="cap" style="margin: 0; color: #3A372F; font-weight: 600">03 · Full-screen viewer</p>
+<div class="phone" style="background: #0E0D0A; color: #EFEDE0; display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 10px">
+<span class="cap" style="color: #D9D6C6">07 / 18</span>
+<span class="cap" style="color: #D9D6C6">Traditional ceremony</span>
+<button type="button" class="ib" aria-label="Close viewer" style="border-color: rgba(239,237,224,0.45); color: #EFEDE0">✕</button>
+</div>
+<div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center; padding: 0">
+<div class="ph" style="width: 390px; height: 560px; background: #7E5BA0"><span class="cap" style="color: #FFFFFF">Placeholder · edge-to-edge portrait</span></div>
+</div>
+<div style="padding: 16px 20px 28px; display: flex; flex-direction: column; gap: 14px">
+<div aria-hidden="true" style="display: flex; gap: 6px; justify-content: center">
+<span style="width: 6px; height: 6px; border-radius: 9px; background: #6F6C60"></span><span style="width: 6px; height: 6px; border-radius: 9px; background: #6F6C60"></span><span style="width: 18px; height: 6px; border-radius: 9px; background: #EFEDE0"></span><span style="width: 6px; height: 6px; border-radius: 9px; background: #6F6C60"></span><span style="width: 6px; height: 6px; border-radius: 9px; background: #6F6C60"></span>
+</div>
+<p class="cap" style="margin: 0; text-align: center; color: #D9D6C6">No. 007 · Couple entrance, lilac aso-oke</p>
+<p class="cap" style="margin: 0; text-align: center; color: #A9A69A">Swipe for next · pinch to zoom</p>
+</div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1320,"height":980}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    this.state = { i: 0, paused: reduce };
+  }
+  componentDidMount() { this.start(); }
+  componentWillUnmount() { clearInterval(this.t); }
+  start() {
+    var self = this;
+    clearInterval(this.t);
+    this.t = setInterval(function () { if (!self.state.paused) self.setState({ i: (self.state.i + 1) % 3 }); }, 5200);
+  }
+  renderVals() {
+    var self = this, s = this.state;
+    var shots = [
+      ['couple in lilac aso-oke', '#7E5BA0', '#FFFFFF', 'No. 014 · Engagement'],
+      ['the couple, plum & gold', '#4B2E5A', '#FFFFFF', 'No. 021 · The couple'],
+      ['bride, white veil', '#DCD6CC', '#16140F', 'No. 032 · White wedding']
+    ];
+    return {
+      layers: shots.map(function (d, k) {
+        var on = k === s.i;
+        return { label: d[0], hidden: on ? 'false' : 'true', lc: 'color: ' + d[2],
+          style: 'background: ' + d[1] + '; opacity: ' + (on ? 1 : 0) + '; filter: ' + (on ? 'none' : 'saturate(0.15) brightness(1.12)') + '; transform: scale(' + (on ? 1 : 1.06) + ')' };
+      }),
+      segs: shots.map(function (d, k) {
+        var fill = k < s.i ? 'width: 100%' : (k > s.i ? 'width: 0' : (s.paused ? 'width: 100%' : 'animation: kv-fill 5.2s linear both'));
+        return { n: k + 1, current: k === s.i ? 'true' : 'false', fill: fill, go: function () { self.setState({ i: k }); self.start(); } };
+      }),
+      cap: shots[s.i][3],
+      paused: s.paused, playing: !s.paused,
+      ppLabel: s.paused ? 'Play slideshow' : 'Pause slideshow',
+      toggle: function () { self.setState({ paused: !s.paused }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Keji Visuals — Packages &amp; rates</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#EFEDE0}
+a{color:#16140F}a:hover{color:#6B6436}
+.strip{height:12px;border-top:1px solid #A9A06B;border-bottom:1px solid #A9A06B;background:repeating-linear-gradient(90deg,transparent 0 10px,#A9A06B 10px 18px,transparent 18px 28px);background-size:28px 4px;background-repeat:repeat-x;background-position:0 50%}
+.cap{font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:999px;cursor:pointer}
+.btn-ink{background:#16140F;color:#EFEDE0;border:0}.btn-ink:hover{background:#6B6436;color:#EFEDE0}
+.btn-line{border:1px solid #16140F;color:#16140F;background:transparent}.btn-line:hover{background:#16140F;color:#EFEDE0}
+.tab{min-height:46px;padding:0 20px;border-radius:999px;border:1px solid rgba(22,20,15,.25);background:transparent;font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16140F;cursor:pointer}
+.tab:focus-visible,.cur:focus-visible,.btn:focus-visible{outline:3px solid #6B6436;outline-offset:3px}
+.cur{min-height:40px;min-width:52px;border:0;border-radius:999px;font-family:Montserrat,sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.field{display:flex;flex-direction:column;gap:8px}
+.field input,.field select,.field textarea{font-family:Montserrat,sans-serif;font-size:15px;color:#16140F;background:#F7F5EE;border:1px solid rgba(22,20,15,.35);border-radius:4px;padding:13px 14px;min-height:48px;box-sizing:border-box}
+.field label{font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#3A372F}
+</style>
+</helmet>
+<div style="font-family: Montserrat, sans-serif; color: #16140F; background: #EFEDE0; min-height: 100%">
+
+<header style="border-bottom: 1px solid rgba(22,20,15,0.12)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none" aria-label="Keji Visuals home">
+<svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#8A8150" stroke-width="2.2" stroke-linejoin="round"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg>
+<span style="font-family: Cinzel, serif; font-size: 20px; letter-spacing: 0.16em">KEJI VISUALS</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a href="Story.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Work</a>
+<a href="Story.dc.html#film" class="cap" style="text-decoration: none; font-weight: 600">Films</a>
+<a href="Packages.dc.html" class="cap" style="text-decoration: none; font-weight: 600; color: #6B6436">Packages</a>
+<a href="Main.dc.html" class="cap" style="text-decoration: none; font-weight: 600">About</a>
+<a href="#enquire" class="btn btn-ink" style="min-height: 44px; padding: 0 22px">Book a session</a>
+</nav>
+</div>
+</header>
+
+<section style="max-width: 1360px; margin: 0 auto; padding: 72px 40px 40px; display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; align-items: flex-end">
+<div style="flex: 1 1 520px; min-width: 0">
+<p class="cap" style="margin: 0 0 22px; color: #57534A; font-weight: 600">Packages &amp; rates · [Year]</p>
+<h1 style="margin: 0; font-family: Cinzel, serif; font-weight: 500; font-size: clamp(48px, 6vw, 88px); line-height: 1.02">Your day,<br><span style="color: #A9A06B">your way</span></h1>
+<p style="margin: 28px 0 0; max-width: 560px; font-size: 18px; line-height: 1.75; color: #3A372F">Clear starting prices for every kind of story. Every couple is different, so your final quote is confirmed after a short call — with nothing hidden.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<span id="cur-l" class="cap" style="color: #57534A">Show prices in</span>
+<div role="group" aria-labelledby="cur-l" style="display: flex; gap: 4px; padding: 4px; border: 1px solid rgba(22,20,15,0.25); border-radius: 999px">
+<sc-for list="{{currencies}}" as="c" hint-placeholder-count="2">
+<button type="button" class="cur" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
+<div role="group" aria-label="Package category" style="display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 0; border-top: 1px solid rgba(22,20,15,0.18); border-bottom: 1px solid rgba(22,20,15,0.18)">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+<button type="button" class="tab" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<section aria-live="polite" style="max-width: 1360px; margin: 0 auto; padding: 48px 40px 96px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<sc-for list="{{cards}}" as="p" hint-placeholder-count="3">
+<article style="{{p.cardStyle}}">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 26px">
+<span class="cap" style="{{p.capStyle}}">{{p.tier}}</span>
+<sc-if value="{{p.popular}}" hint-placeholder-val="{{ false }}"><span class="cap" style="padding: 6px 12px; border-radius: 999px; background: #C9C08A; color: #16140F; font-weight: 600">Most booked</span></sc-if>
+</div>
+<h2 style="margin: 0; font-family: Cinzel, serif; font-weight: 500; font-size: 30px; line-height: 1.15">{{p.name}}</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; {{p.subStyle}}">{{p.line}}</p>
+<p style="margin: 6px 0 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><span style="font-size: 14px; {{p.subStyle}}">{{p.pre}}</span><strong style="font-family: Cinzel, serif; font-weight: 500; font-size: 36px">{{p.price}}</strong></p>
+<ul style="margin: 8px 0 0; padding: 18px 0 0; list-style: none; display: flex; flex-direction: column; gap: 10px; {{p.ruleStyle}}">
+<sc-for list="{{p.items}}" as="it" hint-placeholder-count="4">
+<li style="display: flex; gap: 10px; font-size: 15px; line-height: 1.5"><span aria-hidden="true" style="{{p.dotStyle}}">—</span><span>{{it}}</span></li>
+</sc-for>
+</ul>
+<a href="#enquire" onClick="{{p.choose}}" class="btn" style="{{p.btnStyle}}">Enquire about this package</a>
+</article>
+</sc-for>
+</div>
+<p style="margin: 24px 0 0; font-size: 14px; color: #57534A">Prices shown are starting points for [City]. Travel outside [region] is quoted separately. {{note}}</p>
+</section>
+
+<section style="background: #F7F5EE; border-top: 1px solid rgba(22,20,15,0.1); border-bottom: 1px solid rgba(22,20,15,0.1)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 96px 40px; display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 420px; min-width: 0">
+<h2 style="margin: 0 0 28px; font-family: Cinzel, serif; font-weight: 500; font-size: 36px">Add-<span style="color: #A9A06B">ons</span></h2>
+<table style="width: 100%; border-collapse: collapse; font-size: 15px">
+<caption class="cap" style="text-align: left; color: #57534A; padding-bottom: 12px">Added to any package</caption>
+<tbody>
+<sc-for list="{{addons}}" as="a" hint-placeholder-count="5">
+<tr style="border-top: 1px solid rgba(22,20,15,0.18)"><th scope="row" style="text-align: left; font-weight: 500; padding: 16px 0">{{a.name}}</th><td style="text-align: right; padding: 16px 0; font-family: Cinzel, serif; font-size: 18px">{{a.price}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 36px">
+<div>
+<h2 style="margin: 0 0 20px; font-family: Cinzel, serif; font-weight: 500; font-size: 36px">Securing <span style="color: #A9A06B">your date</span></h2>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+<div style="border-top: 1px solid #16140F; padding-top: 14px"><dt class="cap" style="color: #57534A">At booking</dt><dd style="margin: 8px 0 0; font-family: Cinzel, serif; font-size: 24px">[X]%</dd><dd style="margin: 4px 0 0; font-size: 14px; color: #3A372F">holds your date</dd></div>
+<div style="border-top: 1px solid #16140F; padding-top: 14px"><dt class="cap" style="color: #57534A">Before the day</dt><dd style="margin: 8px 0 0; font-family: Cinzel, serif; font-size: 24px">[Y]%</dd><dd style="margin: 4px 0 0; font-size: 14px; color: #3A372F">balance due</dd></div>
+<div style="border-top: 1px solid #16140F; padding-top: 14px"><dt class="cap" style="color: #57534A">Your gallery</dt><dd style="margin: 8px 0 0; font-family: Cinzel, serif; font-size: 24px">[N] weeks</dd><dd style="margin: 4px 0 0; font-size: 14px; color: #3A372F">film to follow</dd></div>
+</dl>
+</div>
+<div>
+<h3 style="margin: 0 0 14px; font-family: Cinzel, serif; font-weight: 500; font-size: 22px">What can change your quote</h3>
+<ul style="margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.6; color: #3A372F">
+<li>Travel beyond [region], and overnight stays</li>
+<li>Long gaps between the traditional ceremony and the white wedding</li>
+<li>A second photographer for large guest lists</li>
+<li>Drone coverage or same-day edits</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="guide-h" style="max-width: 1360px; margin: 0 auto; padding: 112px 40px 96px">
+<div style="display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 360px; min-width: 0">
+<p class="cap" style="margin: 0 0 18px; color: #6B6436; font-weight: 600">Before you book</p>
+<h2 id="guide-h" style="margin: 0 0 20px; font-family: Cinzel, serif; font-weight: 500; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.08">Four questions to ask <span style="color: #A9A06B">your photographer</span></h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; color: #3A372F">Straight answers, before you commit — from Keji’s guide for couples.</p>
+</div>
+<div style="flex: 1.4 1 520px; min-width: 0; border-top: 1px solid rgba(22,20,15,0.18)">
+<sc-for list="{{faqs}}" as="f" hint-placeholder-count="4">
+<details style="border-bottom: 1px solid rgba(22,20,15,0.18); padding: 22px 0">
+<summary style="cursor: pointer; font-family: Cinzel, serif; font-size: 22px; list-style-position: outside">{{f.q}}</summary>
+<p style="margin: 14px 0 0; font-size: 16px; line-height: 1.7; color: #3A372F">{{f.a}}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="enquire" aria-labelledby="enq-h" style="background: #16140F; color: #EFEDE0">
+<div style="max-width: 1360px; margin: 0 auto; padding: 112px 40px; display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 380px; min-width: 0">
+<h2 id="enq-h" style="margin: 0; font-family: Cinzel, serif; font-weight: 500; font-size: clamp(40px, 4.6vw, 68px); line-height: 1.05">Ready to tell<br><span style="color: #C9C08A">your story?</span></h2>
+<p style="margin: 24px 0 32px; font-size: 17px; line-height: 1.7; color: #D9D6C6">Send a few details and we’ll reply within [24 hours] — or message on WhatsApp if that’s easier.</p>
+<a href="https://wa.me/2349034917020" class="btn" style="border: 1px solid #EFEDE0; color: #EFEDE0">WhatsApp +234 903 491 7020</a>
+<p style="margin: 18px 0 0"><a href="mailto:kejivisuals@gmail.com" style="color: #D9D6C6">kejivisuals@gmail.com</a></p>
+</div>
+<form style="flex: 1.3 1 520px; min-width: 0; background: #EFEDE0; color: #16140F; padding: 40px; box-sizing: border-box; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px" onSubmit="{{submit}}">
+<div class="field"><label for="f-name">Your names</label><input id="f-name" type="text" autocomplete="name" placeholder="e.g. Ada &amp; Tunde"></div>
+<div class="field"><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email"></div>
+<div class="field"><label for="f-type">Type of shoot</label><select id="f-type"><option>Traditional wedding</option><option>White wedding</option><option>Traditional + white</option><option>Pre-wedding</option><option>Event</option><option>Portrait</option><option>Film</option></select></div>
+<div class="field"><label for="f-date">Date</label><input id="f-date" type="date"></div>
+<div class="field"><label for="f-loc">Location</label><input id="f-loc" type="text" placeholder="City / venue"></div>
+<div class="field"><label for="f-pk">Package</label><input id="f-pk" type="text" value="{{chosen}}" readonly=""></div>
+<div class="field" style="grid-column: 1 / -1"><label for="f-msg">Tell us about your day</label><textarea id="f-msg" rows="4"></textarea></div>
+<div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+<span style="font-size: 13px; color: #57534A">{{sentNote}}</span>
+<button type="submit" class="btn btn-ink">Send enquiry</button>
+</div>
+</form>
+</div>
+</section>
+
+<footer style="background: #16140F; color: #BDB9A8; border-top: 1px solid rgba(239,237,224,0.15)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 32px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px">
+<span class="cap">© 2026 Keji Visuals · Timeless. Genuine. Beautiful.</span>
+<a href="https://www.instagram.com/kejivisuals_weddings/" class="cap" style="color: #BDB9A8">Instagram</a>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'weddings', cur: 'NGN', chosen: 'Traditional Wedding', sent: false }; }
+  renderVals() {
+    var self = this, s = this.state;
+    var sym = s.cur === 'NGN' ? '₦' : '£';
+    var data = {
+      weddings: [
+        { tier: 'Essential', name: 'Traditional Wedding', line: 'Your engagement ceremony, beautifully documented.', mode: 'from', items: ['[Hours] hours of coverage', '[N] edited images', 'Private online gallery', 'Delivered in [N] weeks'] },
+        { tier: 'Signature', name: 'The Full Story', line: 'Traditional and white wedding — one story, two days.', mode: 'from', popular: true, items: ['Both days covered', '[N] edited images', 'Wedding film, [3–5] min', 'Second photographer', 'Pre-wedding mini session'] },
+        { tier: 'Bespoke', name: 'Destination & Multi-day', line: 'Weddings away from home, and celebrations over several days.', mode: 'enquire', items: ['Coverage built around your plans', 'Photo + film team', 'Travel planned with you'] }
+      ],
+      prewed: [
+        { tier: 'Session', name: 'Pre-Wedding Session', line: 'Natural, romantic and uniquely yours.', mode: 'exact', items: ['[Hours] on location', '[N] outfit changes', '[N] edited images'] },
+        { tier: 'Session + film', name: 'Pre-Wedding Story', line: 'Photographs plus a short save-the-date film.', mode: 'from', popular: true, items: ['[Hours] on location', '[N] edited images', '60-second save-the-date film'] }
+      ],
+      events: [
+        { tier: 'Events', name: 'Celebrations', line: 'Birthdays, anniversaries and milestones.', mode: 'from', items: ['[Hours] of coverage', '[N] edited images', 'Online gallery'] },
+        { tier: 'Corporate', name: 'Corporate Milestones', line: 'Launches, conferences and formal occasions.', mode: 'enquire', items: ['Photo and/or film', 'Usage licence for marketing', 'Fast-turnaround selects'] }
+      ],
+      portraits: [
+        { tier: 'Portrait', name: 'Portrait Session', line: 'Images that capture your personality and presence.', mode: 'exact', items: ['[Hours] in studio or on location', '[N] edited images'] },
+        { tier: 'Family', name: 'Family & Maternity', line: 'The people who make you, together.', mode: 'from', items: ['[Hours] session', '[N] edited images'] }
+      ],
+      films: [
+        { tier: 'Wedding film', name: 'Wedding Film', line: 'Your day, in motion — to watch for years.', mode: 'from', items: ['Highlight film, [3–5] min', 'Full ceremony edit', 'Licensed music'] },
+        { tier: 'Brand', name: 'Brand Films & Documentaries', line: 'Stories that don’t just show — they let people feel it.', mode: 'enquire', items: ['Concept & scripting', 'Shoot & edit', 'Social cut-downs'] }
+      ]
+    };
+    var tabDefs = [['weddings', 'Weddings'], ['prewed', 'Pre-Weddings'], ['events', 'Events'], ['portraits', 'Portraits'], ['films', 'Films']];
+    var tabs = tabDefs.map(function (t) {
+      var on = s.tab === t[0];
+      return { label: t[1], pressed: on ? 'true' : 'false', style: on ? 'background: #16140F; color: #EFEDE0; border-color: #16140F' : '', pick: function () { self.setState({ tab: t[0] }); } };
+    });
+    var currencies = [['NGN', '₦ NGN'], ['GBP', '£ GBP']].map(function (c) {
+      var on = s.cur === c[0];
+      return { label: c[1], pressed: on ? 'true' : 'false', style: on ? 'background: #16140F; color: #EFEDE0' : 'background: transparent; color: #16140F', pick: function () { self.setState({ cur: c[0] }); } };
+    });
+    var cards = data[s.tab].map(function (p) {
+      var hot = !!p.popular;
+      return {
+        tier: p.tier, name: p.name, line: p.line, items: p.items, popular: hot,
+        pre: p.mode === 'from' ? 'from' : (p.mode === 'exact' ? '' : 'Priced'),
+        price: p.mode === 'enquire' ? 'on enquiry' : sym + '[PRICE]',
+        cardStyle: 'display: flex; flex-direction: column; gap: 16px; padding: 36px; box-sizing: border-box; ' + (hot ? 'background: #16140F; color: #EFEDE0' : 'background: #F7F5EE; color: #16140F; border: 1px solid rgba(22,20,15,0.2)'),
+        capStyle: 'font-weight: 600; color: ' + (hot ? '#C9C08A' : '#6B6436'),
+        subStyle: 'color: ' + (hot ? '#D9D6C6' : '#3A372F'),
+        ruleStyle: 'border-top: 1px solid ' + (hot ? 'rgba(239,237,224,0.25)' : 'rgba(22,20,15,0.18)'),
+        dotStyle: 'color: ' + (hot ? '#C9C08A' : '#6B6436'),
+        btnStyle: 'margin-top: auto; ' + (hot ? 'background: #EFEDE0; color: #16140F' : 'border: 1px solid #16140F; color: #16140F'),
+        choose: function () { self.setState({ chosen: p.name, sent: false }); }
+      };
+    });
+    var addons = [
+      { name: 'Extra hour of coverage', price: sym + '[PRICE]' },
+      { name: 'Second photographer', price: sym + '[PRICE]' },
+      { name: 'Same-day highlight edit', price: sym + '[PRICE]' },
+      { name: 'Drone coverage', price: sym + '[PRICE]' },
+      { name: 'Printed album', price: 'from ' + sym + '[PRICE]' }
+    ];
+    var faqs = [
+      { q: 'Have you photographed a day like ours?', a: '[Keji’s answer — e.g. traditional and white weddings, venue types, guest sizes, with links to full stories.]' },
+      { q: 'How many edited images will we receive, and when?', a: '[Keji’s answer — typical image count per package and delivery time.]' },
+      { q: 'Do you cover both the traditional and white wedding?', a: '[Keji’s answer — single-day vs two-day coverage, and how The Full Story package works.]' },
+      { q: 'What secures our date?', a: '[Keji’s answer — deposit, agreement and what happens if plans change.]' }
+    ];
+    return {
+      tabs: tabs, currencies: currencies, cards: cards, addons: addons, faqs: faqs,
+      chosen: s.chosen,
+      note: s.cur === 'GBP' ? 'GBP prices are for UK-based clients and are fixed at booking.' : '',
+      sentNote: s.sent ? 'Thank you — this is a mockup, so nothing was sent.' : 'We reply within [24 hours].',
+      submit: function (e) { if (e && e.preventDefault) e.preventDefault(); self.setState({ sent: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

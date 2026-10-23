@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+/* Brand tokens — see CLAUDE.md. Olive (#A9A06B) is for large display words, rules and
+   frames only; use olive-deep for small accent text, links and focus rings. */
+@theme {
+  --color-cream: #efede0;
+  --color-paper: #f7f5ee;
+  --color-ink: #16140f;
+  --color-olive: #a9a06b;
+  --color-olive-deep: #6b6436;
+  --color-olive-light: #c9c08a;
+  --color-body: #3a372f;
+  --color-muted: #57534a;
+}
+
+@theme inline {
+  --font-display: var(--font-cinzel), serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+}
+
+@layer base {
+  html {
+    @apply bg-cream text-body font-sans antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-olive-deep;
+  }
+}
