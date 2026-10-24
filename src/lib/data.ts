@@ -60,6 +60,17 @@ export const getCategories = unstable_cache(
   { tags: [collectionTag('categories'), collectionTag('media')] },
 )
 
+/** Published films in display order (posters and linked stories populated). */
+export const getFilms = unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({ collection: 'films', sort: 'order', depth: 2, limit: 100, overrideAccess: false })
+    return docs
+  },
+  ['films'],
+  { tags: [collectionTag('films'), collectionTag('media'), collectionTag('stories'), collectionTag('categories')] },
+)
+
 /** Number of published films (shown as the Films category's count). */
 export const getFilmCount = unstable_cache(
   async () => {

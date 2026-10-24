@@ -9,7 +9,8 @@ export function CategoryChips({ categories, current }: { categories: Category[];
   const chips = [{ slug: '', name: 'All', href: '/portfolio' }, ...categories.map((c) => ({ slug: c.slug, name: c.name, href: categoryHref(c) }))]
 
   return (
-    <nav aria-label="Categories">
+    // min-w-0 + max-w-full: inside a flex row the chips must scroll, not widen the page.
+    <nav aria-label="Categories" className="max-w-full min-w-0">
       <ul className="m-0 flex list-none gap-2.5 overflow-x-auto p-0 pb-1 [scrollbar-width:none] max-sm:-mx-4 max-sm:px-4 sm:flex-wrap">
         {chips.map((c) => {
           const active = (current ?? '') === c.slug
