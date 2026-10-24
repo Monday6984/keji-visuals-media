@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { preload } from 'react-dom'
 
 import type { Media } from '@/payload-types'
 import { aspectRatio, fallbackSrc, focalPosition, photoSources, srcSet } from '@/lib/photo'
@@ -21,6 +22,12 @@ export function Photo({ media, sizes, priority = false, fill = false, className 
   if (!media || typeof media === 'number') return null
   const sources = photoSources(media)
   if (!sources.length) return null
+
+  // Priority photos (usually the LCP) are preloaded in <head>, so the download starts
+  // before the browser reaches the <img> in the markup.
+  if (priority) {
+    preload(fallbackSrc(sources)!, { as: 'image', imageSrcSet: srcSet(sources), imageSizes: sizes, fetchPriority: 'high' })
+  }
 
   const style: CSSProperties = {
     backgroundImage: media.blurDataURL ? `url(${media.blurDataURL})` : undefined,
