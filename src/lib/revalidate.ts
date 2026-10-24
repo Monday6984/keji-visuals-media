@@ -33,6 +33,12 @@ export const revalidateGlobalAfterChange: GlobalAfterChangeHook = ({ global, doc
   return doc
 }
 
+/** Every tag the data layer uses, for a full refresh after out-of-band changes. */
+export const ALL_TAGS = [
+  ...['categories', 'stories', 'films', 'packages', 'testimonials', 'faqs', 'media'].map(collectionTag),
+  ...['site-settings', 'about'].map(globalTag),
+]
+
 /** Hooks to add to every public collection. */
 export const revalidateHooks = {
   afterChange: [revalidateCollectionAfterChange],

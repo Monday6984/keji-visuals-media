@@ -278,6 +278,18 @@ async function main() {
   })
 
   console.log(`seeded ${Object.keys(media).length} photos, 3 stories, 1 film, ${packages.length} packages`)
+
+  // Clear the running dev server's page cache (hooks can't do it from a script).
+  const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  try {
+    const res = await fetch(`${site}/revalidate`, {
+      method: 'POST',
+      headers: { 'x-revalidate-secret': process.env.REVALIDATE_SECRET ?? '' },
+    })
+    console.log(`revalidate ${site}: ${res.status}`)
+  } catch {
+    console.log(`revalidate ${site}: server not running (restart it to see the new content)`)
+  }
   process.exit(0)
 }
 

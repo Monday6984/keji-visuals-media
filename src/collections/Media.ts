@@ -5,10 +5,11 @@ import type { Media as MediaDoc } from '@/payload-types'
 import { mediaFileURL, mediaFolder } from '@/lib/mediaURL'
 import { revalidateHooks } from '@/lib/revalidate'
 
-// Served widths for the custom next/image loader. Originals are never linked publicly.
+// Served widths for <Photo>'s srcset. Originals are never linked publicly. `mobile` (828)
+// covers full-width photos on typical phones (412 px × 1.75–2 DPR) without jumping to 1024.
 // Payload's default (withoutEnlargement unset) skips sizes wider than the upload, so small
 // images get no duplicate sizes.
-const widths = { sm: 640, md: 1024, lg: 1600, xl: 2400 } as const
+const widths = { sm: 640, mobile: 828, md: 1024, lg: 1600, xl: 2400 } as const
 
 const imageSizes: ImageSize[] = Object.entries(widths).map(([name, width]) => ({
   name,
