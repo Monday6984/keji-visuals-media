@@ -11,6 +11,16 @@ Project brief and decisions: `CLAUDE.md` and `docs/`.
 3. `npm install`
 4. `npm run dev` → site at http://localhost:3000, admin at http://localhost:3000/admin
 
+## Environments
+
+| Environment | Git branch | Neon | R2 bucket | Who sees it |
+|---|---|---|---|---|
+| Local + tests | any | `dev` branch | dev bucket | Monie |
+| Vercel Preview | feature branches | `dev` branch | dev bucket | Vercel login only |
+| Vercel Production = staging until launch | `main` | main | `keji-visuals-media` | Public URL, `noindex` |
+
+Keji's real content lives only in the main database and the main bucket. Tests and experiments use the `dev` branch and the dev bucket, so deleting media there never removes his files. At launch, Keji's domain is added to the Production environment and `ALLOW_INDEXING=true` is set there.
+
 ## R2 bucket CORS
 
 Admin uploads go from the browser straight to R2 (`clientUploads`), so the bucket's CORS policy must allow every origin the admin runs on. Replace the whole policy rather than adding a rule. If an origin is missing, uploads fail in the browser with "NetworkError when attempting to fetch resource".
