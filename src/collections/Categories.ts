@@ -2,10 +2,12 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone, loggedIn } from '@/access'
 import { orderField, slugField } from '@/fields'
+import { revalidateHooks } from '@/lib/revalidate'
+import { FILMS_CATEGORY_SLUG } from '@/lib/site'
 
-// Seeded: Weddings, Pre-Weddings, Events, Portraits, Films. The Films category page
-// redirects to /films, which lists the Films collection, so stories can't be filed under it.
-export const FILMS_CATEGORY_SLUG = 'films'
+export { FILMS_CATEGORY_SLUG }
+
+// Seeded: Weddings, Pre-Weddings, Events, Portraits, Films.
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -15,6 +17,7 @@ export const Categories: CollectionConfig = {
     defaultColumns: ['name', 'slug', 'order'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: {
     read: anyone,
     create: loggedIn,

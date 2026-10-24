@@ -3,6 +3,7 @@ import sharp from 'sharp'
 
 import type { Media as MediaDoc } from '@/payload-types'
 import { mediaFileURL, mediaFolder } from '@/lib/mediaURL'
+import { revalidateHooks } from '@/lib/revalidate'
 
 // Served widths for the custom next/image loader. Originals are never linked publicly.
 // Payload's default (withoutEnlargement unset) skips sizes wider than the upload, so small
@@ -53,6 +54,7 @@ export const Media: CollectionConfig = {
   },
   hooks: {
     beforeChange: [generateBlurDataURL],
+    ...revalidateHooks,
   },
   fields: [
     {

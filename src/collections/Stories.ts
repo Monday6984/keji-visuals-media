@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { loggedIn, publishedOrLoggedIn } from '@/access'
 import { featuredField, orderField, slugField } from '@/fields'
+import { revalidateHooks } from '@/lib/revalidate'
 import { breathersOutsideImages, isEmbedURL } from '@/lib/validation'
 
 import { FILMS_CATEGORY_SLUG } from './Categories'
@@ -16,6 +17,7 @@ export const Stories: CollectionConfig = {
     defaultColumns: ['title', 'category', 'date', 'featured', '_status'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   versions: { drafts: true },
   access: {
     read: publishedOrLoggedIn,

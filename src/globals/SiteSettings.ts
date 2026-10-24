@@ -3,6 +3,7 @@ import type { GlobalConfig } from 'payload'
 import { anyone, loggedIn, loggedInField } from '@/access'
 import { priceFields } from '@/fields/price'
 import { isWhatsAppNumber } from '@/lib/validation'
+import { revalidateGlobalAfterChange } from '@/lib/revalidate'
 
 // The logo lives in the codebase (SVG uploads are an XSS risk), so it is not a setting.
 export const SiteSettings: GlobalConfig = {
@@ -10,6 +11,7 @@ export const SiteSettings: GlobalConfig = {
   label: 'Site Settings',
   admin: { group: 'Settings' },
   access: { read: anyone, update: loggedIn },
+  hooks: { afterChange: [revalidateGlobalAfterChange] },
   fields: [
     {
       type: 'tabs',

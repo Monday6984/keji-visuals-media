@@ -24,7 +24,9 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 - Phase 3 upload spike: **passed** on a Vercel preview (23 Oct 2026). See `docs/spike-report.md` for results and open items.
 - Phase 3 foundation in place: Payload 3.92 + Next 16.3, Neon (migrations only, `push: false`), R2 with `clientUploads`, Tailwind tokens. Work is on branch `phase-3/foundation`; production branch is `main`.
 - Content model built (all collections + globals below). Categories, About values and contact details are seeded by migration.
-- **Next: staging URL, then Phase 4 templates.**
+- Staging live at https://keji-visuals-staging.vercel.app (`main`, Production env, Keji's DB + bucket, public, `noindex`). Previews are behind Vercel login. Local, previews and tests use the Neon `dev` branch + `keji-visuals-media-dev` bucket (see README → Environments).
+- **Next: Phase 4 templates.** Build order (one branch per slice, fast-forward `main` when checked): shell → data + `<Photo>` + revalidation + dev seed → story page → portfolio → home → packages → enquiry form → about/films/privacy/terms → SEO → QA.
+- Phase 4 decisions (24 Oct 2026): own `<Photo>` component instead of a next/image loader; **Resend** for email (via `@payloadcms/email-resend`); dev DB seeded from the local `images/` folder (dev only, copy marked `[DEV]`); enquiry rate limit = short-lived DB counter keyed by a salted IP hash, never linked to the enquiry.
 - Still waiting on from Keji: logo files, unwatermarked photos, rates, copy, testimonials, city/service area, domain.
 
 ## Stack (approved — don't change without asking)
@@ -45,7 +47,7 @@ Prove the risky part before building pages:
 4. Confirm the files serve from the R2 public/custom URL.
 If size generation doesn't run with client uploads, stop and propose a fallback (e.g. processing after upload) before continuing.
 
-Monie creates the Neon project, R2 bucket + S3 API token, and Vercel project. Secrets go in `.env.local` / Vercel env vars — never in code or chat. Expected env vars: `DATABASE_URI`, `PAYLOAD_SECRET`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_URL`, `NEXT_PUBLIC_SITE_URL`, `REVALIDATE_SECRET`, plus the email provider key (provider not chosen yet — propose one) and Umami IDs.
+Monie creates the Neon project, R2 bucket + S3 API token, and Vercel project. Secrets go in `.env.local` / Vercel env vars — never in code or chat. Expected env vars: `DATABASE_URI`, `PAYLOAD_SECRET`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_URL`, `NEXT_PUBLIC_SITE_URL`, `REVALIDATE_SECRET`, plus `RESEND_API_KEY` + `EMAIL_FROM` (Resend; until Keji's domain is verified, Resend only sends from `onboarding@resend.dev` to the Resend account owner) and Umami IDs. Also `ALLOW_INDEXING=true` in Production at launch only.
 
 ## Content model (Payload)
 - **Media** (upload): `alt` (required), caption, focal point + crop enabled; generated WebP sizes ~640/1024/1600/2400; `blurDataURL` generated in a hook with sharp; width/height.
@@ -63,7 +65,7 @@ Monie creates the Neon project, R2 bucket + S3 API token, and Vercel project. Se
 
 ## Images & performance
 - Uploads: sRGB JPEG, long edge 3000–4000 px. Sizes pre-generated at upload, served from R2 with long cache headers.
-- Custom `next/image` loader pointing at the pre-generated sizes — **do not use Vercel image optimisation**.
+- A `<Photo>` component that renders `<img srcset>` from each photo's stored sizes, replacing the planned next/image loader (Payload's size filenames include the height, which a loader can't know). **Do not use Vercel image optimisation.**
 - Largest served size 2400 px; never link originals.
 - Width/height + blur placeholder → no layout shift. Only hero + first row eager; galleries over ~30 images use "load more".
 - Static pages + on-demand revalidation from Payload `afterChange` hooks.

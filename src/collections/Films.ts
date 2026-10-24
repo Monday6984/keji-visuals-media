@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { loggedIn, publishedOrLoggedIn } from '@/access'
 import { featuredField, orderField, slugField } from '@/fields'
 import { isEmbedURL } from '@/lib/validation'
+import { revalidateHooks } from '@/lib/revalidate'
 
 export const Films: CollectionConfig = {
   slug: 'films',
@@ -12,6 +13,7 @@ export const Films: CollectionConfig = {
     defaultColumns: ['title', 'type', 'featured', '_status'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   versions: { drafts: true },
   access: {
     read: publishedOrLoggedIn,

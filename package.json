@@ -15,7 +15,8 @@
     "test": "npm run test:int && npm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "ci": "payload migrate && npm run build"
+    "ci": "payload migrate && npm run build",
+    "seed:dev": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-dev.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",
@@ -28,6 +29,7 @@
     "graphql": "^16.8.1",
     "next": "16.3.3",
     "payload": "3.92.0",
+    "photoswipe": "5.4.4",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "sharp": "0.35.4"

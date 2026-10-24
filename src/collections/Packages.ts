@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { loggedIn, whereOrLoggedIn } from '@/access'
 import { orderField } from '@/fields'
 import { priceFields } from '@/fields/price'
+import { revalidateHooks } from '@/lib/revalidate'
 
 // Add-ons are a single shared list in Site Settings → Booking, not per package.
 export const Packages: CollectionConfig = {
@@ -13,6 +14,7 @@ export const Packages: CollectionConfig = {
     defaultColumns: ['name', 'category', 'priceDisplay', 'priceNGN', 'visible'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: {
     read: whereOrLoggedIn('visible'),
     create: loggedIn,

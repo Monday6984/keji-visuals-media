@@ -1,11 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
 import { anyone, loggedIn } from '@/access'
+import { revalidateGlobalAfterChange } from '@/lib/revalidate'
 
 export const About: GlobalConfig = {
   slug: 'about',
   admin: { group: 'Settings' },
   access: { read: anyone, update: loggedIn },
+  hooks: { afterChange: [revalidateGlobalAfterChange] },
   fields: [
     { name: 'headline', type: 'text', admin: { description: 'e.g. "Behind the lens"' } },
     { name: 'intro', type: 'textarea', admin: { description: 'Short version, used on the homepage.' } },

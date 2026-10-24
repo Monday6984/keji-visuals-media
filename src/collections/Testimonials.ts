@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { loggedIn, whereOrLoggedIn } from '@/access'
 import { featuredField, orderField } from '@/fields'
+import { revalidateHooks } from '@/lib/revalidate'
 
 export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
@@ -11,6 +12,7 @@ export const Testimonials: CollectionConfig = {
     defaultColumns: ['names', 'category', 'consent', 'featured'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: {
     // Only shown publicly once the client has agreed to it being published.
     read: whereOrLoggedIn('consent'),

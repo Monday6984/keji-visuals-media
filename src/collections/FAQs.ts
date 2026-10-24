@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { anyone, loggedIn } from '@/access'
 import { orderField } from '@/fields'
+import { revalidateHooks } from '@/lib/revalidate'
 
 export const FAQs: CollectionConfig = {
   slug: 'faqs',
@@ -12,6 +13,7 @@ export const FAQs: CollectionConfig = {
     defaultColumns: ['question', 'group', 'order'],
   },
   defaultSort: 'order',
+  hooks: revalidateHooks,
   access: {
     read: anyone,
     create: loggedIn,
