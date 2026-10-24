@@ -32,7 +32,7 @@ export default async function AboutPage() {
         <div className="min-w-0 flex-[1.2_1_460px]">
           <p className="cap m-0 mb-5 font-semibold text-olive-deep">About</p>
           <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
-            {words.slice(0, -1).join(' ')} <span className="text-olive">{words.at(-1)}</span>
+            {words.slice(0, -1).join(' ')} <span className="text-olive-display">{words.at(-1)}</span>
           </h1>
           <div className="mt-9 max-w-[620px] text-lg leading-[1.8]">
             {hasBio ? (
@@ -58,7 +58,7 @@ export default async function AboutPage() {
         <section aria-labelledby="values-h" className="border-y border-ink/10 bg-paper">
           <div className="mx-auto max-w-[1360px] px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
             <h2 id="values-h" className="m-0 mb-10 font-display text-4xl font-medium text-ink">
-              What we <span className="text-olive">believe</span>
+              What we <span className="text-olive-display">believe</span>
             </h2>
             <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(220px,1fr))] border-t border-olive p-0">
               {about.values!.map((v) => (
@@ -74,7 +74,7 @@ export default async function AboutPage() {
 
       <section className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-10 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
         <h2 className="m-0 font-display text-[clamp(36px,4.4vw,64px)] leading-[1.05] font-medium text-ink">
-          Let’s tell <span className="text-olive">your story</span>
+          Let’s tell <span className="text-olive-display">your story</span>
         </h2>
         <div className="flex flex-wrap gap-3">
           <Link href={BOOK_HREF} className="btn btn-ink">

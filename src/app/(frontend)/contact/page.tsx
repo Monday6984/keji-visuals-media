@@ -21,7 +21,7 @@ export default async function ContactPage() {
         <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
           Ready to tell
           <br />
-          <span className="text-olive">your story?</span>
+          <span className="text-olive-display">your story?</span>
         </h1>
         <p className="m-0 mt-7 max-w-[560px] text-lg leading-[1.75]">
           Tell us your date, where it’s happening and what you have in mind. We’ll reply with availability and a quote.

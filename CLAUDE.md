@@ -72,7 +72,7 @@ Monie creates the Neon project, R2 bucket + S3 API token, and Vercel project. Se
 - Targets: LCP < 2.5 s on mobile 4G, CLS ≈ 0, Lighthouse 90+. Test on low/mid Android.
 
 ## Brand & design tokens
-- Colours: cream `#EFEDE0` (page), paper `#F7F5EE` (cards/alt sections), ink `#16140F` (text, buttons, dark sections), olive `#A9A06B` (**large display words, rules, frames only** — too low-contrast for small text), olive-deep `#6B6436` (small accent text/links/focus rings), olive-light `#C9C08A` (accent on dark), body text `#3A372F`, muted `#57534A`.
+- Colours: cream `#EFEDE0` (page), paper `#F7F5EE` (cards/alt sections), ink `#16140F` (text, buttons, dark sections), olive `#A9A06B` (**rules and frames only**: 2.25:1 on cream fails even large-text contrast), olive-display `#8A8150` (the logo stroke colour, for olive words in large headings: 3.35:1, passes WCAG large text; changed 24 Oct 2026), olive-deep `#6B6436` (small accent text/links/focus rings), olive-light `#C9C08A` (accent on dark), body text `#3A372F`, muted `#57534A`.
 - Fonts (via `next/font/google`): **Cinzel** for display (all-caps classical serif), **Montserrat** for UI/body. Confirm with Keji — matched from his Instagram graphics.
 - Signature devices: **two-tone headlines** (some words ink, some olive); **contact-sheet captions** (`No. 014 · Traditional engagement`); thin **film-strip / marquee** rules in olive. No clip-art icons.
 - Logo in the mockup is a stand-in; use Keji's real files when supplied.

@@ -37,7 +37,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
         <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-7xl">
           {ink ? (
             <>
-              {ink} <span className="text-olive">{olive}</span>
+              {ink} <span className="text-olive-display">{olive}</span>
             </>
           ) : (
             category.name

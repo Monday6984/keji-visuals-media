@@ -98,7 +98,7 @@ export default async function PackagesPage() {
           <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
             Your day,
             <br />
-            <span className="text-olive">your way</span>
+            <span className="text-olive-display">your way</span>
           </h1>
           <p className="m-0 mt-7 max-w-[560px] text-lg leading-[1.75]">
             Clear starting prices for every kind of story. Every couple is different, so your final quote is confirmed after a
@@ -125,7 +125,7 @@ export default async function PackagesPage() {
             {(settings.addOns?.length ?? 0) > 0 && (
               <div className="min-w-0 flex-[1_1_420px]">
                 <h2 className="m-0 mb-7 font-display text-4xl font-medium text-ink">
-                  Add-<span className="text-olive">ons</span>
+                  Add-<span className="text-olive-display">ons</span>
                 </h2>
                 <table className="w-full border-collapse text-[15px]">
                   <caption className="cap pb-3 text-left text-muted">Added to any package</caption>
@@ -148,7 +148,7 @@ export default async function PackagesPage() {
               {facts.length > 0 && (
                 <div>
                   <h2 className="m-0 mb-5 font-display text-4xl font-medium text-ink">
-                    Securing <span className="text-olive">your date</span>
+                    Securing <span className="text-olive-display">your date</span>
                   </h2>
                   <dl className="m-0 grid grid-cols-1 gap-5 sm:grid-cols-3">
                     {facts.map((f) => (
@@ -182,7 +182,7 @@ export default async function PackagesPage() {
             <div className="min-w-0 flex-[1_1_360px]">
               <p className="cap m-0 mb-4.5 font-semibold text-olive-deep">Before you book</p>
               <h2 id="guide-h" className="m-0 mb-5 font-display text-[clamp(34px,3.6vw,52px)] leading-[1.08] font-medium text-ink">
-                Questions to ask <span className="text-olive">your photographer</span>
+                Questions to ask <span className="text-olive-display">your photographer</span>
               </h2>
               <p className="m-0 leading-[1.7]">Straight answers, before you commit — from Keji’s guide for couples.</p>
             </div>
@@ -196,7 +196,7 @@ export default async function PackagesPage() {
       {packageFAQs.length > 0 && (
         <section aria-labelledby="faq-h" className="mx-auto max-w-[1360px] px-4 pb-24 sm:px-6 lg:px-10">
           <h2 id="faq-h" className="m-0 mb-8 font-display text-4xl font-medium text-ink">
-            Package <span className="text-olive">questions</span>
+            Package <span className="text-olive-display">questions</span>
           </h2>
           <FAQList faqs={packageFAQs} />
         </section>

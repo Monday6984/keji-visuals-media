@@ -28,7 +28,7 @@ export default async function PortfolioPage() {
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">The work</p>
         <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-7xl">
-          Every story, <span className="text-olive">as it happened.</span>
+          Every story, <span className="text-olive-display">as it happened.</span>
         </h1>
         <p className="m-0 mt-6 max-w-[560px] text-lg leading-[1.7]">
           Explore by occasion. Every story is shown the way it happened — not just the highlights.
@@ -61,7 +61,7 @@ export default async function PortfolioPage() {
       <section aria-labelledby="stories-h" className="mx-auto max-w-[1360px] px-4 pt-20 pb-24 sm:px-6 lg:px-10">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <h2 id="stories-h" className="m-0 font-display text-3xl font-medium text-ink sm:text-[40px]">
-            All <span className="text-olive">stories</span>
+            All <span className="text-olive-display">stories</span>
           </h2>
           <CategoryChips categories={categories} />
         </div>

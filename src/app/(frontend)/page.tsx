@@ -88,7 +88,7 @@ export default async function HomePage() {
               </span>
             </span>
             <span className="kv-mask">
-              <span className="kv-rise text-olive" style={{ animationDelay: '0.45s' }}>
+              <span className="kv-rise text-olive-display" style={{ animationDelay: '0.45s' }}>
                 Your story.
               </span>
             </span>
@@ -130,7 +130,7 @@ export default async function HomePage() {
           <h2 id="work-h" className="m-0 font-display text-[clamp(36px,4vw,56px)] leading-[1.05] font-medium text-ink">
             More than
             <br />
-            <span className="text-olive">a photograph</span>
+            <span className="text-olive-display">a photograph</span>
           </h2>
           <p className="m-0 max-w-[380px] leading-[1.7]">
             Explore by occasion. Every story is shown the way it happened — not just the highlights.
@@ -160,7 +160,7 @@ export default async function HomePage() {
         <section aria-labelledby="stories-h" className="mx-auto max-w-[1360px] px-4 pt-10 pb-24 sm:px-6 lg:px-10 lg:pb-30">
           <div className="mb-9 flex flex-wrap items-baseline justify-between gap-6">
             <h2 id="stories-h" className="m-0 font-display text-4xl font-medium text-ink sm:text-[40px]">
-              Selected <span className="text-olive">stories</span>
+              Selected <span className="text-olive-display">stories</span>
             </h2>
             <Link href="/portfolio" className="cap font-semibold">
               All stories →
@@ -210,7 +210,7 @@ export default async function HomePage() {
           )}
           <div className="min-w-0 flex-[1.2_1_420px]">
             <h2 id="behind-h" className="m-0 mb-8 font-display text-[clamp(36px,4vw,56px)] font-medium text-ink">
-              Behind <span className="text-olive">the</span> lens
+              Behind <span className="text-olive-display">the</span> lens
             </h2>
             {(about.intro && !about.intro.startsWith('[DEV]') ? [about.intro] : BEHIND_THE_LENS).map((p) => (
               <p key={p} className="m-0 mb-5 text-lg leading-[1.8] last:mb-0">
@@ -291,7 +291,7 @@ export default async function HomePage() {
       {/* How booking works */}
       <section aria-labelledby="how-h" className="mx-auto max-w-[1360px] px-4 pb-24 sm:px-6 lg:px-10 lg:pb-28">
         <h2 id="how-h" className="m-0 mb-10 font-display text-4xl font-medium text-ink sm:text-[40px]">
-          How booking <span className="text-olive">works</span>
+          How booking <span className="text-olive-display">works</span>
         </h2>
         <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-8 p-0">
           {steps.map((s, i) => (

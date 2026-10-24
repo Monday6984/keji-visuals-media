@@ -28,7 +28,7 @@ export default async function FilmsPage() {
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">Films</p>
         <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
-          Let people <span className="text-olive">feel it</span>
+          Let people <span className="text-olive-display">feel it</span>
         </h1>
         <p className="m-0 mt-7 max-w-[560px] text-lg leading-[1.75]">
           Films that don’t just show your story, but let people feel it — weddings, brands, documentaries and milestones.
@@ -55,7 +55,7 @@ export default async function FilmsPage() {
       {groups.map((g) => (
         <section key={g.type} id={g.type} aria-labelledby={`${g.type}-h`} className="mx-auto max-w-[1360px] scroll-mt-24 px-4 pb-20 sm:px-6 lg:px-10">
           <h2 id={`${g.type}-h`} className="m-0 mb-8 border-t border-ink/18 pt-8 font-display text-4xl font-medium text-ink">
-            {g.title[0]} <span className="text-olive">{g.title[1]}</span>
+            {g.title[0]} <span className="text-olive-display">{g.title[1]}</span>
           </h2>
           <div className="grid gap-x-8 gap-y-14 lg:grid-cols-2">
             {g.films.map((film) => {

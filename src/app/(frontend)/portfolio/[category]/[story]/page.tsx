@@ -109,7 +109,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
           {when && ` · ${when}`}
         </p>
         <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-6xl lg:text-[clamp(48px,6vw,92px)]">
-          {titleInk} <span className="text-olive">{titleOlive}</span>
+          {titleInk} <span className="text-olive-display">{titleOlive}</span>
         </h1>
         <div className="mt-8 flex flex-wrap items-start justify-between gap-10">
           {story.excerpt && <p className="m-0 max-w-[620px] flex-[1_1_460px] text-lg leading-[1.8]">{story.excerpt}</p>}
@@ -187,7 +187,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
           <div className="mb-7 flex flex-wrap items-baseline gap-x-5 gap-y-2">
             <span className="cap font-semibold text-olive-deep">The film</span>
             <h2 id="film-h" className="m-0 font-display text-3xl font-medium text-ink sm:text-[40px]">
-              Let people <span className="text-olive">feel it</span>
+              Let people <span className="text-olive-display">feel it</span>
             </h2>
           </div>
           <FilmEmbed

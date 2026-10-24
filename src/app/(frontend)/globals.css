@@ -1,12 +1,15 @@
 @import 'tailwindcss';
 
-/* Brand tokens — see CLAUDE.md. Olive (#A9A06B) is for large display words, rules and
-   frames only; use olive-deep for small accent text, links and focus rings. */
+/* Brand tokens — see CLAUDE.md. Olive (#A9A06B) is for rules and frames; large display words
+   use olive-display (#8A8150, passes 3:1); small accent text, links and focus rings use
+   olive-deep. */
 @theme {
   --color-cream: #efede0;
   --color-paper: #f7f5ee;
   --color-ink: #16140f;
   --color-olive: #a9a06b;
+  /* Olive for large display words: the logo stroke colour, 3.35:1 on cream (WCAG large text). */
+  --color-olive-display: #8a8150;
   --color-olive-deep: #6b6436;
   --color-olive-light: #c9c08a;
   --color-body: #3a372f;
