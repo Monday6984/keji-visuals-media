@@ -11,6 +11,27 @@ Project brief and decisions: `CLAUDE.md` and `docs/`.
 3. `npm install`
 4. `npm run dev` → site at http://localhost:3000, admin at http://localhost:3000/admin
 
+## R2 bucket CORS
+
+Admin uploads go from the browser straight to R2 (`clientUploads`), so the bucket's CORS policy must allow every origin the admin runs on. Replace the whole policy rather than adding a rule. If an origin is missing, uploads fail in the browser with "NetworkError when attempting to fetch resource".
+
+```json
+[
+  {
+    "AllowedOrigins": [
+      "http://localhost:3000",
+      "https://keji-visuals-media-*-monday-ofems-projects.vercel.app"
+    ],
+    "AllowedMethods": ["PUT", "GET", "HEAD"],
+    "AllowedHeaders": ["Content-Type", "If-None-Match"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
+
+Add the production domain (e.g. `https://kejivisuals.com`) when it exists.
+
 ## Scripts
 
 - `npm run dev` — dev server

@@ -2,6 +2,7 @@
 import { getPayload, type Payload } from 'payload'
 import config from '@/payload.config'
 import type { Story } from '@/payload-types'
+import sharp from 'sharp'
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
@@ -30,13 +31,23 @@ const track = <T extends { id: number }>(collection: (typeof created)[number]['c
   return doc
 }
 
-describe('content model: public visibility and validation', () => {
+// Each test makes several round trips to Neon, so allow more than Vitest's 5 s default.
+describe('content model: public visibility and validation', { timeout: 30_000 }, () => {
   beforeAll(async () => {
     payload = await getPayload({ config: await config })
-    const media = await payload.find({ collection: 'media', limit: 2 })
-    if (media.docs.length < 2) throw new Error('needs at least two Media documents')
-    mediaID = media.docs[0].id
-    otherMediaID = media.docs[1].id
+    // Two small test photos of our own (uploaded to R2, deleted in afterAll).
+    const [a, b] = await Promise.all(
+      ['#A9A06B', '#16140F'].map(async (background, i) => {
+        const data = await sharp({ create: { width: 64, height: 48, channels: 3, background } }).jpeg().toBuffer()
+        return payload.create({
+          collection: 'media',
+          data: { alt: `${TAG} photo ${i}` },
+          file: { data, mimetype: 'image/jpeg', name: `${TAG}-${i}.jpg`, size: data.length },
+        })
+      }),
+    )
+    mediaID = a.id
+    otherMediaID = b.id
     const weddings = await payload.find({ collection: 'categories', where: { slug: { equals: 'weddings' } } })
     categoryID = weddings.docs[0].id
   })
@@ -50,6 +61,7 @@ describe('content model: public visibility and validation', () => {
     await payload.delete({ collection: 'packages', where: { name: { like: 'vitest-' } } })
     await payload.delete({ collection: 'testimonials', where: { names: { like: 'vitest-' } } })
     await payload.delete({ collection: 'enquiries', where: { names: { like: 'vitest-' } } })
+    await payload.delete({ collection: 'media', where: { alt: { like: 'vitest-' } } })
   })
 
   let storyCount = 0
