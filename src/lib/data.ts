@@ -70,10 +70,20 @@ export const getFilmCount = unstable_cache(
   { tags: [collectionTag('films')] },
 )
 
+export const getAbout = unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    return payload.findGlobal({ slug: 'about', depth: 1, overrideAccess: false })
+  },
+  ['about'],
+  { tags: [globalTag('about'), collectionTag('media')] },
+)
+
 export const getSiteSettings = unstable_cache(
   async () => {
     const payload = await getPayloadClient()
-    return payload.findGlobal({ slug: 'site-settings', depth: 1, overrideAccess: false })
+    // depth 2: homepage packages need their category's name.
+    return payload.findGlobal({ slug: 'site-settings', depth: 2, overrideAccess: false })
   },
   ['site-settings'],
   {
@@ -82,6 +92,7 @@ export const getSiteSettings = unstable_cache(
       collectionTag('media'),
       collectionTag('packages'),
       collectionTag('testimonials'),
+      collectionTag('categories'),
     ],
   },
 )

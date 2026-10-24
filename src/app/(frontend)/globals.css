@@ -78,6 +78,85 @@
   }
 }
 
+/* Home hero (Main.dc.html): photos wipe in bottom→top, cream viewfinder brackets focus
+   in, pairs crossfade (outgoing desaturates, incoming settles from 1.06 → 1). */
+.kv-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--color-ink);
+  animation: kv-wipe 1.4s cubic-bezier(0.7, 0, 0.2, 1) both;
+}
+.kv-layer {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 1.4s ease,
+    filter 1.8s ease,
+    transform 6s ease-out;
+}
+.kv-layer[data-active='false'] {
+  opacity: 0;
+  filter: saturate(0.15) brightness(1.12);
+  transform: scale(1.06);
+}
+.kv-br {
+  position: absolute;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  border: 0 solid var(--color-cream);
+  animation: kv-focus 1.2s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.kv-br.tl { top: 12px; left: 12px; border-top-width: 2px; border-left-width: 2px; }
+.kv-br.tr { top: 12px; right: 12px; border-top-width: 2px; border-right-width: 2px; }
+.kv-br.bl { bottom: 12px; left: 12px; border-bottom-width: 2px; border-left-width: 2px; }
+.kv-br.brr { bottom: 12px; right: 12px; border-bottom-width: 2px; border-right-width: 2px; }
+.kv-seg-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  background: var(--color-olive-deep);
+}
+.kv-seg-fill[data-state='playing'] {
+  animation: kv-fill var(--kv-interval) linear both;
+}
+.kv-marquee-track {
+  display: inline-flex;
+  gap: 48px;
+  padding-right: 48px;
+  animation: kv-marquee 38s linear infinite;
+}
+
+@keyframes kv-wipe {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes kv-focus {
+  from { opacity: 0; transform: scale(1.9); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes kv-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes kv-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kv-frame,
+  .kv-br,
+  .kv-marquee-track {
+    animation: none !important;
+  }
+  .kv-layer {
+    transition: opacity 0.01s !important;
+    transform: none !important;
+  }
+}
+
 /* PhotoSwipe viewer: near-black background and the contact-sheet caption. */
 .pswp {
   --pswp-bg: #0e0d0a;
