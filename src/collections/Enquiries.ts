@@ -1,16 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { loggedIn } from '@/access'
-
-export const SHOOT_TYPES = [
-  { label: 'Traditional wedding', value: 'traditional' },
-  { label: 'White wedding', value: 'white' },
-  { label: 'Traditional + white', value: 'traditional-white' },
-  { label: 'Pre-wedding', value: 'pre-wedding' },
-  { label: 'Event', value: 'event' },
-  { label: 'Portrait', value: 'portrait' },
-  { label: 'Film', value: 'film' },
-]
+import { SHOOT_TYPES } from '@/lib/enquiry'
 
 // Saved by the contact form's own server endpoint (Phase 4) with overrideAccess, so the
 // public REST/GraphQL API can never create, read or change enquiries. No IP addresses
@@ -41,7 +32,7 @@ export const Enquiries: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        { name: 'shootType', type: 'select', required: true, options: SHOOT_TYPES },
+        { name: 'shootType', type: 'select', required: true, options: [...SHOOT_TYPES] },
         { name: 'date', type: 'date', admin: { date: { pickerAppearance: 'dayOnly' } } },
       ],
     },

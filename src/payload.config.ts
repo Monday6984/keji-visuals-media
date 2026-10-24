@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
@@ -12,11 +13,13 @@ import { FAQs } from './collections/FAQs'
 import { Films } from './collections/Films'
 import { Media } from './collections/Media'
 import { Packages } from './collections/Packages'
+import { RateLimits } from './collections/RateLimits'
 import { Stories } from './collections/Stories'
 import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
 import { About } from './globals/About'
 import { SiteSettings } from './globals/SiteSettings'
+import { parseFrom } from './lib/enquiry'
 import { mediaFileURL } from './lib/mediaURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -29,9 +32,18 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Categories, Stories, Films, Packages, Testimonials, FAQs, Enquiries, Media, Users],
+  collections: [Categories, Stories, Films, Packages, Testimonials, FAQs, Enquiries, Media, Users, RateLimits],
   globals: [SiteSettings, About],
   editor: lexicalEditor(),
+  // Resend for enquiry notifications and password resets. Without a key (e.g. a fresh
+  // checkout) Payload logs emails to the console instead of sending them.
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: parseFrom(process.env.EMAIL_FROM).address,
+        defaultFromName: parseFrom(process.env.EMAIL_FROM).name,
+      })
+    : undefined,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
