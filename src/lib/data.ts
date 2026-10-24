@@ -41,7 +41,7 @@ export const getStories = unstable_cache(
       depth: 1,
       limit: 200,
       overrideAccess: false,
-      select: { title: true, slug: true, category: true, cover: true, excerpt: true, date: true, location: true, featured: true },
+      select: { title: true, slug: true, category: true, cover: true, excerpt: true, date: true, location: true, featured: true, updatedAt: true },
     })
     return docs
   },

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { BusinessJsonLd } from '@/components/BusinessJsonLd'
 import { HeroSlideshow, type HeroPair } from '@/components/home/HeroSlideshow'
 import { Photo } from '@/components/Photo'
 import { categoryHref } from '@/components/portfolio/categoryHref'
@@ -73,6 +74,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <BusinessJsonLd settings={settings} />
       {/* Hero */}
       <section className="mx-auto flex max-w-[1360px] flex-wrap items-end gap-12 px-4 pt-10 pb-10 sm:px-6 lg:px-10 lg:pt-16">
         <div className="min-w-0 flex-[1_1_380px] lg:pb-8">
