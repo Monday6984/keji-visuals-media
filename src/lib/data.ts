@@ -70,6 +70,34 @@ export const getFilmCount = unstable_cache(
   { tags: [collectionTag('films')] },
 )
 
+/** Visible packages in display order, categories populated. */
+export const getPackages = unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({ collection: 'packages', sort: 'order', depth: 1, limit: 100, overrideAccess: false })
+    return docs
+  },
+  ['packages'],
+  { tags: [collectionTag('packages'), collectionTag('categories')] },
+)
+
+/** FAQs in one group, in display order. */
+export const getFAQs = unstable_cache(
+  async (group: 'beforeYouBook' | 'packages' | 'general') => {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({
+      collection: 'faqs',
+      where: { group: { equals: group } },
+      sort: 'order',
+      limit: 50,
+      overrideAccess: false,
+    })
+    return docs
+  },
+  ['faqs'],
+  { tags: [collectionTag('faqs')] },
+)
+
 export const getAbout = unstable_cache(
   async () => {
     const payload = await getPayloadClient()
