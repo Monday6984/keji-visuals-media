@@ -61,8 +61,8 @@ export default async function HomePage() {
     {
       name: 'Secure your date',
       line: settings.depositPercent
-        ? `Your ${settings.depositPercent}% deposit and signed agreement hold the date.`
-        : 'Your deposit and signed agreement hold the date.',
+        ? `A ${settings.depositPercent}% booking payment holds your date.`
+        : 'Your booking payment holds the date.',
     },
     {
       name: 'Your gallery',

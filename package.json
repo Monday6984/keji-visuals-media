@@ -16,7 +16,8 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "ci": "payload migrate && npm run build",
-    "seed:dev": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-dev.ts"
+    "seed:dev": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/seed-dev.ts",
+    "import:keji": "cross-env NODE_OPTIONS=--no-deprecation payload run scripts/import-keji.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.92.0",

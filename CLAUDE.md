@@ -13,8 +13,8 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 ## The client
 - **Keji Visuals** — Ayomideji Morenikeji Omolegan ("Keji"), Nigerian wedding-led **photo and video** studio.
 - Services: Weddings (traditional + white), Pre-Weddings, Events, Portraits, Films (wedding films, brand films, documentaries, corporate milestones).
-- Contact: kejivisuals@gmail.com · +234 903 491 7020 (WhatsApp link: `https://wa.me/2349034917020`) · Instagram @kejivisuals_weddings
-- City **not confirmed** — keep it as a setting, never hard-code a city.
+- Contact: kejivisuals@gmail.com · +234 903 491 7020 (WhatsApp link: `https://wa.me/2349034917020`) · Instagram @kejivisuals_weddings (use this handle, not @kejivisuals from his rate card). Use the name above, not his Facebook handle "Ayomide Joshua Omolegan".
+- Based in **Lagos** (confirmed 13 Nov 2026), travels across Nigeria and overseas. Keep the city as a setting, never hard-code it.
 - Tagline: **"Timeless. Genuine. Beautiful."** Brand lines: "Your moment. Your story.", "Behind the lens", "More than a photograph", "Ready to tell your story?"
 - Values: Authentic (real moments over forced poses) · Timeless · Intentional (every frame has a purpose) · Personal.
 
@@ -25,9 +25,10 @@ Everything below was decided in a discovery session on claude.ai (23 Oct 2026). 
 - Phase 3 foundation in place: Payload 3.92 + Next 16.3, Neon (migrations only, `push: false`), R2 with `clientUploads`, Tailwind tokens. Work is on branch `phase-3/foundation`; production branch is `main`.
 - Content model built (all collections + globals below). Categories, About values and contact details are seeded by migration.
 - Staging live at https://keji-visuals-staging.vercel.app (`main`, Production env, Keji's DB + bucket, public, `noindex`). Previews are behind Vercel login. Local, previews and tests use the Neon `dev` branch + `keji-visuals-media-dev` bucket (see README → Environments).
-- **Next: Phase 4 templates.** Build order (one branch per slice, fast-forward `main` when checked): shell → data + `<Photo>` + revalidation + dev seed → story page → portfolio → home → packages → enquiry form → about/films/privacy/terms → SEO → QA.
+- Phase 4 templates: **done** and live on staging. Since 13 Nov 2026 work is committed straight to `main` (Monie's call, to move faster).
+- Keji's first delivery (13 Nov 2026) imported with `npm run import:keji` (`scripts/import-keji.ts`): 42 photos as three stories (Kiki & Seye: wedding; Dolapo & Femi, David & Tope: pre-wedding), Bronze/Silver/Gold packages (naira only, no £), booking terms from his rate card (80% booking payment, 20% within 24–48 h after, 30% non-refundable, first look 72 h, gallery 2–4 weeks, products 7–8 weeks), About copy. All couples consented to being on the site. Photos carry Keji's small logo watermark, which is accepted. Testimonials were drafted by us and stay hidden until each couple approves the wording.
 - Phase 4 decisions (24 Oct 2026): own `<Photo>` component instead of a next/image loader; **Resend** for email (via `@payloadcms/email-resend`); dev DB seeded from the local `images/` folder (dev only, copy marked `[DEV]`); enquiry rate limit = short-lived DB counter keyed by a salted IP hash, never linked to the enquiry.
-- Still waiting on from Keji: logo files, unwatermarked photos, rates, copy, testimonials, city/service area, domain.
+- Still waiting on: logo as SVG (Illustrator PDF received, needs exporting), film links (Monie uploading to YouTube/Vimeo), real testimonial approval, domain, prices for non-wedding services.
 
 ## Stack (approved — don't change without asking)
 - **Next.js (App Router) + Payload CMS** in one app; admin at `/admin`. Check the current Payload major version in the official docs before scaffolding (docs list v3 and v4).

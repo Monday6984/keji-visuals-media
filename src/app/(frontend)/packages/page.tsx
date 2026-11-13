@@ -83,10 +83,14 @@ export default async function PackagesPage() {
     }))
 
   const hasGBP = packages.some((p) => p.priceGBP != null) || (settings.addOns ?? []).some((a) => a.priceGBP != null)
-  const area = settings.serviceArea || settings.city
+  const deposit = settings.depositPercent
   const facts = [
-    settings.depositPercent != null && { term: 'At booking', value: `${settings.depositPercent}%`, note: 'holds your date' },
-    settings.balanceDue && { term: 'Before the day', value: 'Balance', note: `due ${settings.balanceDue}` },
+    deposit != null && { term: 'At booking', value: `${deposit}%`, note: 'secures your date' },
+    settings.balanceDue && {
+      term: 'The balance',
+      value: deposit != null ? `${100 - deposit}%` : 'Balance',
+      note: `due ${settings.balanceDue}`,
+    },
     settings.turnaround && { term: 'Your gallery', value: settings.turnaround, note: '' },
   ].filter((f): f is { term: string; value: string; note: string } => Boolean(f))
 
@@ -101,8 +105,8 @@ export default async function PackagesPage() {
             <span className="text-olive-display">your way</span>
           </h1>
           <p className="m-0 mt-7 max-w-[560px] text-lg leading-[1.75]">
-            Clear starting prices for every kind of story. Every couple is different, so your final quote is confirmed after a
-            short call — with nothing hidden.
+            Clear prices for every kind of story. Every couple is different, so we go through the details with you on a short
+            call, with nothing hidden.
           </p>
         </div>
         {hasGBP && <CurrencyToggle note={settings.gbpNote} />}
@@ -116,7 +120,8 @@ export default async function PackagesPage() {
         </p>
       )}
       <p className="mx-auto max-w-[1360px] px-4 pt-6 pb-24 text-sm text-muted sm:px-6 lg:px-10">
-        Prices shown are starting points{area ? ` for ${area}` : ''}. Travel further afield is quoted separately.
+        Prices are in naira{settings.city ? ` for weddings in and around ${settings.city}` : ''}. Travel further afield is
+        quoted separately.
       </p>
 
       {((settings.addOns?.length ?? 0) > 0 || facts.length > 0 || (settings.quoteFactors?.length ?? 0) > 0) && (
