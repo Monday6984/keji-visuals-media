@@ -14,7 +14,7 @@ export function StoryCard({ story, priority = false }: { story: CardStory; prior
 
   return (
     <Link href={`/portfolio/${category.slug}/${story.slug}`} className="group block text-ink no-underline">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-paper">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-[2px] bg-paper">
         {cover && (
           <Photo
             media={cover}

@@ -356,6 +356,43 @@ async function main() {
       : payload.create({ collection, data: data as never })
   }
 
+  // Landscape covers made by Monie from the portrait originals (images/, gitignored). Focal
+  // points keep heads in frame when the story page crops to 21:9.
+  const COVERS: Record<string, { file: string; alt: string; caption: string; focalX: number; focalY: number }> = {
+    'Kiki & Seye': {
+      file: 'cover-kiki-and-seye.png',
+      alt: 'Kiki and Seye in purple on a wooden staircase, a wide plain wall beside them',
+      caption: 'Kiki & Seye · Traditional wedding',
+      focalX: 28,
+      focalY: 30,
+    },
+    'Dolapo & Femi': {
+      file: 'cover-dolapo-and-femi.png',
+      alt: 'He carries her in his arms, both laughing, in the middle of a wide bright blue backdrop',
+      caption: 'Dolapo & Femi · Pre-wedding',
+      focalX: 50,
+      focalY: 12,
+    },
+    'David & Tope': {
+      file: 'cover-david-and-tope.png',
+      alt: 'David and Tope in teal, smiling cheek to cheek against a warm studio backdrop',
+      caption: 'David & Tope · Traditional look',
+      focalX: 60,
+      focalY: 8,
+    },
+  }
+  const coverIds: Record<string, number> = {}
+  for (const [title, c] of Object.entries(COVERS)) {
+    const file = path.resolve(process.cwd(), 'images', c.file)
+    if (!fs.existsSync(file)) continue
+    const existing = (await payload.find({ collection: 'media', where: { filename: { equals: c.file } }, limit: 1 })).docs[0]
+    const data = { alt: c.alt, caption: c.caption, focalX: c.focalX, focalY: c.focalY }
+    coverIds[title] = existing
+      ? (await payload.update({ collection: 'media', id: existing.id, data })).id
+      : (await payload.create({ collection: 'media', data, filePath: file })).id
+    console.log(`cover: ${title}`)
+  }
+
   // 3. Stories
   const stories: Record<string, number> = {}
   for (const s of STORIES) {
@@ -363,7 +400,7 @@ async function main() {
       _status: 'published',
       title: s.title,
       category: await categoryId(s.category),
-      cover: media[s.cover],
+      cover: coverIds[s.title] ?? media[s.cover],
       excerpt: s.excerpt,
       date: s.date,
       featured: true,

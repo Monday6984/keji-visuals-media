@@ -145,7 +145,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
             fill
             priority
             sizes="(min-width: 1360px) 1280px, 100vw"
-            className="aspect-[4/5] sm:aspect-[21/9]"
+            className="aspect-[16/10] sm:aspect-[21/9]"
           />
         </div>
       )}

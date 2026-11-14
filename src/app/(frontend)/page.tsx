@@ -184,7 +184,7 @@ export default async function HomePage() {
                   href={`/portfolio/${cat.slug}/${s.slug}`}
                   className="group min-w-0 text-ink no-underline"
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-paper">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-paper">
                     {cover && (
                       <Photo
                         media={cover}
