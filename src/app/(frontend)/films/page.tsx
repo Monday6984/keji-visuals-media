@@ -27,7 +27,7 @@ export default async function FilmsPage() {
     <>
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">Films</p>
-        <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
+        <h1 className="m-0 font-display text-[clamp(34px,4.4vw,64px)] leading-[1.02] font-medium text-ink">
           Let people <span className="text-olive-display">feel it</span>
         </h1>
         <p className="m-0 mt-7 max-w-[560px] text-lg leading-[1.75]">
@@ -54,7 +54,7 @@ export default async function FilmsPage() {
 
       {groups.map((g) => (
         <section key={g.type} id={g.type} aria-labelledby={`${g.type}-h`} className="mx-auto max-w-[1360px] scroll-mt-24 px-4 pb-20 sm:px-6 lg:px-10">
-          <h2 id={`${g.type}-h`} className="m-0 mb-8 border-t border-ink/18 pt-8 font-display text-4xl font-medium text-ink">
+          <h2 id={`${g.type}-h`} className="m-0 mb-8 border-t border-ink/18 pt-8 font-display text-[28px] sm:text-[32px] font-medium text-ink">
             {g.title[0]} <span className="text-olive-display">{g.title[1]}</span>
           </h2>
           <div className="grid gap-x-8 gap-y-14 lg:grid-cols-2">
@@ -87,7 +87,7 @@ export default async function FilmsPage() {
 
       <section className="bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-10 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
-          <h2 className="m-0 font-display text-[clamp(36px,4.4vw,64px)] leading-[1.05] font-medium">
+          <h2 className="m-0 font-display text-[clamp(28px,3.2vw,46px)] leading-[1.05] font-medium">
             A film for <span className="text-olive-light">your story?</span>
           </h2>
           <Link href={`${BOOK_HREF}?type=films`} className="btn btn-cream">

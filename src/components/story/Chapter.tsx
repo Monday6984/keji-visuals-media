@@ -19,7 +19,7 @@ export function Chapter({ id, no, title, photos }: { id: string; no: string; tit
     <section id={id} aria-labelledby={`${id}-h`} className="mx-auto max-w-[1360px] scroll-mt-24 px-4 pt-16 sm:px-6 lg:px-10 lg:pt-22">
       <div className="mb-7 flex flex-wrap items-baseline gap-x-5 gap-y-2">
         <span className="cap font-semibold text-olive-deep">Chapter {no}</span>
-        <h2 id={`${id}-h`} className="m-0 font-display text-3xl font-medium text-ink sm:text-[40px]">
+        <h2 id={`${id}-h`} className="m-0 font-display text-[26px] font-medium text-ink sm:text-[32px]">
           {title}
         </h2>
       </div>

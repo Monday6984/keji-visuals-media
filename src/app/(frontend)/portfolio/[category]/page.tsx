@@ -34,7 +34,7 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
     <>
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">The work</p>
-        <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-7xl">
+        <h1 className="m-0 font-display text-[38px] leading-[1.05] font-medium text-ink sm:text-[clamp(44px,4.6vw,64px)]">
           {ink ? (
             <>
               {ink} <span className="text-olive-display">{olive}</span>

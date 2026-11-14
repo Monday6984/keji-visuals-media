@@ -92,6 +92,23 @@ export const getPackages = unstable_cache(
   { tags: [collectionTag('packages'), collectionTag('categories')] },
 )
 
+/** Testimonials clients have agreed to publish, featured first, then in display order. */
+export const getTestimonials = unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    const { docs } = await payload.find({
+      collection: 'testimonials',
+      sort: ['-featured', 'order'],
+      depth: 0,
+      limit: 12,
+      overrideAccess: false,
+    })
+    return docs
+  },
+  ['testimonials'],
+  { tags: [collectionTag('testimonials')] },
+)
+
 /** FAQs in one group, in display order. */
 export const getFAQs = unstable_cache(
   async (group: 'beforeYouBook' | 'packages' | 'general') => {

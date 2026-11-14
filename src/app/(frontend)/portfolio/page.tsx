@@ -27,7 +27,7 @@ export default async function PortfolioPage() {
     <>
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">The work</p>
-        <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-7xl">
+        <h1 className="m-0 font-display text-[38px] leading-[1.05] font-medium text-ink sm:text-[clamp(44px,4.6vw,64px)]">
           Every story, <span className="text-olive-display">as it happened.</span>
         </h1>
         <p className="m-0 mt-6 max-w-[560px] text-lg leading-[1.7]">
@@ -46,7 +46,7 @@ export default async function PortfolioPage() {
               <li key={c.id} className="border-b border-ink/18">
                 <Link href={categoryHref(c)} className="group flex flex-wrap items-center gap-x-6 gap-y-2 py-6.5 text-ink no-underline">
                   <span className="cap w-8 font-semibold text-olive-deep">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="min-w-[200px] flex-[0_0_260px] font-display text-3xl group-hover:text-olive-deep sm:text-4xl">{c.name}</span>
+                  <span className="min-w-[200px] flex-[0_0_260px] font-display text-2xl group-hover:text-olive-deep sm:text-3xl">{c.name}</span>
                   {c.line && <span className="flex-[1_1_320px] text-[15px] leading-relaxed text-body">{c.line}</span>}
                   <span className="cap ml-auto text-muted">
                     {n} {unit} →
@@ -60,7 +60,7 @@ export default async function PortfolioPage() {
 
       <section aria-labelledby="stories-h" className="mx-auto max-w-[1360px] px-4 pt-20 pb-24 sm:px-6 lg:px-10">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <h2 id="stories-h" className="m-0 font-display text-3xl font-medium text-ink sm:text-[40px]">
+          <h2 id="stories-h" className="m-0 font-display text-[26px] font-medium text-ink sm:text-[32px]">
             All <span className="text-olive-display">stories</span>
           </h2>
           <CategoryChips categories={categories} />

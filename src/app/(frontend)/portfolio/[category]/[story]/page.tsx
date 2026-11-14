@@ -108,7 +108,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
           {story.location && ` · ${story.location}`}
           {when && ` · ${when}`}
         </p>
-        <h1 className="m-0 font-display text-5xl leading-[1.02] font-medium text-ink sm:text-6xl lg:text-[clamp(48px,6vw,92px)]">
+        <h1 className="m-0 font-display text-[38px] leading-[1.05] font-medium text-ink sm:text-5xl lg:text-[clamp(44px,4.6vw,66px)]">
           {titleInk} <span className="text-olive-display">{titleOlive}</span>
         </h1>
         <div className="mt-8 flex flex-wrap items-start justify-between gap-10">
@@ -186,7 +186,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
         <section id="film" aria-labelledby="film-h" className="mx-auto max-w-[1360px] scroll-mt-24 px-4 pt-20 sm:px-6 lg:px-10 lg:pt-28">
           <div className="mb-7 flex flex-wrap items-baseline gap-x-5 gap-y-2">
             <span className="cap font-semibold text-olive-deep">The film</span>
-            <h2 id="film-h" className="m-0 font-display text-3xl font-medium text-ink sm:text-[40px]">
+            <h2 id="film-h" className="m-0 font-display text-[26px] font-medium text-ink sm:text-[32px]">
               Let people <span className="text-olive-display">feel it</span>
             </h2>
           </div>
@@ -202,7 +202,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
         <div className="strip mb-16 lg:mb-18" aria-hidden="true" />
         <div className="flex flex-wrap items-stretch gap-12">
           <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-5.5 bg-ink p-8 text-cream sm:p-14">
-            <h2 className="m-0 font-display text-4xl leading-[1.08] font-medium sm:text-[44px]">
+            <h2 className="m-0 font-display text-[28px] leading-[1.1] font-medium sm:text-[34px]">
               Planning a day
               <br />
               <span className="text-olive-light">like this?</span>

@@ -99,7 +99,7 @@ export default async function PackagesPage() {
       <header className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-8 px-4 pt-14 pb-10 sm:px-6 lg:px-10 lg:pt-18">
         <div className="min-w-0 flex-[1_1_520px]">
           <p className="cap m-0 mb-5.5 font-semibold text-muted">Packages &amp; rates · {new Date().getFullYear()}</p>
-          <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
+          <h1 className="m-0 font-display text-[clamp(34px,4.4vw,64px)] leading-[1.02] font-medium text-ink">
             Your day,
             <br />
             <span className="text-olive-display">your way</span>
@@ -129,7 +129,7 @@ export default async function PackagesPage() {
           <div className="mx-auto flex max-w-[1360px] flex-wrap gap-16 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
             {(settings.addOns?.length ?? 0) > 0 && (
               <div className="min-w-0 flex-[1_1_420px]">
-                <h2 className="m-0 mb-7 font-display text-4xl font-medium text-ink">
+                <h2 className="m-0 mb-7 font-display text-[28px] sm:text-[32px] font-medium text-ink">
                   Add-<span className="text-olive-display">ons</span>
                 </h2>
                 <table className="w-full border-collapse text-[15px]">
@@ -152,7 +152,7 @@ export default async function PackagesPage() {
             <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-9">
               {facts.length > 0 && (
                 <div>
-                  <h2 className="m-0 mb-5 font-display text-4xl font-medium text-ink">
+                  <h2 className="m-0 mb-5 font-display text-[28px] sm:text-[32px] font-medium text-ink">
                     Securing <span className="text-olive-display">your date</span>
                   </h2>
                   <dl className="m-0 grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -186,7 +186,7 @@ export default async function PackagesPage() {
           <div className="flex flex-wrap gap-16">
             <div className="min-w-0 flex-[1_1_360px]">
               <p className="cap m-0 mb-4.5 font-semibold text-olive-deep">Before you book</p>
-              <h2 id="guide-h" className="m-0 mb-5 font-display text-[clamp(34px,3.6vw,52px)] leading-[1.08] font-medium text-ink">
+              <h2 id="guide-h" className="m-0 mb-5 font-display text-[clamp(28px,2.8vw,40px)] leading-[1.08] font-medium text-ink">
                 Questions to ask <span className="text-olive-display">your photographer</span>
               </h2>
               <p className="m-0 leading-[1.7]">Straight answers, before you commit — from Keji’s guide for couples.</p>
@@ -200,7 +200,7 @@ export default async function PackagesPage() {
 
       {packageFAQs.length > 0 && (
         <section aria-labelledby="faq-h" className="mx-auto max-w-[1360px] px-4 pb-24 sm:px-6 lg:px-10">
-          <h2 id="faq-h" className="m-0 mb-8 font-display text-4xl font-medium text-ink">
+          <h2 id="faq-h" className="m-0 mb-8 font-display text-[28px] sm:text-[32px] font-medium text-ink">
             Package <span className="text-olive-display">questions</span>
           </h2>
           <FAQList faqs={packageFAQs} />
@@ -209,7 +209,7 @@ export default async function PackagesPage() {
 
       <section className="bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-10 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
-          <h2 className="m-0 font-display text-[clamp(36px,4.4vw,64px)] leading-[1.05] font-medium">
+          <h2 className="m-0 font-display text-[clamp(28px,3.2vw,46px)] leading-[1.05] font-medium">
             Not sure which <span className="text-olive-light">fits?</span>
           </h2>
           <Link href={BOOK_HREF} className="btn btn-cream">

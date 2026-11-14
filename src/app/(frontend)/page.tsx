@@ -2,9 +2,10 @@ import Link from 'next/link'
 
 import { BusinessJsonLd } from '@/components/BusinessJsonLd'
 import { HeroSlideshow, type HeroPair } from '@/components/home/HeroSlideshow'
+import { TestimonialSlider } from '@/components/home/TestimonialSlider'
 import { Photo } from '@/components/Photo'
 import { categoryHref } from '@/components/portfolio/categoryHref'
-import { getAbout, getCategories, getFilmCount, getSiteSettings, getStories } from '@/lib/data'
+import { getAbout, getCategories, getFilmCount, getSiteSettings, getStories, getTestimonials } from '@/lib/data'
 import { monthYear } from '@/lib/format'
 import { displayPrice } from '@/lib/price'
 import { BOOK_HREF, FILMS_CATEGORY_SLUG, formatIntlNumber, telHref, whatsappHref } from '@/lib/site'
@@ -30,12 +31,13 @@ const DEFAULT_VALUES = [
 ]
 
 export default async function HomePage() {
-  const [settings, about, categories, stories, filmCount] = await Promise.all([
+  const [settings, about, categories, stories, filmCount, testimonials] = await Promise.all([
     getSiteSettings(),
     getAbout(),
     getCategories(),
     getStories(),
     getFilmCount(),
+    getTestimonials(),
   ])
 
   const pairs: HeroPair[] = (settings.heroSlides ?? []).flatMap((s) =>
@@ -43,7 +45,11 @@ export default async function HomePage() {
   )
   const featured = stories.filter((s) => s.featured).slice(0, 3)
   const homePackages = (settings.homePackages ?? []).map((p) => asObject<Package>(p)).filter((p): p is Package => Boolean(p))
-  const testimonial = asObject<Testimonial>(settings.homeTestimonial)
+  // The testimonial chosen in Site Settings leads; the rest follow in their own order.
+  const leadId = asObject<Testimonial>(settings.homeTestimonial)?.id
+  const quotes = [...testimonials]
+    .sort((a, b) => Number(b.id === leadId) - Number(a.id === leadId))
+    .map(({ id, names, quote }) => ({ id, names, quote }))
   const portrait = isMedia(about.portrait) ? about.portrait : null
   const values = about.values?.length ? about.values : DEFAULT_VALUES
   const wa = whatsappHref(settings.whatsapp)
@@ -81,7 +87,7 @@ export default async function HomePage() {
           <p className="cap kv-fadeup m-0 mb-7 font-semibold text-muted" style={{ animationDelay: '0.1s' }}>
             Wedding photography &amp; film{settings.city ? ` · ${settings.city}` : ''}
           </p>
-          <h1 className="m-0 font-display text-[clamp(48px,6.4vw,96px)] leading-[1.02] font-medium tracking-[0.01em] text-ink">
+          <h1 className="m-0 font-display text-[clamp(36px,4.8vw,70px)] leading-[1.02] font-medium tracking-[0.01em] text-ink">
             <span className="kv-mask">
               <span className="kv-rise" style={{ animationDelay: '0.25s' }}>
                 Your moment.
@@ -127,7 +133,7 @@ export default async function HomePage() {
       {/* Category index */}
       <section aria-labelledby="work-h" className="mx-auto max-w-[1360px] px-4 pt-20 pb-16 sm:px-6 lg:px-10 lg:pt-28 lg:pb-20">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <h2 id="work-h" className="m-0 font-display text-[clamp(36px,4vw,56px)] leading-[1.05] font-medium text-ink">
+          <h2 id="work-h" className="m-0 font-display text-[clamp(28px,3vw,42px)] leading-[1.05] font-medium text-ink">
             More than
             <br />
             <span className="text-olive-display">a photograph</span>
@@ -141,7 +147,7 @@ export default async function HomePage() {
             <li key={c.id} className="border-b border-ink/18">
               <Link href={categoryHref(c)} className="group flex flex-wrap items-center gap-x-6 gap-y-2 py-6.5 text-ink no-underline">
                 <span className="cap w-10 font-semibold text-olive-deep">{String(i + 1).padStart(2, '0')}</span>
-                <span className="flex-[1_1_280px] font-display text-[clamp(30px,3.6vw,52px)] leading-[1.1] group-hover:text-olive-deep">
+                <span className="flex-[1_1_280px] font-display text-[clamp(24px,2.6vw,38px)] leading-[1.1] group-hover:text-olive-deep">
                   {c.name}
                 </span>
                 {c.line && <span className="flex-[1_1_300px] text-[15px] leading-relaxed text-body">{c.line}</span>}
@@ -159,39 +165,38 @@ export default async function HomePage() {
       {featured.length > 0 && (
         <section aria-labelledby="stories-h" className="mx-auto max-w-[1360px] px-4 pt-10 pb-24 sm:px-6 lg:px-10 lg:pb-30">
           <div className="mb-9 flex flex-wrap items-baseline justify-between gap-6">
-            <h2 id="stories-h" className="m-0 font-display text-4xl font-medium text-ink sm:text-[40px]">
+            <h2 id="stories-h" className="m-0 font-display text-[28px] font-medium text-ink sm:text-[34px]">
               Selected <span className="text-olive-display">stories</span>
             </h2>
             <Link href="/portfolio" className="cap font-semibold">
               All stories →
             </Link>
           </div>
-          <div className="flex flex-wrap gap-7">
-            {featured.map((s, i) => {
+          <div className="grid gap-x-7 gap-y-10 md:grid-cols-3">
+            {featured.map((s) => {
               const cat = asObject<Category>(s.category)
               const cover = isMedia(s.cover) ? s.cover : null
               if (!cat) return null
               const meta = [cat.name, s.location, monthYear(s.date)].filter(Boolean).join(' · ')
-              const big = i === 0
               return (
                 <Link
                   key={s.id}
                   href={`/portfolio/${cat.slug}/${s.slug}`}
-                  className={`group min-w-0 text-ink no-underline ${big ? 'flex-[1.4_1_520px]' : 'flex-[1_1_360px]'}`}
+                  className="group min-w-0 text-ink no-underline"
                 >
-                  <div className={`relative overflow-hidden bg-paper ${big ? 'aspect-[4/3.2]' : 'aspect-[16/10]'}`}>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-paper">
                     {cover && (
                       <Photo
                         media={cover}
                         fill
                         alt=""
-                        sizes={big ? '(min-width: 1360px) 740px, (min-width: 1024px) 55vw, 100vw' : '(min-width: 1360px) 520px, (min-width: 1024px) 40vw, 100vw'}
+                        sizes="(min-width: 1360px) 420px, (min-width: 768px) 31vw, 100vw"
                         className="transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none"
                       />
                     )}
                   </div>
                   <p className="cap m-0 mt-4 mb-1.5 text-muted">{meta}</p>
-                  <p className={`m-0 font-display group-hover:text-olive-deep ${big ? 'text-3xl' : 'text-2xl'}`}>{s.title}</p>
+                  <p className="m-0 font-display text-2xl group-hover:text-olive-deep">{s.title}</p>
                 </Link>
               )
             })}
@@ -209,7 +214,7 @@ export default async function HomePage() {
             </figure>
           )}
           <div className="min-w-0 flex-[1.2_1_420px]">
-            <h2 id="behind-h" className="m-0 mb-8 font-display text-[clamp(36px,4vw,56px)] font-medium text-ink">
+            <h2 id="behind-h" className="m-0 mb-8 font-display text-[clamp(28px,3vw,42px)] font-medium text-ink">
               Behind <span className="text-olive-display">the</span> lens
             </h2>
             {(about.intro && !about.intro.startsWith('[DEV]') ? [about.intro] : BEHIND_THE_LENS).map((p) => (
@@ -238,7 +243,7 @@ export default async function HomePage() {
       {homePackages.length > 0 && (
         <section aria-labelledby="pk-h" className="mx-auto max-w-[1360px] px-4 pt-20 pb-20 sm:px-6 lg:px-10 lg:pt-28 lg:pb-24">
           <div className="mb-11 flex flex-wrap items-end justify-between gap-6">
-            <h2 id="pk-h" className="m-0 font-display text-[clamp(36px,4vw,56px)] font-medium text-ink">
+            <h2 id="pk-h" className="m-0 font-display text-[clamp(28px,3vw,42px)] font-medium text-ink">
               Packages
             </h2>
             <Link href="/packages" className="btn btn-line">
@@ -275,22 +280,20 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Testimonial */}
-      {testimonial && (
-        <section aria-label="Testimonial" className="mx-auto max-w-[1100px] px-4 pt-12 pb-24 text-center sm:px-6 lg:px-10 lg:pb-28">
-          <div className="strip mx-auto mb-12 max-w-55" aria-hidden="true" />
-          <figure className="m-0">
-            <blockquote className="m-0 font-display text-[clamp(26px,3vw,40px)] leading-[1.35] text-ink">
-              “{testimonial.quote}”
-            </blockquote>
-            <figcaption className="cap mt-7 text-muted">{testimonial.names}</figcaption>
-          </figure>
+      {/* Testimonials */}
+      {quotes.length > 0 && (
+        <section aria-labelledby="words-h" className="mx-auto max-w-[1100px] px-4 pt-12 pb-24 text-center sm:px-6 lg:px-10 lg:pb-28">
+          <div className="strip mx-auto mb-10 max-w-55" aria-hidden="true" />
+          <h2 id="words-h" className="cap m-0 mb-8 font-semibold text-olive-deep">
+            Kind words
+          </h2>
+          <TestimonialSlider quotes={quotes} />
         </section>
       )}
 
       {/* How booking works */}
       <section aria-labelledby="how-h" className="mx-auto max-w-[1360px] px-4 pb-24 sm:px-6 lg:px-10 lg:pb-28">
-        <h2 id="how-h" className="m-0 mb-10 font-display text-4xl font-medium text-ink sm:text-[40px]">
+        <h2 id="how-h" className="m-0 mb-10 font-display text-[28px] font-medium text-ink sm:text-[34px]">
           How booking <span className="text-olive-display">works</span>
         </h2>
         <ol className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-8 p-0">
@@ -308,7 +311,7 @@ export default async function HomePage() {
       <section aria-labelledby="cta-h" className="bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-12 px-4 py-24 sm:px-6 lg:px-10 lg:py-30">
           <div className="min-w-0 flex-[1_1_520px]">
-            <h2 id="cta-h" className="m-0 font-display text-[clamp(40px,5vw,76px)] leading-[1.05] font-medium">
+            <h2 id="cta-h" className="m-0 font-display text-[clamp(30px,3.6vw,54px)] leading-[1.05] font-medium">
               Ready to tell
               <br />
               <span className="text-olive-light">your story?</span>

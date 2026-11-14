@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 export function LegalPage({ title, updated, draft, children }: { title: [string, string]; updated?: string; draft?: string; children: ReactNode }) {
   return (
     <article className="mx-auto max-w-[860px] px-4 pt-14 pb-24 sm:px-6 lg:pt-18">
-      <h1 className="m-0 font-display text-[clamp(40px,5vw,72px)] leading-[1.05] font-medium text-ink">
+      <h1 className="m-0 font-display text-[clamp(32px,3.8vw,54px)] leading-[1.05] font-medium text-ink">
         {title[0]} <span className="text-olive-display">{title[1]}</span>
       </h1>
       {updated && <p className="cap m-0 mt-5 text-muted">Last updated {updated}</p>}

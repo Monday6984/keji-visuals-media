@@ -18,7 +18,7 @@ export default async function ContactPage() {
     <>
       <header className="mx-auto max-w-[1360px] px-4 pt-14 pb-12 sm:px-6 lg:px-10 lg:pt-18">
         <p className="cap m-0 mb-5 font-semibold text-olive-deep">Book a session</p>
-        <h1 className="m-0 font-display text-[clamp(48px,6vw,88px)] leading-[1.02] font-medium text-ink">
+        <h1 className="m-0 font-display text-[clamp(34px,4.4vw,64px)] leading-[1.02] font-medium text-ink">
           Ready to tell
           <br />
           <span className="text-olive-display">your story?</span>
@@ -31,7 +31,7 @@ export default async function ContactPage() {
       <section aria-labelledby="enquire-h" className="bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap gap-14 px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
           <div className="min-w-0 flex-[1.6_1_560px]">
-            <h2 id="enquire-h" className="m-0 mb-8 font-display text-4xl font-medium">
+            <h2 id="enquire-h" className="m-0 mb-8 font-display text-[28px] sm:text-[32px] font-medium">
               Your <span className="text-olive-light">enquiry</span>
             </h2>
             <EnquiryForm whatsapp={wa} />
