@@ -289,7 +289,9 @@ const richText = (paras: string[]) => ({
 
 async function main() {
   const payload = await getPayload({ config })
-  console.log(`target bucket: ${process.env.R2_BUCKET}`)
+  // Neon endpoint name only (e.g. "ep-young-tooth"), never the full connection string.
+  const dbHost = (process.env.DATABASE_URI ?? '').replace(/.*@([^/:?]+).*/, '$1').replace(/^(ep-[a-z]+-[a-z]+).*/, '$1')
+  console.log(`target database: ${dbHost} · bucket: ${process.env.R2_BUCKET}`)
   // Neon closes idle connections while sharp is busy with a large photo; without a
   // listener pg treats that as fatal. The pool reconnects on the next query.
   ;(payload.db as unknown as { pool?: { on: (e: 'error', cb: (err: Error) => void) => void } }).pool?.on('error', (err) =>

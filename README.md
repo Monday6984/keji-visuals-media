@@ -50,3 +50,18 @@ Add the production domain (e.g. `https://kejivisuals.com`) when it exists.
 - `npm run ci` — run migrations then build (used by the Vercel build step)
 - `npm run generate:types` — regenerate `src/payload-types.ts`
 - `npm run lint`, `npm test`
+- `npm run seed:dev` — dev-only test content from `images/` (refuses to run on a non-`-dev` bucket)
+- `npm run import:keji` — imports Keji's Nov 2026 delivery (`KEJI_PHOTOS=<folder>`); safe to re-run. It prints the
+  target database endpoint and bucket first: check them before it starts uploading.
+
+### Running a script against staging
+
+Payload loads `.env.local` (dev) automatically and only uses values not already set in the shell. To target staging,
+export the staging values first, but **don't `source` the env file**: the database URL contains an unquoted `&`, so
+the shell cuts it off and the script silently falls back to the dev database. Export each line verbatim instead:
+
+```sh
+loadenv() { while IFS= read -r l || [ -n "$l" ]; do l="${l%$'\r'}"; case "$l" in ''|\#*) continue;; esac
+  k="${l%%=*}"; v="${l#*=}"; v="${v#\"}"; v="${v%\"}"; export "$k=$v"; done < "$1"; }
+(loadenv .env.vercel-production && npm run import:keji)
+```
