@@ -438,6 +438,14 @@ async function main() {
       poster: 'adejoke-kelvin-poster.jpg',
       posterAlt: 'Adejoke places her hands on Kelvin’s fila, both in wine-red traditional outfits',
     },
+    {
+      title: 'Adejoke: getting ready',
+      type: 'wedding',
+      embedUrl: 'https://vimeo.com/1246906247',
+      description: 'A 17-second teaser of Adejoke getting ready with her bridesmaids.',
+      poster: 'adejoke-poster.jpg',
+      posterAlt: 'Close-up of Adejoke with her hair styled, bridesmaids in pink robes behind her',
+    },
   ]
   for (const [order, f] of FILMS.entries()) {
     const posterFile = path.resolve(process.cwd(), 'images', f.poster)
