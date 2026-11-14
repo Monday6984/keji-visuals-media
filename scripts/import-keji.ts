@@ -25,7 +25,7 @@ type Shot = [file: string, alt: string]
 
 const STORIES: {
   title: string
-  category: 'weddings' | 'pre-weddings'
+  category: 'weddings' | 'pre-weddings' | 'portraits'
   date: string
   excerpt: string
   cover: string
@@ -142,6 +142,82 @@ const STORIES: {
           ['IMG_6166', 'Bride holding a white bouquet, the groom in burgundy behind her'],
           ['IMG_6386', 'Groom kisses the bride’s cheek, she in a veil and tiara'],
           ['IMG_6462', 'Bride in a fitted white lace gown and veil'],
+        ],
+      },
+    ],
+  },
+  // Nov 2026, second delivery: Instagram exports (1080–1440 px) in subfolders, so shots are
+  // relative paths. Swap for Keji's originals when he sends them (same alt text applies).
+  {
+    title: 'Temi & David',
+    category: 'weddings',
+    date: '2026-08-12',
+    excerpt: 'A traditional wedding in green, pink and striped aso-oke, in a warm-lit hallway and out among the palms.',
+    cover: 'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_04.jpg',
+    order: 3,
+    chapters: [
+      {
+        title: 'The bride',
+        caption: 'Temi & David · Traditional wedding',
+        shots: [
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_01.jpg', 'Close-up of Temi in a green gele and gold jewellery'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_02.jpg', 'Temi smiling, one hand raised to her gele, in green and pink aso-oke'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_03.jpg', 'Temi seated, touching her gele, in warm yellow light'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_04.jpg', 'Temi seated in a hallway, holding a beaded purse'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_05.jpg', 'Temi posing against a hallway wall in pink and green aso-oke'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_06.jpg', 'Temi holding a round hand fan beside her face'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_07.jpg', 'Full-length: Temi in the hallway beside a green chair'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_08.jpg', 'Full-length: Temi standing in the warm-lit hallway'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_09.jpg', 'Temi outdoors among palms, a sheer green veil lifted over her gele'],
+          ['Temi and David Love Story/Bride - Temi/kejivisuals_weddings_Db8-HzoAoOd_10.jpg', 'Temi walking along a paved courtyard outdoors'],
+        ],
+      },
+      {
+        title: 'The groom',
+        caption: 'Temi & David · Traditional wedding',
+        shots: [
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_01.jpg', 'David in a striped aso-oke fila and agbada, looking to the side'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_02.jpg', 'Close-up of David in his striped fila'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_03.jpg', 'David in profile, wearing a tall striped fila'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_04.jpg', 'David leaning against the hallway wall, looking at the camera'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_05.jpg', 'Full-length: David in striped aso-oke with coral beads'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_06.jpg', 'David holding a horsetail whisk, coral beads at his chest'],
+          ['Temi and David Love Story/Groom - David/kejivisuals_weddings_Db8-rJnAlWx_07.jpg', 'Full-length: David standing in the hallway with his horsetail whisk'],
+        ],
+      },
+      {
+        title: 'Together',
+        caption: 'Temi & David · Traditional wedding',
+        shots: [
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_01.jpg', 'Temi in the hallway, David out of focus in the foreground'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_02.jpg', 'Temi and David facing each other in the hallway'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_03.jpg', 'David seated with Temi leaning in beside him'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_04.jpg', 'Temi seated, David standing close behind her'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_05.jpg', 'Temi and David seated side by side in the hallway'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_06.jpg', 'Temi and David outdoors under a red canopy, she standing, he seated'],
+          ['Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_07.jpg', 'Temi and David outdoors under a red canopy, both smiling'],
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Chioma Afogu',
+    category: 'portraits',
+    date: '2025-09-30',
+    excerpt: 'A calm studio portrait session in a crisp white shirt.',
+    cover: 'Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_04.jpg',
+    order: 4,
+    chapters: [
+      {
+        title: 'Portraits',
+        caption: 'Chioma Afogu · Portrait session',
+        shots: [
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_01.jpg', 'Chioma in a white shirt, a hand resting by her face, looking to the side'],
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_02.jpg', 'Chioma leaning on a table, chin resting on her hand'],
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_03.jpg', 'Chioma resting her head on her hand, a pearl necklace over her white shirt'],
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_04.jpg', 'Close-up of Chioma smiling with her eyes closed, a hand at her neck'],
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_05.jpg', 'Chioma seated at a white table, a hand to her cheek'],
+          ['Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_06.jpg', 'Chioma lying across a white table, smiling, a floor lamp behind her'],
         ],
       },
     ],
@@ -325,17 +401,23 @@ async function main() {
   )
   const media: Record<string, number> = {}
   const shots = STORIES.flatMap((s) => s.chapters.flatMap((c) => c.shots.map(([key, alt]) => ({ key, alt, caption: c.caption }))))
+  // Focal points for upright covers, so faces stay in frame in landscape cards/openers.
+  const FOCAL: Record<string, { focalX: number; focalY: number }> = {
+    'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_04.jpg': { focalX: 50, focalY: 25 },
+    'Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_04.jpg': { focalX: 50, focalY: 38 },
+  }
   for (const [i, { key, alt, caption }] of shots.entries()) {
-    const file = files.get(key)
-    if (!file) throw new Error(`missing photo ${key}`)
+    const rel = key.includes('/') ? key : files.get(key)
+    if (!rel || !fs.existsSync(path.join(PHOTOS_DIR!, rel))) throw new Error(`missing photo ${key}`)
+    const file = path.basename(rel)
     const existing = (await payload.find({ collection: 'media', where: { filename: { equals: file } }, limit: 1 })).docs[0]
     if (existing) {
-      await payload.update({ collection: 'media', id: existing.id, data: { alt, caption } })
+      await payload.update({ collection: 'media', id: existing.id, data: { alt, caption, ...FOCAL[key] } })
       media[key] = existing.id
       continue
     }
     const started = Date.now()
-    const doc = await payload.create({ collection: 'media', data: { alt, caption }, filePath: path.join(PHOTOS_DIR!, file) })
+    const doc = await payload.create({ collection: 'media', data: { alt, caption, ...FOCAL[key] }, filePath: path.join(PHOTOS_DIR!, rel) })
     media[key] = doc.id
     console.log(`photo ${i + 1}/${shots.length} ${file} (${((Date.now() - started) / 1000).toFixed(0)} s)`)
   }
