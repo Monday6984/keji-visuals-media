@@ -462,6 +462,13 @@ async function main() {
       focalX: 60,
       focalY: 8,
     },
+    'Temi & David': {
+      file: 'cover-temi-and-david.png',
+      alt: 'David stands behind Temi, his hand on her shoulder, as she sits with her fan in a yellow hallway',
+      caption: 'Temi & David · Traditional wedding',
+      focalX: 50,
+      focalY: 25,
+    },
   }
   const coverIds: Record<string, number> = {}
   for (const [title, c] of Object.entries(COVERS)) {
