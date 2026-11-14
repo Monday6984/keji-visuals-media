@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { EnquiryForm } from '@/components/contact/EnquiryForm'
 import { getSiteSettings } from '@/lib/data'
-import { whatsappHref } from '@/lib/site'
+import { formatIntlNumber, telHref, whatsappHref } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Book a session',
@@ -42,7 +42,15 @@ export default async function ContactPage() {
               {wa && (
                 <li>
                   <a href={wa} className="btn btn-line-cream w-full">
-                    WhatsApp{settings.phone ? ` ${settings.phone}` : ''}
+                    WhatsApp {formatIntlNumber(settings.whatsapp)}
+                  </a>
+                </li>
+              )}
+              {settings.phone && (
+                <li>
+                  <span className="cap block text-stone">Call</span>
+                  <a href={telHref(settings.phone)!} className="text-cream hover:text-olive-light">
+                    {settings.phone}
                   </a>
                 </li>
               )}

@@ -239,8 +239,9 @@ const FAQS: [question: string, answer: string[]][] = [
   ],
 ]
 
-// Drafted for the couples to approve or rewrite. They stay hidden (consent unticked)
-// until Keji confirms each couple is happy with the wording.
+// Drafted by us, not written by the couples. Published on staging at Monie's request
+// (14 Nov 2026) so the layout can be reviewed; LAUNCH BLOCKER: each couple must approve or
+// rewrite their quote before the site goes live on Keji's domain (see CLAUDE.md).
 const TESTIMONIALS: { names: string; story: string; quote: string }[] = [
   {
     names: 'Kiki & Seye',
@@ -400,16 +401,38 @@ async function main() {
       story: stories[t.story],
       category: weddings,
       featured: order === 0,
+      consent: true,
       order,
     })
     firstTestimonial ??= doc.id
   }
-  console.log(`faqs: ${FAQS.length}, testimonials: ${TESTIMONIALS.length} (hidden until consent is ticked)`)
+  console.log(`faqs: ${FAQS.length}, testimonials: ${TESTIMONIALS.length} (published; drafts awaiting couples' approval)`)
+
+  // Keji's portrait: an Instagram graphic with its "OPEN! A note from…" text painted out
+  // (images/keji-portrait.jpg, gitignored). Temporary until he sends a proper portrait.
+  const PORTRAIT_FILE = path.resolve(process.cwd(), 'images', 'keji-portrait.jpg')
+  let portraitId: number | undefined
+  if (fs.existsSync(PORTRAIT_FILE)) {
+    const existing = (await payload.find({ collection: 'media', where: { filename: { equals: 'keji-portrait.jpg' } }, limit: 1 })).docs[0]
+    portraitId =
+      existing?.id ??
+      (
+        await payload.create({
+          collection: 'media',
+          data: { alt: 'Keji in a black T-shirt, holding a camera up towards the lens', caption: 'Behind the lens' },
+          filePath: PORTRAIT_FILE,
+        })
+      ).id
+    console.log('portrait: set')
+  } else {
+    console.log('portrait: images/keji-portrait.jpg not found, About stays without a photo')
+  }
 
   // 6. Settings and About
   await payload.updateGlobal({
     slug: 'site-settings',
     data: {
+      phone: '+234 915 510 8428',
       city: 'Lagos',
       serviceArea: 'Across Nigeria and overseas',
       heroSlides: HERO_PAIRS.map(([left, right]) => ({ left: media[left], right: media[right] })),
@@ -435,6 +458,7 @@ async function main() {
       headline: 'Behind the lens',
       intro: ABOUT_INTRO,
       bio: richText(ABOUT_BIO) as never,
+      portrait: portraitId ?? null,
     },
   })
   console.log('site settings + about updated')

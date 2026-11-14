@@ -906,7 +906,7 @@ export interface SiteSetting {
    */
   enquiryRecipient?: string | null;
   /**
-   * As displayed, e.g. "+234 903 491 7020"
+   * Number for calls, as displayed, e.g. "+234 915 510 8428". WhatsApp is set separately.
    */
   phone?: string | null;
   /**

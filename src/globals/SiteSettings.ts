@@ -34,7 +34,12 @@ export const SiteSettings: GlobalConfig = {
             {
               type: 'row',
               fields: [
-                { name: 'phone', type: 'text', admin: { description: 'As displayed, e.g. "+234 903 491 7020"' } },
+                {
+                  name: 'phone',
+                  label: 'Phone (calls)',
+                  type: 'text',
+                  admin: { description: 'Number for calls, as displayed, e.g. "+234 915 510 8428". WhatsApp is set separately.' },
+                },
                 {
                   name: 'whatsapp',
                   label: 'WhatsApp number',

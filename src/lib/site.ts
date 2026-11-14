@@ -19,3 +19,17 @@ export const whatsappHref = (number?: string | null, message?: string) => {
   const text = message ? `?text=${encodeURIComponent(message)}` : ''
   return `https://wa.me/${number}${text}`
 }
+
+/** "2349034917020" → "+234 903 491 7020" (Nigerian numbers); other numbers just get a "+". */
+export const formatIntlNumber = (digits?: string | null) => {
+  if (!digits) return null
+  const m = digits.match(/^234(\d{3})(\d{3})(\d{4})$/)
+  return m ? `+234 ${m[1]} ${m[2]} ${m[3]}` : `+${digits}`
+}
+
+/** tel: link from a displayed number such as "+234 915 510 8428" or "0915 510 8428". */
+export const telHref = (display?: string | null) => {
+  if (!display) return null
+  const digits = display.replace(/[^\d+]/g, '')
+  return `tel:${digits.startsWith('0') ? `+234${digits.slice(1)}` : digits}`
+}

@@ -7,7 +7,7 @@ import { categoryHref } from '@/components/portfolio/categoryHref'
 import { getAbout, getCategories, getFilmCount, getSiteSettings, getStories } from '@/lib/data'
 import { monthYear } from '@/lib/format'
 import { displayPrice } from '@/lib/price'
-import { BOOK_HREF, FILMS_CATEGORY_SLUG, whatsappHref } from '@/lib/site'
+import { BOOK_HREF, FILMS_CATEGORY_SLUG, formatIntlNumber, telHref, whatsappHref } from '@/lib/site'
 import type { Category, Media, Package, Testimonial } from '@/payload-types'
 
 const isMedia = (m: unknown): m is Media => Boolean(m && typeof m === 'object' && 'id' in m)
@@ -321,13 +321,22 @@ export default async function HomePage() {
             </Link>
             {wa && (
               <a href={wa} className="btn btn-line-cream">
-                WhatsApp{settings.phone ? ` ${settings.phone}` : ''}
+                WhatsApp {formatIntlNumber(settings.whatsapp)}
               </a>
             )}
-            {settings.email && (
-              <a href={`mailto:${settings.email}`} className="mt-1.5 text-center text-[15px] text-mist hover:text-cream">
-                {settings.email}
-              </a>
+            {(settings.email || settings.phone) && (
+              <p className="m-0 mt-1.5 flex flex-wrap justify-center gap-x-5 gap-y-1 text-center text-[15px]">
+                {settings.email && (
+                  <a href={`mailto:${settings.email}`} className="text-mist hover:text-cream">
+                    {settings.email}
+                  </a>
+                )}
+                {settings.phone && (
+                  <a href={telHref(settings.phone)!} className="text-mist hover:text-cream">
+                    Call {settings.phone}
+                  </a>
+                )}
+              </p>
             )}
           </div>
         </div>
