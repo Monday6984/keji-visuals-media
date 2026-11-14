@@ -428,6 +428,33 @@ async function main() {
     console.log('portrait: images/keji-portrait.jpg not found, About stays without a photo')
   }
 
+  // Films. Posters are full-size stills from Vimeo, saved in images/ (gitignored).
+  const FILMS = [
+    {
+      title: 'Adejoke & Kelvin',
+      type: 'wedding',
+      embedUrl: 'https://vimeo.com/1246903473',
+      description: 'A short film of Adejoke and Kelvin’s traditional wedding.',
+      poster: 'adejoke-kelvin-poster.jpg',
+      posterAlt: 'Adejoke places her hands on Kelvin’s fila, both in wine-red traditional outfits',
+    },
+  ]
+  for (const [order, f] of FILMS.entries()) {
+    const posterFile = path.resolve(process.cwd(), 'images', f.poster)
+    if (!fs.existsSync(posterFile)) {
+      console.log(`film: ${f.title} skipped (images/${f.poster} not found)`)
+      continue
+    }
+    const poster =
+      (await payload.find({ collection: 'media', where: { filename: { equals: f.poster } }, limit: 1 })).docs[0] ??
+      (await payload.create({ collection: 'media', data: { alt: f.posterAlt, caption: `${f.title} · Wedding film` }, filePath: posterFile }))
+    const existing = (await payload.find({ collection: 'films', where: { title: { equals: f.title } }, limit: 1, draft: true })).docs[0]
+    const data = { _status: 'published' as const, title: f.title, slug: '', type: f.type as 'wedding', embedUrl: f.embedUrl, description: f.description, poster: poster.id, featured: true, order }
+    if (existing) await payload.update({ collection: 'films', id: existing.id, data, draft: false })
+    else await payload.create({ collection: 'films', data })
+    console.log(`film: ${f.title}`)
+  }
+
   // 6. Settings and About
   await payload.updateGlobal({
     slug: 'site-settings',
