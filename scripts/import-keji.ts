@@ -153,7 +153,7 @@ const STORIES: {
     category: 'weddings',
     date: '2026-08-12',
     excerpt: 'A traditional wedding in green, pink and striped aso-oke, in a warm-lit hallway and out among the palms.',
-    cover: 'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_04.jpg',
+    cover: 'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_03.jpg',
     order: 3,
     chapters: [
       {
@@ -403,7 +403,7 @@ async function main() {
   const shots = STORIES.flatMap((s) => s.chapters.flatMap((c) => c.shots.map(([key, alt]) => ({ key, alt, caption: c.caption }))))
   // Focal points for upright covers, so faces stay in frame in landscape cards/openers.
   const FOCAL: Record<string, { focalX: number; focalY: number }> = {
-    'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_04.jpg': { focalX: 50, focalY: 25 },
+    'Temi and David Love Story/Temi and David/kejivisuals_weddings_Db89oH0AssA_03.jpg': { focalX: 45, focalY: 30 },
     'Portrait - Chioma Afogu/kejivisuals_weddings_DPOJVhvAh6W_04.jpg': { focalX: 50, focalY: 38 },
   }
   for (const [i, { key, alt, caption }] of shots.entries()) {
