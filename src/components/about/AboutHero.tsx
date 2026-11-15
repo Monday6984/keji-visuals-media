@@ -68,7 +68,7 @@ export function AboutHero({ hero, number, whatsapp }: { hero: Hero; number: numb
           )}
           <h1
             id="about-h"
-            className="m-0 max-w-[680px] font-display text-[clamp(36px,5.6vw,84px)] leading-[1.04] font-medium tracking-[0.005em] text-ink"
+            className="m-0 max-w-[680px] font-display text-[clamp(34px,4.4vw,64px)] leading-[1.04] font-medium tracking-[0.005em] text-ink"
           >
             {lines.map((l, i) => (
               <span key={i} className="kv-mask">
