@@ -17,6 +17,8 @@
   /* Text on ink (dark) sections */
   --color-mist: #d9d6c6;
   --color-stone: #bdb9a8;
+  /* Film strip and photo viewer: stays near-black in every theme */
+  --color-film: #0e0d0a;
 }
 
 @theme inline {
@@ -162,7 +164,7 @@
 
 /* PhotoSwipe viewer: near-black background and the contact-sheet caption. */
 .pswp {
-  --pswp-bg: #0e0d0a;
+  --pswp-bg: var(--color-film);
   --pswp-icon-color: var(--color-cream);
 }
 .kv-pswp-caption {
@@ -198,5 +200,65 @@
   .kv-rise,
   .kv-fadeup {
     animation: none !important;
+  }
+}
+
+/* About page (About.dc.html): film-strip reel with sprocket holes, and the timeline. */
+.kv-strip {
+  position: relative;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 24px;
+  border-radius: 2px;
+  background: var(--color-film);
+  padding-block: 18px;
+  scrollbar-color: var(--color-stone) transparent;
+}
+.kv-strip::before,
+.kv-strip::after {
+  content: '';
+  position: sticky;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(90deg, transparent 0 12px, var(--color-cream) 12px 24px, transparent 24px 36px);
+  opacity: 0.5;
+}
+.kv-strip-cell {
+  scroll-snap-align: start;
+}
+
+.kv-timeline > li {
+  position: relative;
+  padding: 34px 18px 0 0;
+}
+.kv-timeline > li::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 9px;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-ink) 32%, transparent);
+}
+.kv-timeline > li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 99px;
+  border: 1px solid var(--color-olive-deep);
+  background: var(--color-cream);
+}
+.kv-timeline > li[data-on='true']::after {
+  background: var(--color-olive-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kv-strip {
+    scroll-behavior: auto;
   }
 }

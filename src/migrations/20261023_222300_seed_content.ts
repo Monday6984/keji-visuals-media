@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs } from '@payloadcms/db-postgres'
+import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 // Seeds only content that is already decided: the five categories (Keji's own one-liners),
 // his four values, and the contact details from his Instagram. Safe to re-run: existing
@@ -19,7 +19,7 @@ const values = [
   { name: 'Personal', line: 'Your story. Your personality. Your way.' },
 ]
 
-export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
+export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   for (const [order, category] of categories.entries()) {
     const { totalDocs } = await payload.count({
       collection: 'categories',
@@ -31,9 +31,19 @@ export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
     }
   }
 
-  const about = await payload.findGlobal({ slug: 'about', req })
-  if (!about.values?.length) {
-    await payload.updateGlobal({ slug: 'about', data: { headline: 'Behind the lens', values }, req })
+  // Plain SQL against the About table as it was at this point: later migrations reshape the
+  // About global, and the Local API would expect those newer tables on a fresh database.
+  const hasValues = await db.execute(sql`SELECT 1 FROM "about_values" LIMIT 1`)
+  if (!hasValues.rows.length) {
+    await db.execute(sql`
+      INSERT INTO "about" ("id", "headline", "updated_at", "created_at")
+      VALUES (1, 'Behind the lens', now(), now())
+      ON CONFLICT ("id") DO UPDATE SET "headline" = EXCLUDED."headline"`)
+    for (const [order, v] of values.entries()) {
+      await db.execute(sql`
+        INSERT INTO "about_values" ("_order", "_parent_id", "id", "name", "line")
+        VALUES (${order + 1}, 1, ${`seed-value-${order + 1}`}, ${v.name}, ${v.line})`)
+    }
   }
 
   const settings = await payload.findGlobal({ slug: 'site-settings', req, overrideAccess: true })

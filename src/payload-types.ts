@@ -980,30 +980,171 @@ export interface SiteSetting {
  */
 export interface About {
   id: number;
+  hero?: {
+    /**
+     * Small line above the headline, e.g. "About · Photographer & filmmaker · Lagos"
+     */
+    kicker?: string | null;
+    /**
+     * Each line rises in separately, e.g. "Behind" / "the lens".
+     */
+    lines?:
+      | {
+          text: string;
+          /**
+           * e.g. "lens"
+           */
+          olive?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    intro?: string | null;
+    /**
+     * e.g. Ayomideji “Keji” Omolegan
+     */
+    signature?: string | null;
+    image?: (number | null) | Media;
+    /**
+     * The frame number is added automatically.
+     */
+    caption?: string | null;
+    /**
+     * Small photo above the chapter index (desktop).
+     */
+    indexThumbnail?: (number | null) | Media;
+    /**
+     * Shown when the About page is shared on social media.
+     */
+    shareImage?: (number | null) | Media;
+  };
   /**
-   * e.g. "Behind the lens"
+   * Shown in this order as "Frame 01", "Frame 02"… Untick Published to keep a draft off the site.
    */
-  headline?: string | null;
+  chapters?:
+    | {
+        /**
+         * e.g. 01
+         */
+        frameNumber: string;
+        title: string;
+        published?: boolean | null;
+        /**
+         * Used in the web address. Leave blank to create it from the title.
+         */
+        slug: string;
+        pullQuote?: {
+          text?: string | null;
+          /**
+           * Part of the quote shown in olive
+           */
+          olive?: string | null;
+          size?: ('normal' | 'large') | null;
+        };
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        layout: 'text' | 'image-right' | 'image-left' | 'diptych';
+        extra?: ('none' | 'values' | 'timeline' | 'places') | null;
+        image?: (number | null) | Media;
+        caption?: string | null;
+        image2?: (number | null) | Media;
+        caption2?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Film strips of photos, shown after a chapter.
+   */
+  reels?:
+    | {
+        /**
+         * e.g. Reel 01 / 03 · From the last season
+         */
+        label: string;
+        /**
+         * Frame number, e.g. 02
+         */
+        afterFrame: string;
+        frames?:
+          | {
+              image: number | Media;
+              /**
+               * e.g. Kiki & Seye · Traditional wedding
+               */
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown in the chapter set to "Also show: Timeline".
+   */
+  timeline?:
+    | {
+        /**
+         * e.g. Within 72 hours
+         */
+        when: string;
+        title: string;
+        /**
+         * Filled dot
+         */
+        highlight?: boolean | null;
+        line: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Places Keji has shot. The line only shows once there are at least two.
+   */
+  places?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  closing?: {
+    /**
+     * e.g. End of reel
+     */
+    kicker?: string | null;
+    heading?: string | null;
+    /**
+     * e.g. "your story"
+     */
+    olive?: string | null;
+    image?: (number | null) | Media;
+    buttons?:
+      | {
+          label: string;
+          link: 'book' | 'portfolio' | 'packages' | 'whatsapp';
+          style?: ('solid' | 'line') | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Short version, used on the homepage.
    */
   intro?: string | null;
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   portrait?: (number | null) | Media;
+  /**
+   * Also shown on the About page, in the chapter set to "Also show: Values".
+   */
   values?:
     | {
         name: string;
@@ -1072,9 +1213,93 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
-  headline?: T;
+  hero?:
+    | T
+    | {
+        kicker?: T;
+        lines?:
+          | T
+          | {
+              text?: T;
+              olive?: T;
+              id?: T;
+            };
+        intro?: T;
+        signature?: T;
+        image?: T;
+        caption?: T;
+        indexThumbnail?: T;
+        shareImage?: T;
+      };
+  chapters?:
+    | T
+    | {
+        frameNumber?: T;
+        title?: T;
+        published?: T;
+        slug?: T;
+        pullQuote?:
+          | T
+          | {
+              text?: T;
+              olive?: T;
+              size?: T;
+            };
+        body?: T;
+        layout?: T;
+        extra?: T;
+        image?: T;
+        caption?: T;
+        image2?: T;
+        caption2?: T;
+        id?: T;
+      };
+  reels?:
+    | T
+    | {
+        label?: T;
+        afterFrame?: T;
+        frames?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  timeline?:
+    | T
+    | {
+        when?: T;
+        title?: T;
+        highlight?: T;
+        line?: T;
+        id?: T;
+      };
+  places?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  closing?:
+    | T
+    | {
+        kicker?: T;
+        heading?: T;
+        olive?: T;
+        image?: T;
+        buttons?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+              style?: T;
+              id?: T;
+            };
+      };
   intro?: T;
-  bio?: T;
   portrait?: T;
   values?:
     | T

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Keji Visuals — About</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:inherit}a:hover{opacity:.75}
+.cap{font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.disp{font-family:Cinzel,serif;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:999px}
+.btn-solid{background:var(--ink);color:var(--bg)}
+.btn-line{border:1px solid var(--ink);color:var(--ink)}
+.btn:hover{opacity:.85}
+.btn:focus-visible,.idx a:focus-visible,.strip:focus-visible{outline:3px solid var(--acc-sm);outline-offset:3px}
+.body{font-size:18px;line-height:1.8;color:var(--body);margin:0 0 20px;max-width:680px}
+.frame-no{color:var(--acc-sm);font-weight:600}
+.chap{padding:0 0 120px;scroll-margin-top:110px}
+.chap-h{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin:0 0 28px;padding-top:22px;border-top:1px solid var(--rule)}
+.idx a{display:flex;gap:12px;align-items:baseline;padding:9px 0;text-decoration:none;border-bottom:1px solid var(--rule)}
+.strip{position:relative;background:#0E0D0A;padding:30px 0;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:2px}
+.strip::before,.strip::after{content:"";position:sticky;display:block;left:0;width:100%;height:10px;background:repeating-linear-gradient(90deg,transparent 0 12px,#EFEDE0 12px 24px,transparent 24px 36px);opacity:.55}
+.reel{display:flex;gap:18px;padding:16px 24px;width:max-content}
+.cell{margin:0;width:220px;scroll-snap-align:start;flex:0 0 auto}
+.ph{display:flex;align-items:flex-end;padding:12px;box-sizing:border-box;border-radius:1px}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;position:relative}
+.tl li{position:relative;padding:34px 18px 0 0}
+.tl li::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--rule-strong)}
+.tl li::after{content:"";position:absolute;left:0;top:4px;width:11px;height:11px;border-radius:99px;background:var(--bg);border:1px solid var(--acc-sm)}
+.tl li.on::after{background:var(--acc-sm)}
+.slot{border:1px dashed var(--rule-strong);padding:32px;border-radius:2px}
+.mask{display:block;overflow:hidden;padding-bottom:.04em}
+.rise{display:block;animation:kv-rise 1.1s cubic-bezier(.2,.7,.1,1) both}
+.wipe{animation:kv-wipe 1.4s cubic-bezier(.7,0,.2,1) both}
+.fadeup{animation:kv-fadeup 1s cubic-bezier(.2,.7,.1,1) both}
+@keyframes kv-rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes kv-wipe{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes kv-fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.rise,.wipe,.fadeup{animation:none!important}}
+</style>
+</helmet>
+<div style="{{rootVars}}">
+<div style="font-family: Montserrat, sans-serif; background: var(--bg); color: var(--ink); min-height: 100%">
+
+<header style="border-bottom: 1px solid var(--rule)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none" aria-label="Keji Visuals home">
+<svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#8A8150" stroke-width="2.2" stroke-linejoin="round"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg>
+<span class="disp" style="font-size: 20px; letter-spacing: 0.16em">KEJI VISUALS</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a href="Story.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Work</a>
+<a href="Story.dc.html#film" class="cap" style="text-decoration: none; font-weight: 600">Films</a>
+<a href="Packages.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Packages</a>
+<a href="About.dc.html" class="cap" aria-current="page" style="text-decoration: none; font-weight: 600; color: var(--acc-sm)">About</a>
+<a href="https://wa.me/2349034917020" class="btn btn-line" style="min-height: 44px; padding: 0 20px">WhatsApp</a>
+<a href="Packages.dc.html" class="btn btn-solid" style="min-height: 44px; padding: 0 22px">Book a session</a>
+</nav>
+</div>
+</header>
+
+<section aria-labelledby="ab-h" style="max-width: 1360px; margin: 0 auto; padding: 64px 40px 96px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start">
+<div style="flex: 1 1 560px; min-width: 0; position: relative; z-index: 2; margin-right: calc(-1 * clamp(0px, 10vw, 180px)); padding-top: 40px">
+<p class="cap fadeup" style="margin: 0 0 24px; color: var(--muted); font-weight: 600; animation-delay: 0.1s">About · Photographer &amp; filmmaker · Lagos</p>
+<h1 id="ab-h" class="disp" style="margin: 0; font-size: clamp(56px, 10.5vw, 168px); line-height: 0.95; letter-spacing: 0.005em"><span class="mask"><span class="rise" style="animation-delay: 0.2s">Behind</span></span><span class="mask"><span class="rise" style="animation-delay: 0.35s">the <span style="color: var(--acc)">lens</span></span></span></h1>
+<div class="fadeup" style="margin-top: 44px; max-width: 460px; animation-delay: 0.9s">
+<p style="margin: 0 0 26px; font-size: 20px; line-height: 1.7; color: var(--body)">Keji Visuals is a photography and film studio in Lagos, founded by Ayomideji Morenikeji Omolegan. Most people call him Keji.</p>
+<p class="disp" style="margin: 0; font-size: 22px; letter-spacing: 0.08em; padding-top: 18px; border-top: 1px solid var(--acc)">Ayomideji “Keji” Omolegan</p>
+</div>
+</div>
+<figure style="flex: 0 1 470px; min-width: 0; margin: 0">
+<img class="wipe" src="/_blob/9ea86ba9272410aaaa6352222b27e16b" alt="Keji seated on a white wooden stool in front of a warm, hand-painted studio backdrop, in a white T-shirt, pinstripe trousers and a red patterned scarf" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px; animation-delay: 0.15s">
+<figcaption class="cap" style="margin-top: 12px; color: var(--muted)">No. 001 · Keji, in the studio</figcaption>
+</figure>
+</div>
+</section>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-start">
+
+<aside aria-label="On this page" style="flex: 1 1 240px; max-width: 280px; position: sticky; top: 32px">
+<img src="/_blob/8b25c726067cf445582fd4ca89e4fa8a" alt="" style="display: block; width: 112px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px; margin-bottom: 18px">
+<p class="cap" style="margin: 0 0 10px; color: var(--muted)">The reel</p>
+<nav class="idx">
+<sc-for list="{{chapters}}" as="c" hint-placeholder-count="7">
+<a href="#{{c.id}}" style="{{c.style}}"><span class="cap frame-no">{{c.no}}</span><span style="font-size: 15px">{{c.title}}</span></a>
+</sc-for>
+</nav>
+</aside>
+
+<div style="flex: 999 1 560px; min-width: 0">
+
+<section id="moment" class="chap" aria-labelledby="c1">
+<div class="chap-h"><span class="cap frame-no">Frame 01</span><h2 id="c1" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">The moment</h2></div>
+<div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end">
+<div style="flex: 1 1 420px; min-width: 0">
+<blockquote class="disp" style="margin: 0 0 36px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.25">There’s a moment right before the vows are said, the toast is raised, the deal is sealed — <span style="color: var(--acc)">and then it’s gone.</span> Unless someone is there to hold onto it.</blockquote>
+<p class="body" style="margin-bottom: 0">That is the work. We follow the big scenes, and we notice the small ones too: a gele being tied, a father’s handshake, a hand held a little tighter.</p>
+</div>
+<figure style="flex: 0 1 300px; min-width: 0; margin: 0">
+<img src="/_blob/f045ce23e822b443219ec410428e1eb0" alt="Black-and-white close-up of Keji in glasses, half his face in shadow, looking towards the camera" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px">
+<figcaption class="cap" style="margin-top: 10px; color: var(--muted)">No. 002 · Light and shadow</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="shoot" class="chap" aria-labelledby="c2">
+<div class="chap-h"><span class="cap frame-no">Frame 02</span><h2 id="c2" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">What we shoot</h2></div>
+<p class="body">Weddings are at the heart of what we do: traditional engagements, white weddings and the pre-wedding shoots that come before them. We also photograph portraits and events, and make brand films, documentaries and films for corporate milestones.</p>
+<div style="margin-top: 36px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 12px">
+<span class="cap" style="color: var(--muted)">Reel 01 / 03 · From the last season</span>
+<span class="cap" style="color: var(--muted)">Scroll sideways →</span>
+</div>
+<div class="strip" tabindex="0" role="region" aria-label="Film strip of recent work, scrolls sideways">
+<div class="reel">
+<sc-for list="{{reel}}" as="r" hint-placeholder-count="6">
+<figure class="cell">
+<div class="ph" style="{{r.box}}"><span class="cap" style="{{r.lc}}">{{r.label}}</span></div>
+<figcaption class="cap" style="margin-top: 10px; color: #CFCBBB">{{r.cap}}</figcaption>
+</figure>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section id="see" class="chap" aria-labelledby="c3">
+<div class="chap-h"><span class="cap frame-no">Frame 03</span><h2 id="c3" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">How we see</h2></div>
+<div style="display: flex; flex-wrap: wrap-reverse; gap: 48px; align-items: center">
+<figure style="flex: 0 1 340px; min-width: 0; margin: 0">
+<img src="/_blob/c123b1f477ac2ac4711dddf5c6521572" alt="Keji resting his head on his hand, eyes closed, smiling softly against a warm studio backdrop" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px">
+<figcaption class="cap" style="margin-top: 10px; color: var(--muted)">No. 003 · Unposed</figcaption>
+</figure>
+<div style="flex: 1 1 360px; min-width: 0">
+<p class="disp" style="margin: 0 0 28px; font-size: clamp(28px, 3vw, 42px); line-height: 1.25">We’d rather catch you being yourselves <span style="color: var(--acc)">than hold you in a pose.</span></p>
+<p class="body" style="margin-bottom: 0">Every frame should earn its place, and we edit for how your pictures will feel in twenty years, not only next week.</p>
+</div>
+</div>
+<dl style="margin: 40px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 40px">
+<sc-for list="{{values}}" as="v" hint-placeholder-count="4">
+<div style="display: flex; gap: 16px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--rule)">
+<dt class="disp" style="font-size: 20px; min-width: 128px">{{v.name}}</dt>
+<dd style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--body)">{{v.line}}</dd>
+</div>
+</sc-for>
+</dl>
+</section>
+
+<section id="after" class="chap" aria-labelledby="c4">
+<div class="chap-h"><span class="cap frame-no">Frame 04</span><h2 id="c4" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">Before and after the day</h2></div>
+<p class="body">The relationship matters as much as the pictures. We get to know you before the day so you feel comfortable in front of the camera, and we keep you posted afterwards.</p>
+<ol class="tl" style="margin-top: 44px">
+<sc-for list="{{timeline}}" as="t" hint-placeholder-count="5">
+<li class="{{t.cls}}">
+<p class="cap" style="margin: 0 0 10px; color: var(--muted)">{{t.when}}</p>
+<p class="disp" style="margin: 0 0 8px; font-size: 26px; line-height: 1.1">{{t.big}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--body)">{{t.line}}</p>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<section id="where" class="chap" aria-labelledby="c5">
+<div class="chap-h"><span class="cap frame-no">Frame 05</span><h2 id="c5" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">Wherever love is</h2></div>
+<p class="disp" style="margin: 0 0 24px; font-size: clamp(40px, 5vw, 72px); line-height: 1.05">Wherever love is, <span style="color: var(--acc)">that’s where you’ll find us.</span></p>
+<p class="body">We’re based in Lagos and travel across Nigeria and beyond.</p>
+<div style="display: flex; gap: 16px; margin-top: 36px">
+<figure style="flex: 1 1 0; min-width: 0; margin: 0">
+<img src="/_blob/cf56ad7bb6f3f294f9379802be21d051" alt="Black-and-white photo of Keji from behind, looking over his shoulder" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px">
+<figcaption class="cap" style="margin-top: 10px; color: var(--muted)">No. 004 · Looking ahead</figcaption>
+</figure>
+<figure style="flex: 1 1 0; min-width: 0; margin: 0 0 0; padding-top: 64px">
+<img src="/_blob/f60e67db4f24b8832d370343bb2f2475" alt="Keji from behind in a white T-shirt with a red scarf tied at his neck, against a warm backdrop" loading="lazy" style="display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px">
+<figcaption class="cap" style="margin-top: 10px; color: var(--muted)">No. 005 · On to the next one</figcaption>
+</figure>
+</div>
+<p class="cap" style="margin: 28px 0 0; line-height: 2.2; color: var(--muted)">Lagos · [Ibadan] · [Abeokuta] · [Abuja] · [Port Harcourt] · [London] — [places Keji has shot]</p>
+</section>
+
+<section id="first" class="chap" aria-labelledby="c6">
+<div class="chap-h"><span class="cap frame-no">Frame 06</span><h2 id="c6" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">The first camera</h2></div>
+<div class="slot">
+<p class="cap" style="margin: 0 0 12px; color: var(--acc-sm); font-weight: 600">From Keji’s interview</p>
+<p class="disp" style="margin: 0 0 14px; font-size: 26px; line-height: 1.3">[How it started, in his words — the first camera, the first photos he was proud of, who believed in him.]</p>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Pair with one early photo of his: the “where it began” frame.</p>
+</div>
+</section>
+
+<section id="why" class="chap" aria-labelledby="c7">
+<div class="chap-h"><span class="cap frame-no">Frame 07</span><h2 id="c7" class="cap" style="margin: 0; font-weight: 600; color: var(--muted)">Why weddings</h2></div>
+<div class="slot">
+<p class="cap" style="margin: 0 0 12px; color: var(--acc-sm); font-weight: 600">From Keji’s interview</p>
+<p class="disp" style="margin: 0 0 14px; font-size: 26px; line-height: 1.3">[What a celebration means to him — the wedding he’ll never forget, and why he still loves the work.]</p>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Followed by Reel 02 / 03: behind the scenes — Keji at work on a wedding day.</p>
+</div>
+</section>
+
+</div>
+</div>
+
+<section aria-labelledby="cta-h" style="border-top: 1px solid var(--rule); background: var(--alt)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 112px 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
+<img src="/_blob/9aa83880d81e948fe2c441836685ba1a" alt="Keji seated on a stool, chin resting on his hand, in the warm-toned studio" loading="lazy" style="display: block; flex: 0 1 240px; min-width: 0; width: 240px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px">
+<div style="flex: 1 1 420px; min-width: 0">
+<p class="cap" style="margin: 0 0 20px; color: var(--muted)">End of reel</p>
+<h2 id="cta-h" class="disp" style="margin: 0; font-size: clamp(40px, 5vw, 76px); line-height: 1.05">Let’s tell <span style="color: var(--acc)">your story</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="Packages.dc.html" class="btn btn-solid">Check your date</a>
+<a href="Story.dc.html" class="btn btn-line">View the work</a>
+<a href="https://wa.me/2349034917020" class="btn btn-line">WhatsApp</a>
+</div>
+</div>
+</section>
+
+<footer style="background: #16140F; color: #BDB9A8">
+<div style="max-width: 1360px; margin: 0 auto; padding: 32px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px">
+<span class="cap">© 2026 Keji Visuals · Timeless. Genuine. Beautiful.</span>
+<span class="cap" style="display: flex; gap: 24px; flex-wrap: wrap"><a href="https://www.instagram.com/kejivisuals_weddings/" style="color: #BDB9A8">Instagram</a><a href="#ab-h" style="color: #BDB9A8">Privacy</a><a href="#ab-h" style="color: #BDB9A8">Booking terms</a></span>
+</div>
+</footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["cream","darkroom"],"default":"cream"},"$preview":{"width":1440,"height":5900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var dark = (this.props.theme ?? 'cream') === 'darkroom';
+    var v = dark
+      ? { bg: '#14120E', alt: '#1C1A15', ink: '#EFEDE0', body: '#D9D6C6', muted: '#A9A69A', acc: '#C9C08A', accSm: '#C9C08A', rule: 'rgba(239,237,224,0.14)', ruleStrong: 'rgba(239,237,224,0.32)' }
+      : { bg: '#EFEDE0', alt: '#F7F5EE', ink: '#16140F', body: '#3A372F', muted: '#57534A', acc: '#A9A06B', accSm: '#6B6436', rule: 'rgba(22,20,15,0.14)', ruleStrong: 'rgba(22,20,15,0.32)' };
+    var rootVars = '--bg: ' + v.bg + '; --alt: ' + v.alt + '; --ink: ' + v.ink + '; --body: ' + v.body + '; --muted: ' + v.muted + '; --acc: ' + v.acc + '; --acc-sm: ' + v.accSm + '; --rule: ' + v.rule + '; --rule-strong: ' + v.ruleStrong;
+    var W = '#FFFFFF', K = '#16140F';
+    var reel = [
+      ['#7E5BA0', W, 'Couple in lilac aso-oke', 'No. 014 · Traditional engagement'],
+      ['#6E8A2A', W, 'Bride, green gele', 'No. 015 · Bridal portrait'],
+      ['#DCD6CC', K, 'Bride, white veil', 'No. 032 · White wedding'],
+      ['#B8743A', K, 'Couple, golden hour', 'No. 031 · Pre-wedding'],
+      ['#4B2E5A', W, 'Groom, purple agbada', 'No. 021 · Portraits'],
+      ['#2F5F5E', W, 'Film still', 'No. 040 · Brand film'],
+      ['#A23B72', W, 'Dance floor', 'No. 044 · Events']
+    ].map(function (r) { return { box: 'height: 275px; background: ' + r[0], lc: 'color: ' + r[1], label: 'Placeholder · ' + r[2], cap: r[3] }; });
+    var chapters = [
+      ['moment', '01', 'The moment', false], ['shoot', '02', 'What we shoot', false], ['see', '03', 'How we see', false],
+      ['after', '04', 'Before and after the day', false], ['where', '05', 'Wherever love is', false],
+      ['first', '06', 'The first camera', true], ['why', '07', 'Why weddings', true]
+    ].map(function (c) { return { id: c[0], no: c[1], title: c[2], style: c[3] ? 'color: ' + v.muted : '' }; });
+    return {
+      rootVars: rootVars, reel: reel, chapters: chapters,
+      values: [
+        { name: 'Authentic', line: 'Real moments over forced poses.' },
+        { name: 'Timeless', line: 'Images you’ll still love years from now.' },
+        { name: 'Intentional', line: 'Every frame has a purpose.' },
+        { name: 'Personal', line: 'Your story. Your personality. Your way.' }
+      ],
+      timeline: [
+        { when: 'Before', big: 'We meet', line: 'A call to get to know you, and a plan for the day.', cls: '' },
+        { when: 'The day', big: 'We’re there', line: 'Beside you from getting ready to the last dance.', cls: 'on' },
+        { when: 'Within 72 hours', big: 'First look', line: 'A first set of photos to share straight away.', cls: '' },
+        { when: '2–4 weeks', big: 'Full gallery', line: 'Every edited photo, in a private online gallery.', cls: '' },
+        { when: 'Soon after', big: 'Photobook', line: 'Your photobook and frames, to keep for good.', cls: '' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

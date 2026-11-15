@@ -8,6 +8,7 @@ Exported from the Claude Design canvas "Keji Visuals — Pitch Mockup" (23 Oct 2
 | `Story.dc.html` | Wedding story (desktop) — chapters, justified rows, full-screen viewer |
 | `Packages.dc.html` | Packages & rates — category tabs, ₦/£ toggle, add-ons, FAQ, enquiry form |
 | `Mobile.dc.html` | Three phone screens — home (with hero motion), story, viewer |
+| `About.dc.html` | About — chapters ("frames"), sticky index, film-strip reel, timeline (added 15 Nov 2026; Keji photos from his studio shoot) |
 | `canvas.json` | Canvas layout (ignore) |
 
 ## Reading the format

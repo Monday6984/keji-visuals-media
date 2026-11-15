@@ -342,14 +342,6 @@ const TESTIMONIALS: { names: string; story: string; quote: string }[] = [
 const ABOUT_INTRO =
   'Keji Visuals is a wedding photography and film studio in Lagos, led by Ayomideji “Keji” Omolegan. We document traditional and white weddings, pre-wedding shoots, portraits and events, and we stay with each couple from the first call to the day the photobook arrives.'
 
-const ABOUT_BIO = [
-  'Keji Visuals is a photography and film studio based in Lagos, founded by Ayomideji Morenikeji Omolegan. Most people call him Keji.',
-  'There’s a moment right before the vows are said, the toast is raised, the deal is sealed, and then it’s gone. Unless someone is there to hold onto it. That is the work: we follow the big scenes and we notice the small ones too, like a gele being tied, a father’s handshake, a hand held a little tighter.',
-  'Weddings are at the heart of what we do: traditional engagements, white weddings and the pre-wedding shoots that come before them. We also photograph portraits and events, and make brand films, documentaries and films for corporate milestones.',
-  'We would rather catch you being yourselves than hold you in a pose. Every frame should earn its place, and we edit for how your pictures will feel in twenty years, not only next week.',
-  'The relationship matters as much as the pictures. We get to know you before the day so you feel comfortable in front of the camera, and we keep you posted afterwards: first-look photos within 72 hours, your full gallery in two to four weeks, and your photobook and frames soon after.',
-  'We’re based in Lagos and travel across Nigeria and beyond. Wherever love is, that’s where you’ll find us.',
-]
 
 const paragraph = (text: string) => ({
   type: 'paragraph',
@@ -534,24 +526,49 @@ async function main() {
   }
   console.log(`faqs: ${FAQS.length}, testimonials: ${TESTIMONIALS.length} (published; drafts awaiting couples' approval)`)
 
-  // Keji's portrait: an Instagram graphic with its "OPEN! A note from…" text painted out
-  // (images/keji-portrait.jpg, gitignored). Temporary until he sends a proper portrait.
-  const PORTRAIT_FILE = path.resolve(process.cwd(), 'images', 'keji-portrait.jpg')
-  let portraitId: number | undefined
-  if (fs.existsSync(PORTRAIT_FILE)) {
-    const existing = (await payload.find({ collection: 'media', where: { filename: { equals: 'keji-portrait.jpg' } }, limit: 1 })).docs[0]
-    portraitId =
-      existing?.id ??
-      (
-        await payload.create({
-          collection: 'media',
-          data: { alt: 'Keji in a black T-shirt, holding a camera up towards the lens', caption: 'Behind the lens' },
-          filePath: PORTRAIT_FILE,
-        })
-      ).id
-    console.log('portrait: set')
-  } else {
-    console.log('portrait: images/keji-portrait.jpg not found, About stays without a photo')
+  // About page photos (docs/mockup/About.dc.html), prepared in images/ (gitignored):
+  // about-0N.jpg are Keji's studio shoot (Instagram exports); keji-black-shirt-N.jpg are
+  // full-size originals, rotated and resized to 3600 px.
+  const imageMedia = async (file: string, alt: string, caption?: string) => {
+    const filePath = path.resolve(process.cwd(), 'images', file)
+    const existing = (await payload.find({ collection: 'media', where: { filename: { equals: file } }, limit: 1 })).docs[0]
+    if (existing) return (await payload.update({ collection: 'media', id: existing.id, data: { alt, caption } })).id
+    if (!fs.existsSync(filePath)) throw new Error(`missing images/${file}`)
+    return (await payload.create({ collection: 'media', data: { alt, caption }, filePath })).id
+  }
+  const byFilename = async (file: string) =>
+    (await payload.find({ collection: 'media', where: { filename: { equals: file } }, limit: 1 })).docs[0]?.id
+
+  const ABOUT_PHOTOS = {
+    closeUp: await imageMedia('about-01.jpg', 'Black-and-white close-up of Keji in glasses, half his face in shadow, looking towards the camera'),
+    lookingBack: await imageMedia('about-02.jpg', 'Black-and-white photo of Keji from behind, looking over his shoulder'),
+    seated: await imageMedia('about-03.jpg', 'Keji seated on a chair, one hand raised to his face, in the warm-toned studio'),
+    stool: await imageMedia(
+      'about-04.jpg',
+      'Keji seated on a white wooden stool in front of a warm, hand-painted studio backdrop, in a white T-shirt, pinstripe trousers and a red patterned scarf',
+    ),
+    headOnHand: await imageMedia('about-05.jpg', 'Keji resting his head on his hand, in glasses and a red scarf, against a warm studio backdrop'),
+    scarf: await imageMedia('about-06.jpg', 'Keji from behind in a white T-shirt with a red scarf tied at his neck, against a warm backdrop'),
+    armsFolded: await imageMedia('keji-black-shirt-1.jpg', 'Keji in glasses and a black striped shirt, arms folded, looking to the side against a grey backdrop'),
+    smiling: await imageMedia('keji-black-shirt-2.jpg', 'Keji in a black striped shirt, arms folded, smiling at the camera against a grey backdrop', 'Behind the lens'),
+    handAtChin: await imageMedia('keji-black-shirt-3.jpg', 'Keji in a black striped shirt, one hand at his chin, against a grey backdrop'),
+  }
+  console.log('about photos: 9')
+
+  // Reel 01: real work from the stories imported above.
+  const REEL_FRAMES: [file: string, caption: string][] = [
+    ['IMG_1220-Edit.jpg', 'Kiki & Seye · Traditional wedding'],
+    ['kejivisuals_weddings_Db8-HzoAoOd_01.jpg', 'Temi & David · The bride'],
+    ['C09A3727-Edit.jpg', 'Dolapo & Femi · Pre-wedding'],
+    ['IMG_5923-Edit.jpg', 'David & Tope · Traditional look'],
+    ['IMG_6343-Edit.jpg', 'Kiki & Seye · Save the date'],
+    ['kejivisuals_weddings_Db8-rJnAlWx_02.jpg', 'Temi & David · The groom'],
+    ['kejivisuals_weddings_DPOJVhvAh6W_04.jpg', 'Chioma Afogu · Portrait session'],
+  ]
+  const reelFrames: { image: number; caption: string }[] = []
+  for (const [file, caption] of REEL_FRAMES) {
+    const id = await byFilename(file)
+    if (id) reelFrames.push({ image: id, caption })
   }
 
   // Films. Posters are full-size stills from Vimeo, saved in images/ (gitignored).
@@ -616,12 +633,131 @@ async function main() {
   await payload.updateGlobal({
     slug: 'about',
     data: {
-      headline: 'Behind the lens',
+      hero: {
+        kicker: 'About · Photographer & filmmaker · Lagos',
+        lines: [{ text: 'Behind' }, { text: 'the lens', olive: 'lens' }],
+        intro:
+          'Keji Visuals is a photography and film studio in Lagos, founded by Ayomideji Morenikeji Omolegan. Most people call him Keji.',
+        signature: 'Ayomideji “Keji” Omolegan',
+        image: ABOUT_PHOTOS.stool,
+        caption: 'Keji, in the studio',
+        indexThumbnail: ABOUT_PHOTOS.handAtChin,
+        shareImage: ABOUT_PHOTOS.armsFolded,
+      },
+      chapters: [
+        {
+          frameNumber: '01',
+          title: 'The moment',
+          slug: '',
+          published: true,
+          pullQuote: {
+            text: 'There’s a moment right before the vows are said, the toast is raised, the deal is sealed, and then it’s gone. Unless someone is there to hold onto it.',
+            olive: 'and then it’s gone.',
+            size: 'normal',
+          },
+          body: richText([
+            'That is the work. We follow the big scenes, and we notice the small ones too: a gele being tied, a father’s handshake, a hand held a little tighter.',
+          ]),
+          layout: 'image-right',
+          image: ABOUT_PHOTOS.closeUp,
+          caption: 'Light and shadow',
+        },
+        {
+          frameNumber: '02',
+          title: 'What we shoot',
+          slug: '',
+          published: true,
+          body: richText([
+            'Weddings are at the heart of what we do: traditional engagements, white weddings and the pre-wedding shoots that come before them. We also photograph portraits and events, and make brand films, documentaries and films for corporate milestones.',
+          ]),
+          layout: 'text',
+        },
+        {
+          frameNumber: '03',
+          title: 'How we see',
+          slug: '',
+          published: true,
+          pullQuote: { text: 'We’d rather catch you being yourselves than hold you in a pose.', olive: 'than hold you in a pose.', size: 'normal' },
+          body: richText(['Every frame should earn its place, and we edit for how your pictures will feel in twenty years, not only next week.']),
+          layout: 'image-left',
+          image: ABOUT_PHOTOS.headOnHand,
+          caption: 'Unposed',
+          extra: 'values',
+        },
+        {
+          frameNumber: '04',
+          title: 'Before and after the day',
+          slug: '',
+          published: true,
+          body: richText([
+            'The relationship matters as much as the pictures. We get to know you before the day so you feel comfortable in front of the camera, and we keep you posted afterwards.',
+          ]),
+          layout: 'text',
+          extra: 'timeline',
+        },
+        {
+          frameNumber: '05',
+          title: 'Wherever love is',
+          slug: '',
+          published: true,
+          pullQuote: { text: 'Wherever love is, that’s where you’ll find us.', olive: 'that’s where you’ll find us.', size: 'large' },
+          body: richText(['We’re based in Lagos and travel across Nigeria and beyond.']),
+          layout: 'diptych',
+          image: ABOUT_PHOTOS.lookingBack,
+          caption: 'Looking ahead',
+          image2: ABOUT_PHOTOS.scarf,
+          caption2: 'On to the next one',
+          extra: 'places',
+        },
+        // Drafts waiting for Keji's interview answers: never rendered while unpublished.
+        {
+          frameNumber: '06',
+          title: 'The first camera',
+          slug: '',
+          published: false,
+          body: richText([
+            '[How it started, in his words: the first camera, the first photos he was proud of, who believed in him. Pair with one early photo of his.]',
+          ]),
+          layout: 'text',
+        },
+        {
+          frameNumber: '07',
+          title: 'Why weddings',
+          slug: '',
+          published: false,
+          body: richText([
+            '[What a celebration means to him: the wedding he’ll never forget, and why he still loves the work. Followed by a behind-the-scenes reel of Keji at work on a wedding day.]',
+          ]),
+          layout: 'text',
+        },
+      ],
+      reels: reelFrames.length ? [{ label: 'Reel 01 · From the last season', afterFrame: '02', frames: reelFrames }] : [],
+      timeline: [
+        { when: 'Before', title: 'We meet', line: 'A call to get to know you, and a plan for the day.' },
+        { when: 'The day', title: 'We’re there', line: 'Beside you from getting ready to the last dance.', highlight: true },
+        { when: 'Within 72 hours', title: 'First look', line: 'A first set of photos to share straight away.' },
+        { when: '2–4 weeks', title: 'Full gallery', line: 'Every edited photo, in a private online gallery.' },
+        { when: 'Soon after', title: 'Photobook', line: 'Your photobook and frames, to keep for good.' },
+      ],
+      // Only Lagos is confirmed; the line stays hidden until there are two or more places.
+      places: [{ name: 'Lagos' }],
+      closing: {
+        kicker: 'End of reel',
+        heading: 'Let’s tell your story',
+        olive: 'your story',
+        image: ABOUT_PHOTOS.seated,
+        buttons: [
+          { label: 'Check your date', link: 'book', style: 'solid' },
+          { label: 'View the work', link: 'portfolio', style: 'line' },
+          { label: 'WhatsApp', link: 'whatsapp', style: 'line' },
+        ],
+      },
       intro: ABOUT_INTRO,
-      bio: richText(ABOUT_BIO) as never,
-      portrait: portraitId ?? null,
+      portrait: ABOUT_PHOTOS.smiling,
     },
   })
+  // The earlier stand-in portrait (Instagram graphic with its text painted out) is no longer used.
+  await payload.delete({ collection: 'media', where: { filename: { equals: 'keji-portrait.jpg' } } })
   console.log('site settings + about updated')
 
   const site = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'

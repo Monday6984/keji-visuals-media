@@ -273,7 +273,6 @@ async function main() {
     data: {
       portrait: media['Dd8yj7xgg61_01'],
       intro: `${TAG} Placeholder intro until Keji supplies his "Behind the lens" copy.`,
-      bio: richText(`${TAG} Placeholder bio.`),
     },
   })
 
