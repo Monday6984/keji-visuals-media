@@ -1,14 +1,13 @@
 import Link from 'next/link'
 
 import { BusinessJsonLd } from '@/components/BusinessJsonLd'
-import { HeroSlideshow, type HeroPair } from '@/components/home/HeroSlideshow'
+import { Landing } from '@/components/home/Landing'
 import { TestimonialSlider } from '@/components/home/TestimonialSlider'
 import { Photo } from '@/components/Photo'
-import { categoryHref } from '@/components/portfolio/categoryHref'
-import { getAbout, getCategories, getFilmCount, getSiteSettings, getStories, getTestimonials } from '@/lib/data'
+import { getAbout, getHome, getSiteSettings, getStories, getTestimonials } from '@/lib/data'
 import { monthYear } from '@/lib/format'
 import { displayPrice } from '@/lib/price'
-import { BOOK_HREF, FILMS_CATEGORY_SLUG, formatIntlNumber, telHref, whatsappHref } from '@/lib/site'
+import { BOOK_HREF, formatIntlNumber, telHref, whatsappHref } from '@/lib/site'
 import type { Category, Media, Package, Testimonial } from '@/payload-types'
 
 const isMedia = (m: unknown): m is Media => Boolean(m && typeof m === 'object' && 'id' in m)
@@ -31,18 +30,14 @@ const DEFAULT_VALUES = [
 ]
 
 export default async function HomePage() {
-  const [settings, about, categories, stories, filmCount, testimonials] = await Promise.all([
+  const [settings, home, about, stories, testimonials] = await Promise.all([
     getSiteSettings(),
+    getHome(),
     getAbout(),
-    getCategories(),
     getStories(),
-    getFilmCount(),
     getTestimonials(),
   ])
 
-  const pairs: HeroPair[] = (settings.heroSlides ?? []).flatMap((s) =>
-    isMedia(s.left) && isMedia(s.right) ? [{ left: s.left, right: s.right }] : [],
-  )
   const featured = stories.filter((s) => s.featured).slice(0, 3)
   const homePackages = (settings.homePackages ?? []).map((p) => asObject<Package>(p)).filter((p): p is Package => Boolean(p))
   // The testimonial chosen in Site Settings leads; the rest follow in their own order.
@@ -53,13 +48,6 @@ export default async function HomePage() {
   const portrait = isMedia(about.portrait) ? about.portrait : null
   const values = about.values?.length ? about.values : DEFAULT_VALUES
   const wa = whatsappHref(settings.whatsapp)
-
-  const countLabel = (c: Category) => {
-    if (c.slug === FILMS_CATEGORY_SLUG) return `${filmCount} ${filmCount === 1 ? 'film' : 'films'}`
-    const n = stories.filter((s) => (typeof s.category === 'object' ? s.category?.id : s.category) === c.id).length
-    const unit = c.slug === 'portraits' ? (n === 1 ? 'session' : 'sessions') : n === 1 ? 'story' : 'stories'
-    return `${n} ${unit}`
-  }
 
   const steps = [
     { name: 'Enquire', line: 'Tell us your date, location and the kind of day you’re planning.' },
@@ -81,85 +69,10 @@ export default async function HomePage() {
   return (
     <>
       <BusinessJsonLd settings={settings} />
-      {/* Hero */}
-      <section className="mx-auto flex max-w-[1360px] flex-wrap items-end gap-12 px-4 pt-10 pb-10 sm:px-6 lg:px-10 lg:pt-16">
-        <div className="min-w-0 flex-[1_1_380px] lg:pb-8">
-          <p className="cap kv-fadeup m-0 mb-7 font-semibold text-muted" style={{ animationDelay: '0.1s' }}>
-            Wedding photography &amp; film{settings.city ? ` · ${settings.city}` : ''}
-          </p>
-          <h1 className="m-0 font-display text-[clamp(36px,4.8vw,70px)] leading-[1.02] font-medium tracking-[0.01em] text-ink">
-            <span className="kv-mask">
-              <span className="kv-rise" style={{ animationDelay: '0.25s' }}>
-                Your moment.
-              </span>
-            </span>
-            <span className="kv-mask">
-              <span className="kv-rise text-olive-display" style={{ animationDelay: '0.45s' }}>
-                Your story.
-              </span>
-            </span>
-          </h1>
-          <p className="kv-fadeup m-0 mt-8 max-w-[440px] text-lg leading-[1.7]" style={{ animationDelay: '0.8s' }}>
-            Timeless. Genuine. Beautiful. Weddings, pre-weddings, events and portraits — documented from beginning to end,
-            and the small moments in between.
-          </p>
-          <div className="kv-fadeup mt-10 flex flex-wrap gap-3.5" style={{ animationDelay: '0.95s' }}>
-            <Link href={BOOK_HREF} className="btn btn-ink">
-              Check your date
-            </Link>
-            <Link href="/portfolio" className="btn btn-line">
-              View the work
-            </Link>
-          </div>
-        </div>
-        {pairs.length > 0 && <HeroSlideshow pairs={pairs} />}
-      </section>
-
-      {/* Marquee (desktop only, decorative) */}
-      <div className="mx-auto hidden max-w-[1360px] px-10 md:block" aria-hidden="true">
-        <div className="overflow-hidden border-y border-olive py-3.5 whitespace-nowrap">
-          {[0, 1].map((k) => (
-            <div key={k} className="kv-marquee-track">
-              {[...categories.map((c) => c.name), 'Timeless', 'Genuine', 'Beautiful'].map((word) => (
-                <span key={word} className="flex gap-12 font-display text-lg tracking-[0.2em] text-olive-deep">
-                  {word} <span>·</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Category index */}
-      <section aria-labelledby="work-h" className="mx-auto max-w-[1360px] px-4 pt-20 pb-16 sm:px-6 lg:px-10 lg:pt-28 lg:pb-20">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <h2 id="work-h" className="m-0 font-display text-[clamp(28px,3vw,42px)] leading-[1.05] font-medium text-ink">
-            More than
-            <br />
-            <span className="text-olive-display">a photograph</span>
-          </h2>
-          <p className="m-0 max-w-[380px] leading-[1.7]">
-            Explore by occasion. Every story is shown the way it happened — not just the highlights.
-          </p>
-        </div>
-        <ul className="m-0 list-none border-t border-ink/18 p-0">
-          {categories.map((c, i) => (
-            <li key={c.id} className="border-b border-ink/18">
-              <Link href={categoryHref(c)} className="group flex flex-wrap items-center gap-x-6 gap-y-2 py-6.5 text-ink no-underline">
-                <span className="cap w-10 font-semibold text-olive-deep">{String(i + 1).padStart(2, '0')}</span>
-                <span className="flex-[1_1_280px] font-display text-[clamp(24px,2.6vw,38px)] leading-[1.1] group-hover:text-olive-deep">
-                  {c.name}
-                </span>
-                {c.line && <span className="flex-[1_1_300px] text-[15px] leading-relaxed text-body">{c.line}</span>}
-                <span className="cap w-28 text-right text-muted">{countLabel(c)}</span>
-                <span aria-hidden="true" className="hidden size-12 items-center justify-center rounded-full border border-ink text-lg sm:flex">
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <h1 className="sr-only">Keji Visuals — wedding photography and film</h1>
+      <Landing landing={home.landing} settings={settings} />
+      {/* Target of the landing's "Scroll" link, clear of the sticky header. */}
+      <div id="continue" className="scroll-mt-24" />
 
       {/* Selected stories */}
       {featured.length > 0 && (

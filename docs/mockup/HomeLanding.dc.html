@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Keji Visuals — Home landing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#0E0D0A}
+a{color:inherit}
+.cap{font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.disp{font-family:Cinzel,serif;font-weight:400}
+.bd{position:absolute;inset:0;transition:opacity 1.1s ease,transform 7s ease-out}
+.bd img{width:100%;height:100%;object-fit:cover;display:block}
+.item{display:flex;align-items:baseline;gap:18px;text-decoration:none;color:#EFEDE0;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.1,1);padding:2px 0}
+.item:focus-visible{outline:2px solid #C9C08A;outline-offset:6px}
+.name{position:relative;font-family:Cinzel,serif;font-weight:400;font-size:clamp(40px,6vw,88px);line-height:1.08;letter-spacing:.01em}
+.name::after{content:"";position:absolute;left:0;bottom:.06em;height:1px;width:100%;background:#EFEDE0;transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.7,.1,1)}
+.item.on .name::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;font-family:Montserrat,sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:999px}
+.rise{animation:kv-rise 1s cubic-bezier(.2,.7,.1,1) both}
+.intro{position:absolute;inset:0;z-index:20;background:#0E0D0A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#EFEDE0;transition:opacity .8s ease,visibility .8s}
+.cue{animation:kv-bob 2.4s ease-in-out infinite}
+@keyframes kv-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes kv-fade{from{opacity:0}to{opacity:1}}
+@keyframes kv-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion: reduce){.bd,.item,.name::after{transition:none!important}.rise,.cue{animation:none!important}.intro{display:none!important}}
+</style>
+</helmet>
+<div style="font-family: Montserrat, sans-serif; background: #EFEDE0; color: #16140F; min-height: 100%">
+
+<section aria-label="Keji Visuals — explore the work" style="position: relative; height: 900px; overflow: hidden; background: #0E0D0A; color: #EFEDE0">
+
+<sc-for list="{{slides}}" as="s" hint-placeholder-count="5">
+<div class="bd" aria-hidden="{{s.hidden}}" style="{{s.style}}">
+<img src="{{s.src}}" alt="{{s.alt}}">
+<sc-if value="{{s.film}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 11%; background: #000"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 11%; background: #000"></div>
+<span class="cap" style="position: absolute; right: 40px; top: 13%; color: #EFEDE0; display: flex; align-items: center; gap: 10px"><span style="width: 8px; height: 8px; border-radius: 9px; background: #D9534F"></span>Film · 00:00:12:04</span>
+</sc-if>
+</div>
+</sc-for>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,13,10,0.78) 0%, rgba(14,13,10,0.5) 45%, rgba(14,13,10,0.25) 100%), linear-gradient(180deg, rgba(14,13,10,0.45) 0%, rgba(14,13,10,0) 22%, rgba(14,13,10,0) 70%, rgba(14,13,10,0.6) 100%)"></div>
+
+<header style="position: absolute; left: 0; right: 0; top: 0; z-index: 5">
+<div style="max-width: 1440px; margin: 0 auto; padding: 22px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<a href="HomeLanding.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none" aria-label="Keji Visuals home">
+<svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#C9C08A" stroke-width="2.2" stroke-linejoin="round"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg>
+<span class="disp" style="font-size: 20px; letter-spacing: 0.16em; font-weight: 500">KEJI VISUALS</span>
+</a>
+<nav aria-label="Main" style="display: flex; align-items: center; gap: 28px; flex-wrap: wrap">
+<a href="About.dc.html" class="cap" style="text-decoration: none; font-weight: 600">About</a>
+<a href="Packages.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Packages</a>
+<a href="https://wa.me/2349034917020" class="btn" style="border: 1px solid rgba(239,237,224,0.6); color: #EFEDE0">WhatsApp</a>
+<a href="Packages.dc.html" class="btn" style="background: #EFEDE0; color: #16140F">Book a session</a>
+</nav>
+</div>
+</header>
+
+<div style="position: relative; z-index: 3; max-width: 1440px; margin: 0 auto; padding: 150px 40px 0 clamp(40px, 12vw, 200px)">
+<p class="cap rise" style="margin: 0 0 30px; color: #D9D6C6; animation-delay: {{d0}}">Your moment. Your story.</p>
+<nav aria-label="Explore the work">
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px">
+<sc-for list="{{slides}}" as="s" hint-placeholder-count="5">
+<li class="rise" style="{{s.indent}}">
+<a href="Story.dc.html" class="{{s.cls}}" style="{{s.itemStyle}}" onMouseEnter="{{s.pick}}" onFocus="{{s.pick}}">
+<span class="cap" style="color: #C9C08A; min-width: 22px">{{s.no}}</span>
+<span class="name">{{s.name}}</span>
+<span class="cap" style="{{s.subStyle}}">/ {{s.sub}}</span>
+</a>
+</li>
+</sc-for>
+</ul>
+</nav>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 4">
+<div style="max-width: 1440px; margin: 0 auto; padding: 0 40px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap">
+<span class="cap" style="color: #D9D6C6">Lagos · Across Nigeria &amp; beyond</span>
+<a href="#continue" class="cap" style="text-decoration: none; color: #EFEDE0; display: flex; align-items: center; gap: 10px">Scroll <span class="cue" aria-hidden="true">↓</span></a>
+<span class="cap" style="color: #D9D6C6; display: flex; gap: 22px"><a href="https://www.instagram.com/kejivisuals_weddings/" style="text-decoration: none">Instagram</a><span aria-hidden="true">·</span><span>Timeless. Genuine. Beautiful.</span></span>
+</div>
+</div>
+
+<sc-if value="{{showIntro}}" hint-placeholder-val="{{ false }}">
+<div class="intro" style="{{introStyle}}">
+<svg width="52" height="34" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#C9C08A" stroke-width="2" stroke-linejoin="round" style="animation: kv-fade 0.6s ease both"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg>
+<span class="disp" style="font-size: 26px; letter-spacing: 0.22em; font-weight: 500; animation: kv-fade 0.6s 0.15s ease both">KEJI VISUALS</span>
+<span class="cap" style="color: #BDB9A8; animation: kv-fade 0.6s 0.35s ease both">Timeless. Genuine. Beautiful.</span>
+<button type="button" onClick="{{skip}}" class="cap" style="position: absolute; right: 32px; bottom: 28px; min-height: 44px; padding: 0 16px; background: transparent; border: 0; color: #BDB9A8; cursor: pointer">Skip</button>
+</div>
+</sc-if>
+</section>
+
+<section id="continue" style="background: #EFEDE0">
+<div style="border-bottom: 1px solid rgba(22,20,15,0.12); background: #EFEDE0">
+<div style="max-width: 1360px; margin: 0 auto; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+<span class="cap" style="color: #57534A">Header after scrolling: solid cream, ink text (same as the rest of the site)</span>
+<a href="Packages.dc.html" class="btn" style="background: #16140F; color: #EFEDE0">Book a session</a>
+</div>
+</div>
+<div style="max-width: 1360px; margin: 0 auto; padding: 96px 40px 120px">
+<p class="cap" style="margin: 0 0 18px; color: #6B6436; font-weight: 600">The homepage continues</p>
+<h2 class="disp" style="margin: 0 0 28px; font-size: clamp(36px, 4vw, 56px); font-weight: 500; line-height: 1.08">Selected <span style="color: #A9A06B">stories</span></h2>
+<p style="margin: 0; max-width: 640px; font-size: 17px; line-height: 1.75; color: #3A372F">Then Behind the lens → our four values → Packages → testimonial → How booking works → Ready to tell your story. The old photo-pair hero and the “More than a photograph” category list are dropped, since this landing now does both jobs.</p>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"intro":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    this.reduce = reduce;
+    this.state = { active: 0, intro: (props.intro ?? true) && !reduce ? 'on' : 'gone' };
+  }
+  componentDidMount() {
+    var self = this;
+    if (this.state.intro === 'on') {
+      this.t1 = setTimeout(function () { self.setState({ intro: 'fading' }); }, 1500);
+      this.t2 = setTimeout(function () { self.setState({ intro: 'gone' }); }, 2300);
+    }
+  }
+  componentWillUnmount() { clearTimeout(this.t1); clearTimeout(this.t2); }
+  renderVals() {
+    var self = this, s = this.state;
+    var base = s.intro === 'gone' || s.intro === 'fading' ? 0 : 1.6;
+    var data = [
+      ['01', 'Weddings', 'Traditional & white', '/_blob/15c844a66b0e7e1143fa2557067bdb13', 'A bride in a green gele and aso-oke holding a hand fan, with her groom in a corridor', '0%', false],
+      ['02', 'Pre-Weddings', 'Natural, romantic, yours', '/_blob/81056546139e09933034d16ee596a112', 'A groom lifting his laughing bride against a bright blue studio backdrop', '9%', false],
+      ['03', 'Events', 'The energy of the day', '/_blob/82bf95cd1dbaa0f50e272f856606179d', 'A couple in purple aso-oke sharing a kiss on a wooden staircase', '3%', false],
+      ['04', 'Portraits', 'Personality & presence', '/_blob/7b2bcb7f885339385a3a6a42e5e4a780', 'A smiling couple in emerald aso-oke posing close together', '13%', false],
+      ['05', 'Films', 'Wedding & brand films', '/_blob/15c844a66b0e7e1143fa2557067bdb13', 'Film still from a traditional wedding', '6%', true]
+    ];
+    var anyOn = true;
+    var slides = data.map(function (d, k) {
+      var on = k === s.active;
+      return {
+        no: d[0], name: d[1], sub: d[2], src: d[3], alt: on ? d[4] : '', film: d[6],
+        hidden: on ? 'false' : 'true',
+        style: 'opacity: ' + (on ? 1 : 0) + '; transform: scale(' + (on ? 1 : 1.05) + ')' + (d[6] ? '; filter: saturate(0.85) contrast(1.05)' : ''),
+        indent: 'margin-left: ' + d[5] + '; animation-delay: ' + (base + 0.15 + k * 0.09) + 's',
+        cls: on ? 'item on' : 'item',
+        itemStyle: anyOn && !on ? 'opacity: 0.55' : '',
+        subStyle: 'color: #D9D6C6; white-space: nowrap; transition: opacity .5s ease; opacity: ' + (on ? 1 : 0),
+        pick: function () { if (self.state.active !== k) self.setState({ active: k }); }
+      };
+    });
+    return {
+      slides: slides,
+      d0: base + 's',
+      showIntro: s.intro !== 'gone',
+      introStyle: s.intro === 'fading' ? 'opacity: 0; visibility: hidden' : '',
+      skip: function () { self.setState({ intro: 'gone' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

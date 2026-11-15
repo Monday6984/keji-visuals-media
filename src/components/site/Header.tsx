@@ -9,7 +9,7 @@ export function Header({ whatsapp }: { whatsapp?: string | null }) {
   const wa = whatsappHref(whatsapp)
 
   return (
-    <header className="sticky top-0 z-30 border-b border-ink/12 bg-cream/95 backdrop-blur-sm">
+    <header className="kv-header sticky top-0 z-30 border-b border-ink/12 bg-cream/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-[1360px] items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-10 lg:py-4.5">
         <Link href="/" aria-label="Keji Visuals home" className="no-underline">
           <Logo />

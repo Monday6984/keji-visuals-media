@@ -224,12 +224,6 @@ const STORIES: {
   },
 ]
 
-const HERO_PAIRS: [string, string][] = [
-  ['C09A3574', 'IMG_1220'],
-  ['IMG_5446', 'IMG_6343'],
-  ['IMG_6386', 'C09A3727'],
-]
-
 const PACKAGE_SHARED = { priceDisplay: 'exact', turnaround: 'Full gallery in 2–4 weeks', visible: true }
 const PACKAGES = [
   {
@@ -369,7 +363,7 @@ async function main() {
 
   // 1. Remove the [DEV] test content. That includes the stand-in About portrait (an
   // Instagram graphic with text on it); About goes without a photo until Keji sends one.
-  await payload.updateGlobal({ slug: 'site-settings', data: { heroSlides: [], homePackages: [], homeTestimonial: null } })
+  await payload.updateGlobal({ slug: 'site-settings', data: { homePackages: [], homeTestimonial: null } })
   await payload.updateGlobal({ slug: 'about', data: { portrait: null } })
   await payload.delete({ collection: 'media', where: { alt: { like: 'Keji holding a camera' } } })
   for (const [collection, field] of [
@@ -615,7 +609,6 @@ async function main() {
       phone: '+234 915 510 8428',
       city: 'Lagos',
       serviceArea: 'Across Nigeria and overseas',
-      heroSlides: HERO_PAIRS.map(([left, right]) => ({ left: media[left], right: media[right] })),
       homePackages: packages,
       homeTestimonial: firstTestimonial,
       depositPercent: 80,
@@ -632,6 +625,34 @@ async function main() {
         'Keji Visuals is a Lagos wedding photography and film studio: traditional and white weddings, pre-wedding shoots, portraits and films, across Nigeria and overseas.',
     },
   })
+  // Homepage landing (docs/mockup/HomeLanding.dc.html): one background per category, using
+  // the landscape covers and the Adejoke & Kelvin film still. Monie swaps in final images
+  // and any videos through the admin.
+  const LANDING: [slug: string, description: string, background: string][] = [
+    ['weddings', 'Traditional & white', 'cover-temi-and-david.png'],
+    ['pre-weddings', 'Natural, romantic, yours', 'cover-dolapo-and-femi.png'],
+    ['events', 'The energy of the day', 'cover-kiki-and-seye.png'],
+    ['portraits', 'Personality & presence', 'cover-david-and-tope.png'],
+    ['films', 'Wedding & brand films', 'adejoke-kelvin-poster.jpg'],
+  ]
+  const landingItems: { category: number; description: string; background: number }[] = []
+  for (const [slug, description, file] of LANDING) {
+    const background = await byFilename(file)
+    if (background) landingItems.push({ category: await categoryId(slug), description, background })
+  }
+  await payload.updateGlobal({
+    slug: 'home',
+    data: {
+      landing: {
+        kicker: 'Your moment. Your story.',
+        items: landingItems,
+        introEnabled: true,
+        footerLeft: 'Lagos · Across Nigeria & beyond',
+      },
+    },
+  })
+  console.log(`home landing: ${landingItems.length} categories`)
+
   await payload.updateGlobal({
     slug: 'about',
     data: {

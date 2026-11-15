@@ -105,10 +105,12 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'site-settings': SiteSetting;
+    home: Home;
     about: About;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    home: HomeSelect<false> | HomeSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
@@ -928,16 +930,6 @@ export interface SiteSetting {
    * e.g. "Across Nigeria and the UK"
    */
   serviceArea?: string | null;
-  /**
-   * Pairs of photos that rotate in the homepage hero. Captions come from each photo.
-   */
-  heroSlides?:
-    | {
-        left: number | Media;
-        right: number | Media;
-        id?: string | null;
-      }[]
-    | null;
   homePackages?: (number | Package)[] | null;
   homeTestimonial?: (number | null) | Testimonial;
   depositPercent?: number | null;
@@ -971,6 +963,55 @@ export interface SiteSetting {
    * 1200×630 works best.
    */
   shareImage?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  landing?: {
+    /**
+     * Small line above the list, e.g. "Your moment. Your story."
+     */
+    kicker?: string | null;
+    /**
+     * Shown in this order. The first background loads first, so make it a strong photo.
+     */
+    items?:
+      | {
+          category: number | Category;
+          /**
+           * Leave blank to use the category name.
+           */
+          label?: string | null;
+          /**
+           * e.g. Traditional & white
+           */
+          description?: string | null;
+          /**
+           * A landscape photo; text sits over the left side.
+           */
+          background: number | Media;
+          /**
+           * A direct https link to an .mp4 or .webm file. Plays muted, on desktop only.
+           */
+          videoUrl?: string | null;
+          /**
+           * Required with a video: shown before it loads, on phones and with reduced motion.
+           */
+          poster?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+    introEnabled?: boolean | null;
+    /**
+     * Bottom-left line, e.g. "Lagos · Across Nigeria & beyond"
+     */
+    footerLeft?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1197,13 +1238,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
       };
   city?: T;
   serviceArea?: T;
-  heroSlides?:
-    | T
-    | {
-        left?: T;
-        right?: T;
-        id?: T;
-      };
   homePackages?: T;
   homeTestimonial?: T;
   depositPercent?: T;
@@ -1228,6 +1262,33 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   seoTitle?: T;
   seoDescription?: T;
   shareImage?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  landing?:
+    | T
+    | {
+        kicker?: T;
+        items?:
+          | T
+          | {
+              category?: T;
+              label?: T;
+              description?: T;
+              background?: T;
+              videoUrl?: T;
+              poster?: T;
+              id?: T;
+            };
+        introEnabled?: T;
+        footerLeft?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

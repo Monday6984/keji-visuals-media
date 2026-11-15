@@ -135,6 +135,16 @@ export const getAbout = unstable_cache(
   { tags: [globalTag('about'), collectionTag('media')] },
 )
 
+/** Home global: the landing's categories with their backgrounds and posters populated. */
+export const getHome = unstable_cache(
+  async () => {
+    const payload = await getPayloadClient()
+    return payload.findGlobal({ slug: 'home', depth: 1, overrideAccess: false })
+  },
+  ['home'],
+  { tags: [globalTag('home'), collectionTag('media'), collectionTag('categories')] },
+)
+
 export const getSiteSettings = unstable_cache(
   async () => {
     const payload = await getPayloadClient()

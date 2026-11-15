@@ -87,22 +87,6 @@ export const SiteSettings: GlobalConfig = {
           label: 'Homepage',
           fields: [
             {
-              name: 'heroSlides',
-              type: 'array',
-              maxRows: 6,
-              labels: { singular: 'Hero pair', plural: 'Hero pairs' },
-              admin: { description: 'Pairs of photos that rotate in the homepage hero. Captions come from each photo.' },
-              fields: [
-                {
-                  type: 'row',
-                  fields: [
-                    { name: 'left', type: 'upload', relationTo: 'media', required: true },
-                    { name: 'right', type: 'upload', relationTo: 'media', required: true },
-                  ],
-                },
-              ],
-            },
-            {
               name: 'homePackages',
               label: 'Packages teaser',
               type: 'relationship',

@@ -70,7 +70,7 @@ async function main() {
   const like = { like: TAG }
 
   // Clear the previous run (children first).
-  await payload.updateGlobal({ slug: 'site-settings', data: { heroSlides: [], homePackages: [], homeTestimonial: null } })
+  await payload.updateGlobal({ slug: 'site-settings', data: { homePackages: [], homeTestimonial: null } })
   for (const [collection, field] of [
     ['films', 'title'],
     ['stories', 'title'],
@@ -241,11 +241,6 @@ async function main() {
   await payload.updateGlobal({
     slug: 'site-settings',
     data: {
-      heroSlides: [
-        { left: media['Dcbq-0lAhIU_01'], right: media['Db8-HzoAoOd_01'] },
-        { left: media['DbwB-8hAsPW_01'], right: media['Dcbpfa-ghtM_01'] },
-        { left: media['DbsZ3zPgv-V_01'], right: media['DefG0IRAiC2_01'] },
-      ],
       homePackages: [packages[3].id, packages[0].id, packages[1].id],
       homeTestimonial: testimonial.id,
       depositPercent: 50,

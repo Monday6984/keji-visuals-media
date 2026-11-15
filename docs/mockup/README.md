@@ -10,6 +10,7 @@ Exported from the Claude Design canvas "Keji Visuals — Pitch Mockup" (23 Oct 2
 | `Mobile.dc.html` | Three phone screens — home (with hero motion), story, viewer |
 | `About.dc.html` | About — chapters ("frames"), sticky index, film-strip reel, timeline (added 15 Nov 2026; Keji photos from his studio shoot) |
 | `AboutHeroB.dc.html` | About hero, option B (built 15 Nov 2026): cut-out portrait on an olive glow, status pill, viewfinder corners |
+| `HomeLanding.dc.html` | Homepage full-screen landing (built 15 Nov 2026): category list over full-bleed backgrounds, once-per-session intro. The built version uses darker scrims than this file for text contrast |
 | `canvas.json` | Canvas layout (ignore) |
 
 ## Reading the format

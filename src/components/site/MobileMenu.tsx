@@ -52,7 +52,7 @@ export function MobileMenu({ whatsapp }: { whatsapp: string | null }) {
       <div
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-ink/12 bg-cream px-4 pb-6 shadow-[0_12px_24px_rgba(22,20,15,0.08)] sm:px-6"
+        className="kv-menu-panel absolute inset-x-0 top-full border-b border-ink/12 bg-cream px-4 pb-6 shadow-[0_12px_24px_rgba(22,20,15,0.08)] sm:px-6"
       >
         <nav aria-label="Main">
           <ul className="divide-y divide-ink/12">

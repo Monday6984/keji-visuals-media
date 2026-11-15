@@ -47,3 +47,13 @@ export const breathersOutsideImages = (breathers: Ref[] = [], images: Ref[] = []
   const ids = new Set(images.map(refID).map(String))
   return breathers.filter((b) => !ids.has(String(refID(b))))
 }
+
+/** A direct video file link for a muted background: https and ending in .mp4 or .webm. */
+export const isVideoFileURL = (value: string): boolean => {
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' && /\.(mp4|webm)$/i.test(url.pathname)
+  } catch {
+    return false
+  }
+}

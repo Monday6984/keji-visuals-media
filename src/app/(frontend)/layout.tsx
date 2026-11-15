@@ -36,7 +36,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const settings = await getSiteSettings()
 
   return (
-    <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`}>
+    // suppressHydrationWarning: the homepage intro script sets data-intro on <html> before hydration.
+    <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`} suppressHydrationWarning>
       <body className="min-h-svh">
         <a
           href="#main"

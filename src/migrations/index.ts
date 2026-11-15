@@ -7,6 +7,8 @@ import * as migration_20261115_193306_about_drop_headline_bio from './20261115_1
 import * as migration_20261115_193456_about_page from './20261115_193456_about_page';
 import * as migration_20261115_210729_about_hero_drop_old from './20261115_210729_about_hero_drop_old';
 import * as migration_20261115_210754_about_hero_b from './20261115_210754_about_hero_b';
+import * as migration_20261115_220355_site_settings_drop_hero_slides from './20261115_220355_site_settings_drop_hero_slides';
+import * as migration_20261115_220421_home_landing from './20261115_220421_home_landing';
 
 export const migrations = [
   {
@@ -52,6 +54,16 @@ export const migrations = [
   {
     up: migration_20261115_210754_about_hero_b.up,
     down: migration_20261115_210754_about_hero_b.down,
-    name: '20261115_210754_about_hero_b'
+    name: '20261115_210754_about_hero_b',
+  },
+  {
+    up: migration_20261115_220355_site_settings_drop_hero_slides.up,
+    down: migration_20261115_220355_site_settings_drop_hero_slides.down,
+    name: '20261115_220355_site_settings_drop_hero_slides',
+  },
+  {
+    up: migration_20261115_220421_home_landing.up,
+    down: migration_20261115_220421_home_landing.down,
+    name: '20261115_220421_home_landing'
   },
 ];
