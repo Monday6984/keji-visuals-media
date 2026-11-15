@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Keji Visuals — About hero, option B</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Montserrat:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#EFEDE0}
+a{color:#16140F}a:hover{color:#6B6436}
+.cap{font-family:Montserrat,sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.disp{font-family:Cinzel,serif;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 26px;font-family:Montserrat,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:999px}
+.btn-ink{background:#16140F;color:#EFEDE0;box-shadow:0 10px 24px rgba(22,20,15,.18)}.btn-ink:hover{background:#6B6436;color:#EFEDE0}
+.btn-line{border:1px solid rgba(22,20,15,.35);color:#16140F;background:rgba(247,245,238,.6)}.btn-line:hover{background:#16140F;color:#EFEDE0}
+.btn:focus-visible{outline:3px solid #6B6436;outline-offset:3px}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;background:rgba(169,160,107,.18);border:1px solid rgba(107,100,54,.25);font-family:Montserrat,sans-serif;font-size:12px;font-weight:500;color:#3A372F}
+.dot{width:8px;height:8px;border-radius:99px;background:#6B6436;position:relative}
+.dot::after{content:"";position:absolute;inset:-4px;border-radius:99px;border:1px solid #6B6436;animation:kv-pulse 2.4s ease-out infinite}
+.mask{display:block;overflow:hidden;padding-bottom:.05em}
+.rise{display:block;animation:kv-rise 1.1s cubic-bezier(.2,.7,.1,1) both}
+.fadeup{animation:kv-fadeup 1s cubic-bezier(.2,.7,.1,1) both}
+.glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 42% 58% at 72% 46%,rgba(169,160,107,.55),rgba(201,192,138,.22) 45%,rgba(239,237,224,0) 72%);animation:kv-glow 2s ease both}
+.portrait{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 97%);mask-image:linear-gradient(to bottom,#000 62%,transparent 97%);animation:kv-emerge 1.6s cubic-bezier(.2,.7,.1,1) both}
+.br{position:absolute;width:26px;height:26px;border-color:#16140F;border-style:solid;border-width:0;opacity:.7;animation:kv-focus 1.2s cubic-bezier(.2,.7,.1,1) both}
+.br.tl{top:0;left:0;border-top-width:1.5px;border-left-width:1.5px}.br.tr{top:0;right:0;border-top-width:1.5px;border-right-width:1.5px}
+.br.bl{bottom:0;left:0;border-bottom-width:1.5px;border-left-width:1.5px}.br.brr{bottom:0;right:0;border-bottom-width:1.5px;border-right-width:1.5px}
+@keyframes kv-rise{from{transform:translateY(105%)}to{transform:none}}
+@keyframes kv-fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes kv-emerge{from{opacity:0;transform:translateY(28px) scale(1.02)}to{opacity:1;transform:none}}
+@keyframes kv-glow{from{opacity:0}to{opacity:1}}
+@keyframes kv-focus{from{opacity:0;transform:scale(1.8)}to{opacity:.7;transform:none}}
+@keyframes kv-pulse{from{transform:scale(.6);opacity:.9}to{transform:scale(1.8);opacity:0}}
+@media (prefers-reduced-motion: reduce){.rise,.fadeup,.portrait,.glow,.br,.dot::after{animation:none!important}}
+</style>
+</helmet>
+<div style="font-family: Montserrat, sans-serif; color: #16140F; background: #EFEDE0; min-height: 100%">
+
+<header style="position: relative; z-index: 5; border-bottom: 1px solid rgba(22,20,15,0.12)">
+<div style="max-width: 1360px; margin: 0 auto; padding: 18px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none" aria-label="Keji Visuals home">
+<svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" fill="none" stroke="#8A8150" stroke-width="2.2" stroke-linejoin="round"><path d="M2 2 L10 11 L2 20"></path><path d="M9 2 L17 11 L9 20"></path><path d="M17 2 L24 20 L32 2"></path></svg>
+<span class="disp" style="font-size: 20px; letter-spacing: 0.16em">KEJI VISUALS</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+<a href="Story.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Work</a>
+<a href="Story.dc.html#film" class="cap" style="text-decoration: none; font-weight: 600">Films</a>
+<a href="Packages.dc.html" class="cap" style="text-decoration: none; font-weight: 600">Packages</a>
+<a href="About.dc.html" class="cap" aria-current="page" style="text-decoration: none; font-weight: 600; color: #6B6436">About</a>
+<a href="https://wa.me/2349034917020" class="btn btn-line" style="min-height: 44px; padding: 0 20px">WhatsApp</a>
+<a href="Packages.dc.html" class="btn btn-ink" style="min-height: 44px; padding: 0 22px; box-shadow: none">Book a session</a>
+</nav>
+</div>
+</header>
+
+<section aria-labelledby="hb-h" style="position: relative; overflow: hidden">
+<div class="glow" aria-hidden="true"></div>
+<div style="position: relative; max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; flex-wrap: wrap-reverse; align-items: flex-start; min-height: 820px">
+
+<div style="flex: 1 1 520px; min-width: 0; align-self: center; position: relative; z-index: 2; padding: 72px 0 96px">
+<p class="fadeup" style="margin: 0 0 30px; animation-delay: 0.1s"><span class="pill"><span class="dot" aria-hidden="true"></span>Now booking [2027] weddings</span></p>
+<p class="cap fadeup" style="margin: 0 0 18px; color: #57534A; font-weight: 600; animation-delay: 0.15s">About · Behind the lens</p>
+<h1 id="hb-h" class="disp" style="margin: 0; font-size: clamp(44px, 5.6vw, 84px); line-height: 1.04; letter-spacing: 0.005em; max-width: 680px">
+<span class="mask"><span class="rise" style="animation-delay: 0.25s">More than</span></span>
+<span class="mask"><span class="rise" style="animation-delay: 0.37s">a photograph.</span></span>
+<span class="mask"><span class="rise" style="color: #A9A06B; animation-delay: 0.49s">Part of the story.</span></span>
+</h1>
+<p class="fadeup" style="margin: 32px 0 0; max-width: 470px; font-size: 18px; line-height: 1.75; color: #3A372F; animation-delay: 0.9s">I’m Keji — Ayomideji Omolegan — a Lagos-based wedding photographer and filmmaker. Traditional engagements, white weddings and everything in between, documented the way they felt.</p>
+<div class="fadeup" style="margin-top: 40px; display: flex; flex-wrap: wrap; gap: 14px; animation-delay: 1.05s">
+<a href="Story.dc.html" class="btn btn-ink">View my work <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4 2 H10 V8"></path></svg></a>
+<a href="https://wa.me/2349034917020" class="btn btn-line">Let’s talk <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.8a6.2 6.2 0 0 0-5.4 9.3L1.8 14.2l3.2-.8A6.2 6.2 0 1 0 8 1.8z"></path></svg></a>
+</div>
+</div>
+
+<figure style="flex: 1 1 460px; min-width: 0; max-width: 680px; margin: 0 -40px 0 auto; align-self: flex-start; position: relative; z-index: 1; padding-top: 40px">
+<div style="position: relative">
+<img class="portrait" src="{{pic.src}}" alt="{{pic.alt}}" style="{{portraitFilter}}">
+<div aria-hidden="true" style="{{pic.frame}}">
+<span class="br tl" style="animation-delay: 1.4s"></span><span class="br tr" style="animation-delay: 1.45s"></span><span class="br bl" style="animation-delay: 1.5s"></span><span class="br brr" style="animation-delay: 1.55s"></span>
+</div>
+</div>
+<figcaption class="cap fadeup" style="position: absolute; right: 64px; bottom: 28px; color: #57534A; animation-delay: 1.6s">No. 001 · Keji, Lagos</figcaption>
+</figure>
+
+</div>
+</section>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 56px 40px 96px; border-top: 1px solid rgba(22,20,15,0.14); display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: baseline">
+<span class="cap" style="color: #6B6436; font-weight: 600">Frame 01 · The moment</span>
+<span class="disp" style="font-size: 24px; color: #57534A">…the rest of the About page continues as in option A</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"photo":{"editor":"enum","options":["glasses","chin","direct","thinking"],"default":"glasses"},"portrait":{"editor":"enum","options":["mono","colour"],"default":"mono"},"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var mono = (this.props.portrait ?? 'mono') === 'mono';
+    var pics = {
+      glasses: { src: '/_blob/975271bdaa0ce5b98a72c9b5b311088c', alt: 'Keji in glasses and a black striped shirt, arms crossed, looking off to the side', box: [29, 8, 33, 39.5] },
+      chin: { src: '/_blob/065d51cc03a27829c5d1e0dc31f4af79', alt: 'Keji in a black striped shirt, hand raised to his chin, looking off to the side', box: [31, 8.6, 32.5, 40.7] },
+      direct: { src: '/_blob/9e3a29cb68b9485ae30fa9bc85e85892', alt: 'Keji in a black striped shirt, arms crossed, looking straight at the camera with a slight smile', box: [33.7, 7.4, 29.4, 38.9] },
+      thinking: { src: '/_blob/32f9f17ae497069760ac983a10ffbf93', alt: 'Keji, eyes closed and smiling softly, resting his head on his hand', box: [39, 8, 32, 40] }
+    };
+    var p = pics[this.props.photo ?? 'glasses'] || pics.glasses;
+    var b = p.box;
+    return {
+      portraitFilter: mono ? 'filter: grayscale(1) contrast(1.06) brightness(1.02)' : '',
+      pic: { src: p.src, alt: p.alt, frame: 'position: absolute; left: ' + b[0] + '%; top: ' + b[1] + '%; width: ' + b[2] + '%; height: ' + b[3] + '%' }
+    };
+  }
+}
+</script>
+</body>
+</html>
