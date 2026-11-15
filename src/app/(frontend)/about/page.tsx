@@ -69,7 +69,7 @@ export default async function AboutPage() {
             )}
             <h1
               id="about-h"
-              className="m-0 font-display text-[clamp(44px,7.4vw,108px)] leading-[0.98] font-medium tracking-[0.005em] text-ink"
+              className="m-0 font-display text-[clamp(38px,5.2vw,76px)] leading-[1.02] font-medium tracking-[0.005em] text-ink"
             >
               {lines.map((l, i) => (
                 <span key={i} className="kv-mask">
