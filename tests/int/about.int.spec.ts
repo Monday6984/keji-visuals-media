@@ -34,7 +34,7 @@ describe('publishedChapters', () => {
 describe('layoutAbout', () => {
   it('places reels after their chapter and numbers photos in reading order', () => {
     const { heroNumber, blocks, closingNumber } = layoutAbout({
-      hero: { image: m(1) },
+      hero: { portrait: m(1) },
       chapters: [
         chapter('01', { layout: 'image-right', image: m(2) }),
         chapter('02'),

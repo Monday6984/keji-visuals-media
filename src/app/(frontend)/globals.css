@@ -262,3 +262,87 @@
     scroll-behavior: auto;
   }
 }
+
+/* About hero, option B (AboutHeroB.dc.html): olive glow behind a cut-out portrait that
+   fades out at the bottom, viewfinder corners over the face, and a pulsing status dot. */
+.kv-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 42% 58% at 72% 46%,
+    color-mix(in srgb, var(--color-olive) 55%, transparent),
+    color-mix(in srgb, var(--color-olive-light) 22%, transparent) 45%,
+    transparent 72%
+  );
+  animation: kv-fadein 2s ease both;
+}
+/* Stacked layout: the portrait is on top, so keep the glow behind it, not behind the text. */
+@media (max-width: 999.98px) {
+  .kv-glow {
+    background: radial-gradient(
+      ellipse 75% 26% at 50% 20%,
+      color-mix(in srgb, var(--color-olive) 55%, transparent),
+      color-mix(in srgb, var(--color-olive-light) 22%, transparent) 45%,
+      transparent 72%
+    );
+  }
+}
+.kv-cutout {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 97%);
+  animation: kv-emerge 1.6s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.kv-corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 0 solid var(--color-ink);
+  opacity: 0.7;
+  animation: kv-corner 1.2s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.kv-corner.tl { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+.kv-corner.tr { top: 0; right: 0; border-top-width: 1.5px; border-right-width: 1.5px; }
+.kv-corner.bl { bottom: 0; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.kv-corner.br { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.kv-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--color-olive-deep);
+}
+.kv-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 99px;
+  border: 1px solid var(--color-olive-deep);
+  animation: kv-pulse 2.4s ease-out infinite;
+}
+
+@keyframes kv-fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes kv-emerge {
+  from { opacity: 0; transform: translateY(28px) scale(1.02); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes kv-corner {
+  from { opacity: 0; transform: scale(1.8); }
+  to { opacity: 0.7; transform: none; }
+}
+@keyframes kv-pulse {
+  from { transform: scale(0.6); opacity: 0.9; }
+  to { transform: scale(1.8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kv-glow,
+  .kv-cutout,
+  .kv-corner,
+  .kv-dot::after {
+    animation: none !important;
+  }
+}

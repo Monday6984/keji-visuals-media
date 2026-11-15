@@ -986,26 +986,50 @@ export interface About {
      */
     kicker?: string | null;
     /**
-     * Each line rises in separately, e.g. "Behind" / "the lens".
+     * Small pill above the headline, with a pulsing dot.
      */
-    lines?:
+    statusPill?: {
+      /**
+       * e.g. Now booking 2027 weddings
+       */
+      text?: string | null;
+      show?: boolean | null;
+    };
+    /**
+     * Each line rises in separately. Accent lines are shown in olive.
+     */
+    headlineLines?:
       | {
           text: string;
-          /**
-           * e.g. "lens"
-           */
-          olive?: string | null;
+          accent?: boolean | null;
           id?: string | null;
         }[]
       | null;
     intro?: string | null;
+    primaryButton?: {
+      label?: string | null;
+      link?: ('portfolio' | 'book' | 'packages' | 'whatsapp') | null;
+    };
+    secondaryButton?: {
+      label?: string | null;
+      link?: ('portfolio' | 'book' | 'packages' | 'whatsapp') | null;
+    };
     /**
-     * e.g. Ayomideji “Keji” Omolegan
+     * A cut-out with a transparent background (PNG or WebP). Its alt text is required on upload.
      */
-    signature?: string | null;
-    image?: (number | null) | Media;
+    portrait?: (number | null) | Media;
+    portraitMono?: boolean | null;
     /**
-     * The frame number is added automatically.
+     * Where the viewfinder corners sit over the portrait, as percentages of the image (left, top, width, height). Adjust if the photo changes.
+     */
+    faceFrame?: {
+      left?: number | null;
+      top?: number | null;
+      width?: number | null;
+      height?: number | null;
+    };
+    /**
+     * The frame number is added automatically, e.g. "Keji, Lagos".
      */
     caption?: string | null;
     /**
@@ -1217,16 +1241,42 @@ export interface AboutSelect<T extends boolean = true> {
     | T
     | {
         kicker?: T;
-        lines?:
+        statusPill?:
           | T
           | {
               text?: T;
-              olive?: T;
+              show?: T;
+            };
+        headlineLines?:
+          | T
+          | {
+              text?: T;
+              accent?: T;
               id?: T;
             };
         intro?: T;
-        signature?: T;
-        image?: T;
+        primaryButton?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+            };
+        secondaryButton?:
+          | T
+          | {
+              label?: T;
+              link?: T;
+            };
+        portrait?: T;
+        portraitMono?: T;
+        faceFrame?:
+          | T
+          | {
+              left?: T;
+              top?: T;
+              width?: T;
+              height?: T;
+            };
         caption?: T;
         indexThumbnail?: T;
         shareImage?: T;

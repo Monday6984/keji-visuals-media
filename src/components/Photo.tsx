@@ -14,11 +14,16 @@ type Props = {
   fill?: boolean
   className?: string
   alt?: string
+  /**
+   * Show the blurred placeholder behind the photo while it loads (default). Turn off for
+   * transparent cut-outs, where it would stay visible around the subject.
+   */
+  placeholder?: boolean
 }
 
 // Serves the pre-generated WebP sizes straight from R2 (no Vercel image optimisation).
 // Width/height reserve the space and the blur placeholder shows until the photo loads.
-export function Photo({ media, sizes, priority = false, fill = false, className = '', alt }: Props) {
+export function Photo({ media, sizes, priority = false, fill = false, className = '', alt, placeholder = true }: Props) {
   if (!media || typeof media === 'number') return null
   const sources = photoSources(media)
   if (!sources.length) return null
@@ -30,7 +35,7 @@ export function Photo({ media, sizes, priority = false, fill = false, className 
   }
 
   const style: CSSProperties = {
-    backgroundImage: media.blurDataURL ? `url(${media.blurDataURL})` : undefined,
+    backgroundImage: placeholder && media.blurDataURL ? `url(${media.blurDataURL})` : undefined,
     backgroundSize: 'cover',
     backgroundPosition: focalPosition(media),
     ...(fill

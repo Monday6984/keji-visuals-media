@@ -25,6 +25,32 @@ const olive = (textField: string, description: string): Field => ({
   validate: oliveIn(textField),
 })
 
+/** A hero button: label plus where it goes (WhatsApp uses the number in Site Settings). */
+const heroButton = (name: string, label: string): Field => ({
+  name,
+  label,
+  type: 'group',
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        { name: 'label', type: 'text' },
+        {
+          name: 'link',
+          type: 'select',
+          defaultValue: 'portfolio',
+          options: [
+            { label: 'Portfolio', value: 'portfolio' },
+            { label: 'Enquiry form', value: 'book' },
+            { label: 'Packages', value: 'packages' },
+            { label: 'WhatsApp (from Site Settings)', value: 'whatsapp' },
+          ],
+        },
+      ],
+    },
+  ],
+})
+
 export const About: GlobalConfig = {
   slug: 'about',
   admin: { group: 'Settings' },
@@ -43,30 +69,70 @@ export const About: GlobalConfig = {
               fields: [
                 { name: 'kicker', type: 'text', admin: { description: 'Small line above the headline, e.g. "About · Photographer & filmmaker · Lagos"' } },
                 {
-                  name: 'lines',
+                  name: 'statusPill',
+                  type: 'group',
+                  admin: { description: 'Small pill above the headline, with a pulsing dot.' },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'text', type: 'text', admin: { description: 'e.g. Now booking 2027 weddings' } },
+                        { name: 'show', type: 'checkbox', defaultValue: true },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  name: 'headlineLines',
                   label: 'Headline lines',
                   type: 'array',
                   maxRows: 3,
-                  admin: { description: 'Each line rises in separately, e.g. "Behind" / "the lens".' },
+                  admin: { description: 'Each line rises in separately. Accent lines are shown in olive.' },
                   fields: [
                     {
                       type: 'row',
                       fields: [
                         { name: 'text', type: 'text', required: true },
-                        olive('text', 'e.g. "lens"'),
+                        { name: 'accent', type: 'checkbox', defaultValue: false },
                       ],
                     },
                   ],
                 },
                 { name: 'intro', type: 'textarea' },
-                { name: 'signature', type: 'text', admin: { description: 'e.g. Ayomideji “Keji” Omolegan' } },
+                heroButton('primaryButton', 'Solid button'),
+                heroButton('secondaryButton', 'Outline button'),
                 {
                   type: 'row',
                   fields: [
-                    { name: 'image', type: 'upload', relationTo: 'media' },
-                    { name: 'caption', type: 'text', admin: { description: 'The frame number is added automatically.' } },
+                    {
+                      name: 'portrait',
+                      type: 'upload',
+                      relationTo: 'media',
+                      admin: { description: 'A cut-out with a transparent background (PNG or WebP). Its alt text is required on upload.' },
+                    },
+                    { name: 'portraitMono', label: 'Show in black and white', type: 'checkbox', defaultValue: true },
                   ],
                 },
+                {
+                  name: 'faceFrame',
+                  type: 'group',
+                  admin: {
+                    description:
+                      'Where the viewfinder corners sit over the portrait, as percentages of the image (left, top, width, height). Adjust if the photo changes.',
+                  },
+                  fields: [
+                    {
+                      type: 'row',
+                      fields: [
+                        { name: 'left', type: 'number', min: 0, max: 100, defaultValue: 29 },
+                        { name: 'top', type: 'number', min: 0, max: 100, defaultValue: 8 },
+                        { name: 'width', type: 'number', min: 1, max: 100, defaultValue: 33 },
+                        { name: 'height', type: 'number', min: 1, max: 100, defaultValue: 39.5 },
+                      ],
+                    },
+                  ],
+                },
+                { name: 'caption', type: 'text', admin: { description: 'The frame number is added automatically, e.g. "Keji, Lagos".' } },
                 {
                   name: 'indexThumbnail',
                   type: 'upload',

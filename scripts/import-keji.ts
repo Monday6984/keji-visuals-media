@@ -552,8 +552,10 @@ async function main() {
     armsFolded: await imageMedia('keji-black-shirt-1.jpg', 'Keji in glasses and a black striped shirt, arms folded, looking to the side against a grey backdrop'),
     smiling: await imageMedia('keji-black-shirt-2.jpg', 'Keji in a black striped shirt, arms folded, smiling at the camera against a grey backdrop', 'Behind the lens'),
     handAtChin: await imageMedia('keji-black-shirt-3.jpg', 'Keji in a black striped shirt, one hand at his chin, against a grey backdrop'),
+    // Hero cut-out (transparent PNG made by Monie from keji-black-shirt-1).
+    cutOut: await imageMedia('keji-cut-glasses.png', 'Keji in glasses and a black striped shirt, arms crossed, looking off to the side'),
   }
-  console.log('about photos: 9')
+  console.log('about photos: 10')
 
   // Reel 01: real work from the stories imported above.
   const REEL_FRAMES: [file: string, caption: string][] = [
@@ -634,13 +636,21 @@ async function main() {
     slug: 'about',
     data: {
       hero: {
-        kicker: 'About · Photographer & filmmaker · Lagos',
-        lines: [{ text: 'Behind' }, { text: 'the lens', olive: 'lens' }],
+        statusPill: { text: 'Now booking 2027 weddings', show: true },
+        kicker: 'About · Behind the lens',
+        headlineLines: [
+          { text: 'More than', accent: false },
+          { text: 'a photograph.', accent: false },
+          { text: 'Part of the story.', accent: true },
+        ],
         intro:
-          'Keji Visuals is a photography and film studio in Lagos, founded by Ayomideji Morenikeji Omolegan. Most people call him Keji.',
-        signature: 'Ayomideji “Keji” Omolegan',
-        image: ABOUT_PHOTOS.stool,
-        caption: 'Keji, in the studio',
+          'I’m Keji — Ayomideji Omolegan — a Lagos-based wedding photographer and filmmaker. Traditional engagements, white weddings and everything in between, documented the way they felt.',
+        primaryButton: { label: 'View my work', link: 'portfolio' },
+        secondaryButton: { label: 'Let’s talk', link: 'whatsapp' },
+        portrait: ABOUT_PHOTOS.cutOut,
+        portraitMono: true,
+        faceFrame: { left: 29, top: 8, width: 33, height: 39.5 },
+        caption: 'Keji, Lagos',
         indexThumbnail: ABOUT_PHOTOS.handAtChin,
         shareImage: ABOUT_PHOTOS.armsFolded,
       },

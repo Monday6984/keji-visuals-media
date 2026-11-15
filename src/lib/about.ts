@@ -38,7 +38,7 @@ export type AboutBlock =
 export const layoutAbout = (about: Pick<About, 'hero' | 'chapters' | 'reels' | 'closing'>) => {
   let n = 0
   const next = () => ++n
-  const heroNumber = isMedia(about.hero?.image) ? next() : null
+  const heroNumber = isMedia(about.hero?.portrait) ? next() : null
 
   const blocks: AboutBlock[] = []
   for (const chapter of publishedChapters(about.chapters)) {

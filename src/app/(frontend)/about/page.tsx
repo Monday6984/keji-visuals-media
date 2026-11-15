@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AboutChapter } from '@/components/about/AboutChapter'
+import { AboutHero } from '@/components/about/AboutHero'
 import { ChapterIndex } from '@/components/about/ChapterIndex'
 import { FilmReel } from '@/components/about/FilmReel'
 import { Olive } from '@/components/about/Olive'
@@ -31,8 +32,6 @@ const LINKS = { book: BOOK_HREF, portfolio: '/portfolio', packages: '/packages' 
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()])
   const hero = about.hero ?? {}
-  const lines = hero.lines?.length ? hero.lines : [{ text: 'Behind', olive: null }, { text: 'the lens', olive: 'lens' }]
-  const heroImage = isMedia(hero.image) ? hero.image : null
   const thumb = isMedia(hero.indexThumbnail) ? hero.indexThumbnail : null
   const closing = about.closing ?? {}
   const closingImage = isMedia(closing.image) ? closing.image : null
@@ -58,51 +57,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section aria-labelledby="about-h" className="mx-auto max-w-[1360px] px-4 pt-12 pb-20 sm:px-6 lg:px-10 lg:pt-16 lg:pb-24">
-        <div className="flex flex-wrap items-start gap-y-10">
-          <div className="relative z-10 min-w-0 flex-[1_1_520px] lg:mr-[calc(-1*clamp(0px,8vw,150px))] lg:pt-10">
-            {hero.kicker && (
-              <p className="cap kv-fadeup m-0 mb-6 font-semibold text-muted" style={{ animationDelay: '0.1s' }}>
-                {hero.kicker}
-              </p>
-            )}
-            <h1
-              id="about-h"
-              className="m-0 font-display text-[clamp(38px,5.2vw,76px)] leading-[1.02] font-medium tracking-[0.005em] text-ink"
-            >
-              {lines.map((l, i) => (
-                <span key={i} className="kv-mask">
-                  <span className="kv-rise" style={{ animationDelay: `${0.2 + i * 0.15}s` }}>
-                    <Olive text={l.text} olive={l.olive} />
-                  </span>
-                </span>
-              ))}
-            </h1>
-            {(hero.intro || hero.signature) && (
-              <div className="kv-fadeup mt-10 max-w-[460px]" style={{ animationDelay: '0.9s' }}>
-                {hero.intro && <p className="m-0 mb-6 text-xl leading-[1.7]">{hero.intro}</p>}
-                {hero.signature && (
-                  <p className="m-0 border-t border-olive pt-4.5 font-display text-[22px] tracking-[0.08em] text-ink">
-                    {hero.signature}
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-          {heroImage && (
-            <figure className="m-0 w-full min-w-0 flex-[0_1_470px]">
-              <div className="kv-frame aspect-[4/5]" style={{ animationDelay: '0.15s' }}>
-                <Photo media={heroImage} fill priority sizes="(min-width: 1024px) 470px, 100vw" />
-              </div>
-              <figcaption className="cap mt-3 text-muted">
-                No. {frameNo(heroNumber ?? 1)}
-                {hero.caption ? ` · ${hero.caption}` : ''}
-              </figcaption>
-            </figure>
-          )}
-        </div>
-      </section>
+      <AboutHero hero={hero} number={heroNumber} whatsapp={wa} />
 
       {/* Chapters */}
       {sections.length > 0 && (
