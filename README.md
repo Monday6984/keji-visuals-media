@@ -51,8 +51,10 @@ Add the production domain (e.g. `https://kejivisuals.com`) when it exists.
 - `npm run generate:types` — regenerate `src/payload-types.ts`
 - `npm run lint`, `npm test`
 - `npm run seed:dev` — dev-only test content from `images/` (refuses to run on a non-`-dev` bucket)
-- `npm run import:keji` — imports Keji's Nov 2026 delivery (`KEJI_PHOTOS=<folder>`); safe to re-run. It prints the
-  target database endpoint and bucket first: check them before it starts uploading.
+- `npm run import:keji` — imports Keji's Nov 2026 delivery (`KEJI_PHOTOS=<folder>`). Re-runnable on dev. It prints the
+  target database endpoint and bucket first, and **refuses to run against staging** (it would overwrite content edited
+  in the admin) unless `KEJI_IMPORT_STAGING=yes` is set. For staging changes, make them in the admin or with a
+  small targeted script.
 
 ### Running a script against staging
 

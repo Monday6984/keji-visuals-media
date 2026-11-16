@@ -365,6 +365,12 @@ async function main() {
   // Neon endpoint name only (e.g. "ep-young-tooth"), never the full connection string.
   const dbHost = (process.env.DATABASE_URI ?? '').replace(/.*@([^/:?]+).*/, '$1').replace(/^(ep-[a-z]+-[a-z]+).*/, '$1')
   console.log(`target database: ${dbHost} · bucket: ${process.env.R2_BUCKET}`)
+  // Staging now holds Monie's and Keji's edits made in the admin, and this script rewrites
+  // the landing, packages, About and settings. Only run it there on purpose.
+  if (!process.env.R2_BUCKET?.endsWith('-dev') && process.env.KEJI_IMPORT_STAGING !== 'yes') {
+    console.error('Refusing to run against staging: it would overwrite edits made in the admin. Set KEJI_IMPORT_STAGING=yes to override.')
+    process.exit(1)
+  }
   // Neon closes idle connections while sharp is busy with a large photo; without a
   // listener pg treats that as fatal. The pool reconnects on the next query.
   ;(payload.db as unknown as { pool?: { on: (e: 'error', cb: (err: Error) => void) => void } }).pool?.on('error', (err) =>
