@@ -42,8 +42,9 @@ export default async function ContactPage() {
               {wa && (
                 <li>
                   <a href={wa} className="btn btn-line-cream w-full">
-                    WhatsApp {formatIntlNumber(settings.whatsapp)}
+                    Chat on WhatsApp
                   </a>
+                  <span className="cap mt-2.5 block text-center text-stone">{formatIntlNumber(settings.whatsapp)}</span>
                 </li>
               )}
               {settings.phone && (

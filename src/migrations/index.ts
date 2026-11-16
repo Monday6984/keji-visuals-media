@@ -9,6 +9,7 @@ import * as migration_20261115_210729_about_hero_drop_old from './20261115_21072
 import * as migration_20261115_210754_about_hero_b from './20261115_210754_about_hero_b';
 import * as migration_20261115_220355_site_settings_drop_hero_slides from './20261115_220355_site_settings_drop_hero_slides';
 import * as migration_20261115_220421_home_landing from './20261115_220421_home_landing';
+import * as migration_20261116_091832_packages_badge_accent from './20261116_091832_packages_badge_accent';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20261115_220421_home_landing.up,
     down: migration_20261115_220421_home_landing.down,
-    name: '20261115_220421_home_landing'
+    name: '20261115_220421_home_landing',
+  },
+  {
+    up: migration_20261116_091832_packages_badge_accent.up,
+    down: migration_20261116_091832_packages_badge_accent.down,
+    name: '20261116_091832_packages_badge_accent'
   },
 ];

@@ -46,8 +46,15 @@
     @apply font-sans text-[11px] tracking-[0.18em] uppercase;
   }
 
+  /* Buttons never wrap: labels stay on one line, and on narrow phones the type tightens so
+     the longer labels still fit. Keep labels short where space is tight. */
   .btn {
-    @apply inline-flex min-h-12 items-center justify-center rounded-full px-6.5 font-sans text-[13px] font-semibold tracking-[0.14em] uppercase no-underline transition-colors;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full px-6.5 font-sans text-[13px] font-semibold tracking-[0.14em] whitespace-nowrap uppercase no-underline transition-colors;
+  }
+  @media (max-width: 400px) {
+    .btn {
+      @apply px-4.5 text-[12px] tracking-[0.09em];
+    }
   }
   .btn-ink {
     @apply bg-ink text-cream hover:bg-olive-deep hover:text-cream;
@@ -427,4 +434,27 @@ html[data-intro='play'] .kv-intro {
   .kv-intro {
     display: none !important;
   }
+}
+
+/* Package tiers: a metallic bar along the top of the card and a matching dot by the tier
+   label. Decorative only; the tier is always named in text too. */
+[data-accent='bronze'] {
+  --kv-metal: linear-gradient(90deg, #8a5a34, #c99c6d 50%, #8a5a34);
+}
+[data-accent='silver'] {
+  --kv-metal: linear-gradient(90deg, #8f9297, #dfe1e4 50%, #8f9297);
+}
+[data-accent='gold'] {
+  --kv-metal: linear-gradient(90deg, #a6873c, #e8cf83 50%, #a6873c);
+}
+.kv-metal-bar::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 4px;
+  background: var(--kv-metal, transparent);
+}
+.kv-metal-dot {
+  background: var(--kv-metal, currentColor);
 }

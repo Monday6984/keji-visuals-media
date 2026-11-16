@@ -228,6 +228,9 @@ const PACKAGE_SHARED = { priceDisplay: 'exact', turnaround: 'Full gallery in 2â€
 const PACKAGES = [
   {
     name: 'Bronze',
+    accent: 'bronze',
+    mostBooked: false,
+    badge: null,
     tier: 'Photo + film',
     tagline: 'Photographs and film for your wedding day, with a pre-wedding shoot to start.',
     priceNGN: 750000,
@@ -242,6 +245,10 @@ const PACKAGES = [
   },
   {
     name: 'Silver',
+    accent: 'silver',
+    // Highlighted to stand out (Monie, 16 Nov 2026). Badge wording to be confirmed with Keji.
+    mostBooked: true,
+    badge: 'Recommended',
     tier: 'Photo + film',
     tagline: 'Traditional and white wedding, each with its own highlight film.',
     priceNGN: 850000,
@@ -258,6 +265,9 @@ const PACKAGES = [
   },
   {
     name: 'Gold',
+    accent: 'gold',
+    mostBooked: false,
+    badge: null,
     tier: 'Photo + film',
     tagline: 'Our most complete wedding experience.',
     priceNGN: 980000,

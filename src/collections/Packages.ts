@@ -54,9 +54,32 @@ export const Packages: CollectionConfig = {
     },
     {
       name: 'mostBooked',
+      label: 'Highlight this package',
       type: 'checkbox',
       defaultValue: false,
-      admin: { position: 'sidebar', description: 'Highlights this package on its tab.' },
+      admin: { position: 'sidebar', description: 'Dark, raised card that stands out on its tab. Use for one package per tab.' },
+    },
+    {
+      name: 'badge',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description: 'Small label on a highlighted card, e.g. "Recommended". Only make claims Keji can stand behind.',
+        condition: (_, sibling) => Boolean(sibling?.mostBooked),
+      },
+    },
+    {
+      name: 'accent',
+      label: 'Tier colour',
+      type: 'select',
+      defaultValue: 'none',
+      options: [
+        { label: 'None', value: 'none' },
+        { label: 'Bronze', value: 'bronze' },
+        { label: 'Silver', value: 'silver' },
+        { label: 'Gold', value: 'gold' },
+      ],
+      admin: { position: 'sidebar', description: 'Metallic accent along the top of the card.' },
     },
     {
       name: 'visible',

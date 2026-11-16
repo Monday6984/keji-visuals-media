@@ -374,9 +374,17 @@ export interface Package {
       }[]
     | null;
   /**
-   * Highlights this package on its tab.
+   * Dark, raised card that stands out on its tab. Use for one package per tab.
    */
   mostBooked?: boolean | null;
+  /**
+   * Small label on a highlighted card, e.g. "Recommended". Only make claims Keji can stand behind.
+   */
+  badge?: string | null;
+  /**
+   * Metallic accent along the top of the card.
+   */
+  accent?: ('none' | 'bronze' | 'silver' | 'gold') | null;
   /**
    * Untick to hide from the site without deleting.
    */
@@ -692,6 +700,8 @@ export interface PackagesSelect<T extends boolean = true> {
         id?: T;
       };
   mostBooked?: T;
+  badge?: T;
+  accent?: T;
   visible?: T;
   order?: T;
   updatedAt?: T;

@@ -13,41 +13,65 @@ export const metadata: Metadata = {
   description: 'Wedding, pre-wedding, event, portrait and film packages with clear starting prices.',
 }
 
+function Check({ hot }: { hot: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full ${hot ? 'bg-cream/12 text-olive-light' : 'bg-olive/18 text-olive-deep'}`}
+    >
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2.5 6.3 L5 8.6 L9.6 3.6" />
+      </svg>
+    </span>
+  )
+}
+
+// One package. Tiers get a metallic accent (bronze/silver/gold); the highlighted package
+// is a dark, raised card with an optional badge, like a "most popular" plan.
 function PackageCard({ pkg, category }: { pkg: Package; category: Category }) {
   const hot = Boolean(pkg.mostBooked)
+  const accent = pkg.accent && pkg.accent !== 'none' ? pkg.accent : undefined
   const items = [pkg.duration, pkg.imageCount, pkg.turnaround, ...(pkg.inclusions ?? []).map((i) => i.item)].filter(Boolean)
   const enquire = `${BOOK_HREF}?type=${encodeURIComponent(category.slug)}&package=${encodeURIComponent(pkg.name)}`
 
   return (
     <article
       aria-labelledby={`pkg-${pkg.id}`}
-      className={`flex flex-col gap-4 p-7 sm:p-9 ${hot ? 'bg-ink text-cream' : 'border border-ink/20 bg-paper text-ink'}`}
+      data-accent={accent}
+      className={`kv-metal-bar relative flex flex-col gap-4 overflow-hidden rounded-[4px] p-6 pt-8 sm:p-9 sm:pt-10 ${
+        hot
+          ? 'z-10 bg-ink text-cream shadow-[0_28px_56px_-20px_rgba(22,20,15,0.55)] xl:-my-6 xl:py-14'
+          : 'border border-ink/14 bg-paper text-ink'
+      }`}
     >
-      <div className="flex min-h-6.5 items-center justify-between gap-3">
-        {pkg.tier && <span className={`cap font-semibold ${hot ? 'text-olive-light' : 'text-olive-deep'}`}>{pkg.tier}</span>}
-        {hot && <span className="cap rounded-full bg-olive-light px-3 py-1.5 font-semibold text-ink">Most booked</span>}
+      <div className="flex min-h-7 items-center justify-between gap-3">
+        {pkg.tier && (
+          <span className={`cap flex items-center gap-2 font-semibold ${hot ? 'text-olive-light' : 'text-olive-deep'}`}>
+            {accent && <span aria-hidden="true" className="kv-metal-dot size-2.5 rounded-full" />}
+            {pkg.tier}
+          </span>
+        )}
+        {hot && pkg.badge && <span className="cap rounded-full bg-olive-light px-3 py-1.5 font-semibold whitespace-nowrap text-ink">{pkg.badge}</span>}
       </div>
       <h3 id={`pkg-${pkg.id}`} className="m-0 font-display text-3xl leading-[1.15] font-medium">
         {pkg.name}
       </h3>
-      {pkg.tagline && <p className={`m-0 text-[15px] leading-relaxed ${hot ? 'text-mist' : 'text-body'}`}>{pkg.tagline}</p>}
+      {pkg.tagline && <p className={`m-0 text-[15px] leading-relaxed md:min-h-[3.25em] ${hot ? 'text-mist' : 'text-body'}`}>{pkg.tagline}</p>}
       <p className="m-0 mt-1.5">
         <Price item={pkg} mutedClass={hot ? 'text-mist' : 'text-muted'} />
       </p>
       {items.length > 0 && (
-        <ul className={`m-0 mt-2 flex list-none flex-col gap-2.5 border-t p-0 pt-4.5 ${hot ? 'border-cream/25' : 'border-ink/18'}`}>
+        <ul className={`m-0 mt-2 flex list-none flex-col gap-3 border-t p-0 pt-5 ${hot ? 'border-cream/20' : 'border-ink/14'}`}>
           {items.map((item) => (
-            <li key={item} className="flex gap-2.5 text-[15px] leading-normal">
-              <span aria-hidden="true" className={hot ? 'text-olive-light' : 'text-olive-deep'}>
-                —
-              </span>
-              {item}
+            <li key={item} className="flex gap-3 text-[15px] leading-normal">
+              <Check hot={hot} />
+              <span>{item}</span>
             </li>
           ))}
         </ul>
       )}
       <Link href={enquire} className={`btn mt-auto ${hot ? 'btn-cream' : 'btn-line'}`}>
-        Enquire about this package<span className="sr-only">: {pkg.name}</span>
+        Enquire about {pkg.name}
       </Link>
     </article>
   )
@@ -73,7 +97,7 @@ export default async function PackagesPage() {
       label: category.name,
       panel: (
         <section aria-label={`${category.name} packages`} className="mx-auto max-w-[1360px] px-4 pt-12 sm:px-6 lg:px-10">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-6">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-6 xl:py-6">
             {items.map((p) => (
               <PackageCard key={p.id} pkg={p} category={category} />
             ))}
