@@ -638,17 +638,19 @@ async function main() {
   // Homepage landing (docs/mockup/HomeLanding.dc.html): one background per category, using
   // the landscape covers and the Adejoke & Kelvin film still. Monie swaps in final images
   // and any videos through the admin.
-  const LANDING: [slug: string, description: string, background: string][] = [
-    ['weddings', 'Traditional & white', 'cover-temi-and-david.png'],
-    ['pre-weddings', 'Natural, romantic, yours', 'cover-dolapo-and-femi.png'],
-    ['events', 'The energy of the day', 'cover-kiki-and-seye.png'],
-    ['portraits', 'Personality & presence', 'cover-david-and-tope.png'],
-    ['films', 'Wedding & brand films', 'adejoke-kelvin-poster.jpg'],
+  // Last value: phone position (% across the photo) so the couple stays in the narrow slice
+  // phones show; null = use the photo's focal point.
+  const LANDING: [slug: string, description: string, background: string, mobilePosition: number | null][] = [
+    ['weddings', 'Traditional & white', 'cover-temi-and-david.png', 47],
+    ['pre-weddings', 'Natural, romantic, yours', 'cover-dolapo-and-femi.png', null],
+    ['events', 'The energy of the day', 'cover-kiki-and-seye.png', null],
+    ['portraits', 'Personality & presence', 'cover-david-and-tope.png', 29],
+    ['films', 'Wedding & brand films', 'adejoke-kelvin-poster.jpg', null],
   ]
-  const landingItems: { category: number; description: string; background: number }[] = []
-  for (const [slug, description, file] of LANDING) {
+  const landingItems: { category: number; description: string; background: number; mobilePosition: number | null }[] = []
+  for (const [slug, description, file, mobilePosition] of LANDING) {
     const background = await byFilename(file)
-    if (background) landingItems.push({ category: await categoryId(slug), description, background })
+    if (background) landingItems.push({ category: await categoryId(slug), description, background, mobilePosition })
   }
   await payload.updateGlobal({
     slug: 'home',

@@ -14,6 +14,8 @@ export type LandingItem = {
   background: Media
   poster: Media | null
   videoUrl: string | null
+  /** Phones (below 768px): horizontal position of the visible slice, 0–100. */
+  mobilePosition: number | null
 }
 
 const INTERVAL = 6000
@@ -115,7 +117,17 @@ export function LandingStage({ kicker, items }: { kicker: string | null; items: 
         const poster = item.poster ? fallbackSrc(photoSources(item.poster)) : undefined
         const playVideo = on && item.videoUrl && canHover && !reduce
         return (
-          <div key={item.id} className="kv-bg absolute inset-0" data-active={on} aria-hidden={!on}>
+          <div
+            key={item.id}
+            className="kv-bg absolute inset-0"
+            data-active={on}
+            aria-hidden={!on}
+            style={
+              item.mobilePosition != null
+                ? ({ '--m-pos': `${item.mobilePosition}%` } as CSSProperties)
+                : undefined
+            }
+          >
             {(i === 0 || loadRest) && (
               <Photo
                 media={item.background}
@@ -123,6 +135,9 @@ export function LandingStage({ kicker, items }: { kicker: string | null; items: 
                 priority={i === 0}
                 sizes="100vw"
                 alt={on ? undefined : ''}
+                className={
+                  item.mobilePosition != null ? 'max-md:[object-position:var(--m-pos)_center]!' : ''
+                }
               />
             )}
             {playVideo && (

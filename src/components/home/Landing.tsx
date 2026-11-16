@@ -23,6 +23,7 @@ export function Landing({ landing, settings }: { landing: Home['landing']; setti
         background: item.background,
         poster: isMedia(item.poster) ? item.poster : null,
         videoUrl: item.videoUrl || null,
+        mobilePosition: item.mobilePosition ?? null,
       },
     ]
   })

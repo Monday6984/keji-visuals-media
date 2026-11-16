@@ -42,6 +42,17 @@ export const Home: GlobalConfig = {
               admin: { description: 'A landscape photo; text sits over the left side.' },
             },
             {
+              name: 'mobilePosition',
+              label: 'Phone position (%)',
+              type: 'number',
+              min: 0,
+              max: 100,
+              admin: {
+                description:
+                  'Phones show a narrow upright slice of this photo. 0 = left edge, 50 = centre, 100 = right edge. Leave blank to use the photo’s focal point.',
+              },
+            },
+            {
               type: 'row',
               fields: [
                 {

@@ -1006,6 +1006,10 @@ export interface Home {
            */
           background: number | Media;
           /**
+           * Phones show a narrow upright slice of this photo. 0 = left edge, 50 = centre, 100 = right edge. Leave blank to use the photo’s focal point.
+           */
+          mobilePosition?: number | null;
+          /**
            * A direct https link to an .mp4 or .webm file. Plays muted, on desktop only.
            */
           videoUrl?: string | null;
@@ -1292,6 +1296,7 @@ export interface HomeSelect<T extends boolean = true> {
               label?: T;
               description?: T;
               background?: T;
+              mobilePosition?: T;
               videoUrl?: T;
               poster?: T;
               id?: T;
