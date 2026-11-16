@@ -310,9 +310,10 @@ html:has([data-landing]):not([data-landing-passed]) .kv-menu-panel {
   height: 100svh;
   min-height: 640px;
 }
-/* Legibility scrim, darker than the mockup's: measured against every landing background so
-   cream text keeps 4.5:1 (dimmed 55% names keep 3:1 as large text). Phones get an even
-   scrim because the text spans the full width. */
+/* Legibility scrim. Phones: an even scrim, measured so cream text keeps 4.5:1 on every
+   background (the text spans the full width there). Tablet/desktop: the mockup's lighter
+   gradient, chosen by Monie for the look (16 Nov 2026); on bright backgrounds small text
+   drops below 4.5:1 there, so check new backgrounds. */
 .kv-landing-scrim {
   background:
     linear-gradient(90deg, rgba(14, 13, 10, 0.78) 0%, rgba(14, 13, 10, 0.7) 100%),
@@ -321,7 +322,7 @@ html:has([data-landing]):not([data-landing-passed]) .kv-menu-panel {
 @media (min-width: 768px) {
   .kv-landing-scrim {
     background:
-      linear-gradient(90deg, rgba(14, 13, 10, 0.88) 0%, rgba(14, 13, 10, 0.78) 50%, rgba(14, 13, 10, 0.66) 72%, rgba(14, 13, 10, 0.38) 100%),
+      linear-gradient(90deg, rgba(14, 13, 10, 0.78) 0%, rgba(14, 13, 10, 0.5) 45%, rgba(14, 13, 10, 0.25) 100%),
       linear-gradient(180deg, rgba(14, 13, 10, 0.45) 0%, rgba(14, 13, 10, 0) 22%, rgba(14, 13, 10, 0) 70%, rgba(14, 13, 10, 0.6) 100%);
   }
 }
