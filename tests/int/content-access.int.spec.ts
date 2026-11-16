@@ -62,7 +62,9 @@ describe('content model: public visibility and validation', { timeout: 30_000 },
     await payload.delete({ collection: 'testimonials', where: { names: { like: 'vitest-' } } })
     await payload.delete({ collection: 'enquiries', where: { names: { like: 'vitest-' } } })
     await payload.delete({ collection: 'media', where: { alt: { like: 'vitest-' } } })
-  })
+    // Each delete is a round trip to the remote dev database; the default 10 s hook limit
+    // can run out before the sweep finishes and leave test records behind.
+  }, 60_000)
 
   let storyCount = 0
   // Blank slugs are generated from the title by the slug field's hook.
