@@ -31,17 +31,44 @@ const media = (query: string) => ({
 const reducedMotion = media('(prefers-reduced-motion: reduce)')
 const hoverPointer = media('(hover: hover) and (pointer: fine)')
 
-// Backgrounds + the category list. Desktop: hover or focus picks the background. Touch:
-// the background advances every 6 s with a pause/play button. Reduced motion: instant
-// swaps, no auto-advance, no video. Also tells the header when the landing has scrolled away.
+// The intro overlay is playing (Landing's inline script set data-intro="play").
+const introStore = {
+  subscribe: (cb: () => void) => {
+    const mo = new MutationObserver(cb)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-intro'] })
+    return () => mo.disconnect()
+  },
+  get: () => document.documentElement.dataset.intro === 'play',
+}
+// The browser tab is in the foreground.
+const visibleStore = {
+  subscribe: (cb: () => void) => {
+    document.addEventListener('visibilitychange', cb)
+    return () => document.removeEventListener('visibilitychange', cb)
+  },
+  get: () => document.visibilityState === 'visible',
+}
+
+// Backgrounds + the category list. The background loops through the categories every 6 s
+// (all devices) with a pause/play button; hovering or focusing a category shows it and holds
+// the loop until the pointer/focus leaves. The loop waits for the intro, and pauses while the
+// landing is off-screen or the tab is hidden. Reduced motion: instant swaps, no loop, no
+// video. Also tells the header when the landing has scrolled away.
 export function LandingStage({ kicker, items }: { kicker: string | null; items: LandingItem[] }) {
   const [active, setActive] = useState(0)
   const [userPaused, setUserPaused] = useState(false)
   const [loadRest, setLoadRest] = useState(false)
+  const [hovering, setHovering] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const [inView, setInView] = useState(true)
   const reduce = useSyncExternalStore(reducedMotion.subscribe, reducedMotion.get, () => false)
   const canHover = useSyncExternalStore(hoverPointer.subscribe, hoverPointer.get, () => false)
+  const introPlaying = useSyncExternalStore(introStore.subscribe, introStore.get, () => false)
+  const tabVisible = useSyncExternalStore(visibleStore.subscribe, visibleStore.get, () => true)
   const count = items.length
-  const autoAdvance = !canHover && !reduce && count > 1
+  const autoAdvance = !reduce && count > 1
+  const running =
+    autoAdvance && !userPaused && !hovering && !focused && inView && tabVisible && !introPlaying
 
   // The other backgrounds load once the page itself has finished loading.
   useEffect(() => {
@@ -55,10 +82,10 @@ export function LandingStage({ kicker, items }: { kicker: string | null; items: 
   }, [])
 
   useEffect(() => {
-    if (!autoAdvance || userPaused) return
+    if (!running) return
     const id = window.setTimeout(() => setActive((i) => (i + 1) % count), INTERVAL)
     return () => window.clearTimeout(id)
-  }, [autoAdvance, userPaused, count, active])
+  }, [running, count, active])
 
   // Transparent header while the landing is under it (see .kv-header in globals.css).
   useEffect(() => {
@@ -66,10 +93,11 @@ export function LandingStage({ kicker, items }: { kicker: string | null; items: 
     if (!landing) return
     const root = document.documentElement
     const observer = new IntersectionObserver(
-      ([entry]) =>
-        entry.isIntersecting
-          ? root.removeAttribute('data-landing-passed')
-          : root.setAttribute('data-landing-passed', ''),
+      ([entry]) => {
+        setInView(entry.isIntersecting)
+        if (entry.isIntersecting) root.removeAttribute('data-landing-passed')
+        else root.setAttribute('data-landing-passed', '')
+      },
       { rootMargin: '-82px 0px 0px 0px' },
     )
     observer.observe(landing)
@@ -128,8 +156,18 @@ export function LandingStage({ kicker, items }: { kicker: string | null; items: 
               {kicker}
             </p>
           )}
-          <nav aria-label="Explore the work">
-            <ul className="m-0 flex list-none flex-col gap-1 p-0">
+          <nav
+            aria-label="Explore the work"
+            onFocus={() => setFocused(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused(false)
+            }}
+          >
+            <ul
+              className="m-0 flex list-none flex-col gap-1 p-0"
+              onMouseEnter={() => canHover && setHovering(true)}
+              onMouseLeave={() => setHovering(false)}
+            >
               {items.map((item, i) => {
                 const on = i === active
                 return (
