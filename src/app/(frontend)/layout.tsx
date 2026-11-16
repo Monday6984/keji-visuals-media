@@ -32,12 +32,19 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+// Sets the theme before first paint: the visitor's saved choice, otherwise the device setting.
+const THEME_SCRIPT = `(function(){var d=document.documentElement,t;try{t=localStorage.getItem('kv-theme')}catch(e){}if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.setAttribute('data-theme',t)})()`
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings()
 
   return (
-    // suppressHydrationWarning: the homepage intro script sets data-intro on <html> before hydration.
+    // suppressHydrationWarning: the theme and homepage intro scripts set data-theme / data-intro
+    // on <html> before hydration.
     <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-svh">
         <a
           href="#main"

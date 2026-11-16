@@ -85,7 +85,7 @@ export default async function FilmsPage() {
         </section>
       ))}
 
-      <section className="bg-ink text-cream">
+      <section className="kv-dark-section bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-10 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
           <h2 className="m-0 font-display text-[clamp(28px,3.2vw,46px)] leading-[1.05] font-medium">
             A film for <span className="text-olive-light">your story?</span>

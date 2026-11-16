@@ -40,7 +40,7 @@ function PackageCard({ pkg, category }: { pkg: Package; category: Category }) {
       data-accent={accent}
       className={`kv-metal-bar relative flex flex-col gap-4 overflow-hidden rounded-[4px] p-6 pt-8 sm:p-9 sm:pt-10 ${
         hot
-          ? 'z-10 bg-ink text-cream shadow-[0_28px_56px_-20px_rgba(22,20,15,0.55)] xl:-my-6 xl:py-14'
+          ? 'kv-hot-card z-10 bg-ink text-cream shadow-[0_28px_56px_-20px_rgba(22,20,15,0.55)] xl:-my-6 xl:py-14'
           : 'border border-ink/14 bg-paper text-ink'
       }`}
     >
@@ -231,7 +231,7 @@ export default async function PackagesPage() {
         </section>
       )}
 
-      <section className="bg-ink text-cream">
+      <section className="kv-dark-section bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-10 px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
           <h2 className="m-0 font-display text-[clamp(28px,3.2vw,46px)] leading-[1.05] font-medium">
             Not sure which <span className="text-olive-light">fits?</span>

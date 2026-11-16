@@ -221,7 +221,7 @@ export default async function HomePage() {
       </section>
 
       {/* Closing CTA */}
-      <section aria-labelledby="cta-h" className="bg-ink text-cream">
+      <section aria-labelledby="cta-h" className="kv-dark-section bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap items-end justify-between gap-12 px-4 py-24 sm:px-6 lg:px-10 lg:py-30">
           <div className="min-w-0 flex-[1_1_520px]">
             <h2 id="cta-h" className="m-0 font-display text-[clamp(30px,3.6vw,54px)] leading-[1.05] font-medium">

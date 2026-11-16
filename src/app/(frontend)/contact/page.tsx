@@ -28,7 +28,7 @@ export default async function ContactPage() {
         </p>
       </header>
 
-      <section aria-labelledby="enquire-h" className="bg-ink text-cream">
+      <section aria-labelledby="enquire-h" className="kv-dark-section bg-ink text-cream">
         <div className="mx-auto flex max-w-[1360px] flex-wrap gap-14 px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
           <div className="min-w-0 flex-[1.6_1_560px]">
             <h2 id="enquire-h" className="m-0 mb-8 font-display text-[28px] sm:text-[32px] font-medium">

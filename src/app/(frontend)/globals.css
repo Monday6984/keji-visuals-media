@@ -151,7 +151,7 @@
   display: block;
   width: 100%;
   height: 10px;
-  background: repeating-linear-gradient(90deg, transparent 0 12px, var(--color-cream) 12px 24px, transparent 24px 36px);
+  background: repeating-linear-gradient(90deg, transparent 0 12px, #efede0 12px 24px, transparent 24px 36px);
   opacity: 0.5;
 }
 .kv-strip-cell {
@@ -304,7 +304,7 @@ html:has([data-landing]):not([data-landing-passed]) .kv-header {
   backdrop-filter: none !important;
 }
 /* The phone menu panel keeps its normal cream look even while the header is transparent. */
-html:has([data-landing]):not([data-landing-passed]) .kv-menu-panel {
+html:not([data-theme='dark']):has([data-landing]):not([data-landing-passed]) .kv-menu-panel {
   --color-ink: #16140f;
   --color-cream: #efede0;
   --color-paper: #f7f5ee;
@@ -449,4 +449,51 @@ html[data-intro='play'] .kv-intro {
 }
 .kv-metal-dot {
   background: var(--kv-metal, currentColor);
+}
+
+/* Dark theme (header toggle; follows the device until the visitor chooses). The inline
+   script in the layout sets data-theme on <html> before first paint. Same token names,
+   dark values, so components need no changes. */
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --color-cream: #15130f;
+  --color-paper: #1e1b16;
+  --color-ink: #efede0;
+  --color-body: #cfcbbb;
+  --color-muted: #a39f90;
+  --color-olive: #6f6844;
+  --color-olive-display: #c9c08a;
+  --color-olive-deep: #c9c08a;
+}
+/* Sections that are dark in both themes keep their light-theme tokens (their text is
+   written as cream-on-ink), and sit a step deeper than the dark page. */
+html[data-theme='dark'] :is(.kv-dark-section, .kv-hot-card, .kv-landing, .kv-strip, .pswp) {
+  --color-cream: #efede0;
+  --color-paper: #f7f5ee;
+  --color-ink: #16140f;
+  --color-body: #3a372f;
+  --color-muted: #57534a;
+  --color-olive: #a9a06b;
+  --color-olive-display: #8a8150;
+  --color-olive-deep: #6b6436;
+}
+html[data-theme='dark'] .kv-dark-section {
+  background-color: #0b0a08;
+}
+/* The highlighted package can't stand out by being dark on a dark page: lift it instead. */
+html[data-theme='dark'] .kv-hot-card {
+  background-color: #2b2720;
+  outline: 1px solid rgba(201, 192, 138, 0.4);
+}
+/* No colour transitions while the theme switches, so it changes in one step. */
+.kv-theme-switching,
+.kv-theme-switching * {
+  transition: none !important;
+}
+.kv-icon-sun,
+html[data-theme='dark'] .kv-icon-moon {
+  display: none;
+}
+html[data-theme='dark'] .kv-icon-sun {
+  display: block;
 }

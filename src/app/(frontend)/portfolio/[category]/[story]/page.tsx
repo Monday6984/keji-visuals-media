@@ -201,7 +201,7 @@ export default async function StoryPage({ params }: { params: Promise<Params> })
       <section className="mx-auto max-w-[1360px] px-4 py-20 sm:px-6 lg:px-10 lg:py-30">
         <div className="strip mb-16 lg:mb-18" aria-hidden="true" />
         <div className="flex flex-wrap items-stretch gap-12">
-          <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-5.5 bg-ink p-8 text-cream sm:p-14">
+          <div className="kv-dark-section flex min-w-0 flex-[1_1_440px] flex-col gap-5.5 bg-ink p-8 text-cream sm:p-14">
             <h2 className="m-0 font-display text-[28px] leading-[1.1] font-medium sm:text-[34px]">
               Planning a day
               <br />

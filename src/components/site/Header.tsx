@@ -4,6 +4,7 @@ import { BOOK_HREF, NAV, whatsappHref } from '@/lib/site'
 
 import { Logo } from './Logo'
 import { MobileMenu } from './MobileMenu'
+import { ThemeToggle } from './ThemeToggle'
 
 export function Header({ whatsapp }: { whatsapp?: string | null }) {
   const wa = whatsappHref(whatsapp)
@@ -21,6 +22,7 @@ export function Header({ whatsapp }: { whatsapp?: string | null }) {
               {item.label}
             </Link>
           ))}
+          <ThemeToggle />
           {wa && (
             <a href={wa} className="btn btn-line min-h-11 px-5">
               WhatsApp
@@ -31,7 +33,10 @@ export function Header({ whatsapp }: { whatsapp?: string | null }) {
           </Link>
         </nav>
 
-        <MobileMenu whatsapp={wa} />
+        <div className="flex items-center gap-2.5 lg:hidden">
+          <ThemeToggle />
+          <MobileMenu whatsapp={wa} />
+        </div>
       </div>
     </header>
   )

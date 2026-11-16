@@ -13,7 +13,7 @@ const PLATFORM_LABELS: Record<string, string> = {
 
 export function Footer({ socials }: { socials?: SiteSetting['socials'] }) {
   return (
-    <footer className="border-t border-cream/15 bg-ink pb-24 text-stone md:pb-0">
+    <footer className="kv-dark-section border-t border-cream/15 bg-ink pb-24 text-stone md:pb-0">
       <div className="mx-auto flex max-w-[1360px] flex-wrap justify-between gap-4 px-4 py-8 sm:px-6 lg:px-10">
         <p className="cap m-0">© {new Date().getFullYear()} Keji Visuals · Timeless. Genuine. Beautiful.</p>
         <ul className="cap m-0 flex list-none flex-wrap gap-6 p-0">
