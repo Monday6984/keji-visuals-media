@@ -64,10 +64,12 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
-      title={dark ? 'Light theme' : 'Dark theme'}
       className={`flex size-11 shrink-0 items-center justify-center rounded-full border border-ink/30 text-ink ${className}`}
     >
+      {/* Label and icon are both picked by CSS from data-theme, so they're right from first
+          paint, before hydration (display:none text is left out of the accessible name). */}
+      <span className="kv-icon-moon sr-only">Switch to dark theme</span>
+      <span className="kv-icon-sun sr-only">Switch to light theme</span>
       {/* Both icons render; CSS shows the right one from data-theme, so the icon is correct
           from first paint (before hydration). Sun in dark mode, moon in light mode. */}
       <svg
