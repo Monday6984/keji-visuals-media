@@ -86,7 +86,7 @@ const CHAPTERS: Copy[] = [
   {
     frameNumber: '05',
     title: 'Wherever love is',
-    pullQuote: { text: 'Wherever love is, that’s where you’ll find us.', olive: 'that’s where you’ll find us.', size: 'large' },
+    pullQuote: { text: 'Wherever love is, that’s where you’ll find us.', olive: 'that’s where you’ll find us.', size: 'normal' },
     body: [
       'I love to travel, so if your wedding is somewhere new, even better. We’re based in Lagos, and I’ve photographed love stories across more than 80% of Nigeria, north, east and right across the southwest, and over the border in Benin Republic.',
     ],
@@ -120,7 +120,7 @@ const CHAPTERS: Copy[] = [
   {
     frameNumber: '07',
     title: 'Why weddings',
-    pullQuote: { text: 'I’ve always loved love.', olive: 'loved love.', size: 'large' },
+    pullQuote: { text: 'I’ve always loved love.', olive: 'loved love.', size: 'normal' },
     body: [
       'I’ve always loved seeing couples smile together. At that wedding where I first met Gideon’s team, I watched how they worked with the couple: making them laugh, guiding them, catching the moments in between. When I saw the photos afterwards, I fell in love with wedding photography. I knew I wanted to document people’s love stories.',
       'On the team, I photographed more than 100 weddings. Every one showed me love in a different light: different people, different stories, the sacrifices couples make to be together. Above everything else I shoot, weddings are the work I love most, because I get to be part of your big day. Being the one trusted to tell your love story means a lot to me, and the messages couples send afterwards make me want to do it again and again.',
