@@ -815,7 +815,8 @@ async function main() {
   try {
     const res = await fetch(`${site}/revalidate`, {
       method: 'POST',
-      headers: { 'x-revalidate-secret': process.env.REVALIDATE_SECRET ?? '' },
+      // Vercel's bot protection answers 403 to the default fetch user agent.
+      headers: { 'x-revalidate-secret': process.env.REVALIDATE_SECRET ?? '', 'user-agent': 'Mozilla/5.0 (keji-seed)' },
     })
     console.log(`revalidate ${site}: ${res.status}`)
   } catch {
