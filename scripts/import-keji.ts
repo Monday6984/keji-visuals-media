@@ -671,6 +671,8 @@ async function main() {
   })
   console.log(`home landing: ${landingItems.length} categories`)
 
+  // The chapter text here is the first draft; the final copy (Frames 01–08, team, credits)
+  // comes from scripts/seed-about-copy.ts, so run `npm run seed:about` after this on dev.
   await payload.updateGlobal({
     slug: 'about',
     data: {

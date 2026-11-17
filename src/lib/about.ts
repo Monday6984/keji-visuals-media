@@ -60,3 +60,28 @@ export const placesToShow = (places: About['places']) => {
   const names = (places ?? []).map((p) => p.name.trim()).filter(Boolean)
   return names.length >= 2 ? names : []
 }
+
+export type TeamMember = NonNullable<About['team']>[number]
+
+/** Team members ticked "show", by their order number (blank keeps list order, after numbered ones). */
+export const teamToShow = (team: About['team']): TeamMember[] =>
+  (team ?? [])
+    .map((m, i) => ({ m, i }))
+    .filter(({ m }) => m.show !== false && m.name?.trim())
+    .sort((a, b) => (a.m.order ?? Infinity) - (b.m.order ?? Infinity) || a.i - b.i)
+    .map(({ m }) => m)
+
+/** Testimonials that came back populated (unpublished ones arrive as bare ids and are dropped). */
+export const testimonialsToShow = (list: About['testimonials']) =>
+  (list ?? []).flatMap((t) => (t && typeof t === 'object' && t.quote?.trim() ? [t] : []))
+
+/** True when a Lexical rich-text value has any visible text. */
+export const hasText = (data: unknown): boolean => {
+  const walk = (n: unknown): boolean => {
+    if (!n || typeof n !== 'object') return false
+    const node = n as { text?: unknown; children?: unknown[] }
+    if (typeof node.text === 'string' && node.text.trim()) return true
+    return Array.isArray(node.children) && node.children.some(walk)
+  }
+  return walk((data as { root?: unknown } | null)?.root)
+}

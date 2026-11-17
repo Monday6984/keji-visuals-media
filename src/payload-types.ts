@@ -1134,8 +1134,29 @@ export interface About {
           };
           [k: string]: unknown;
         } | null;
+        /**
+         * Optional quieter block after the body, in smaller type with an olive rule above (e.g. "Before the weddings").
+         */
+        aside?: {
+          heading?: string | null;
+          body?: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          } | null;
+        };
         layout: 'text' | 'image-right' | 'image-left' | 'diptych';
-        extra?: ('none' | 'values' | 'timeline' | 'places') | null;
+        extra?: ('none' | 'values' | 'timeline' | 'places' | 'team') | null;
         image?: (number | null) | Media;
         caption?: string | null;
         image2?: (number | null) | Media;
@@ -1196,6 +1217,67 @@ export interface About {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Shown under the places line. Hidden while the text is empty.
+   */
+  nextOnMyList?: {
+    /**
+     * e.g. a week-long traditional northern wedding, and destination weddings in…
+     */
+    text?: string | null;
+    /**
+     * e.g. Planning one? Let’s talk.
+     */
+    linkLabel?: string | null;
+    /**
+     * A page on this site, e.g. /packages#destination
+     */
+    linkUrl?: string | null;
+  };
+  /**
+   * Shown in the chapter set to "Also show: Team". Without a photo the card is text only.
+   */
+  team?:
+    | {
+        name: string;
+        /**
+         * e.g. Films · Abuja
+         */
+        role: string;
+        line?: string | null;
+        photo?: (number | null) | Media;
+        show?: boolean | null;
+        /**
+         * Lower numbers first; blank keeps the list order.
+         */
+        order?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Short section before the closing. Hidden while empty.
+   */
+  offTheClock?:
+    | {
+        title: string;
+        line: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * End credits before the closing. Hidden while empty.
+   */
+  credits?:
+    | {
+        name: string;
+        line: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hidden while empty. Only testimonials the couple agreed to publish are shown.
+   */
+  testimonials?: (number | Testimonial)[] | null;
   closing?: {
     /**
      * e.g. End of reel
@@ -1372,6 +1454,12 @@ export interface AboutSelect<T extends boolean = true> {
               size?: T;
             };
         body?: T;
+        aside?:
+          | T
+          | {
+              heading?: T;
+              body?: T;
+            };
         layout?: T;
         extra?: T;
         image?: T;
@@ -1409,6 +1497,39 @@ export interface AboutSelect<T extends boolean = true> {
         name?: T;
         id?: T;
       };
+  nextOnMyList?:
+    | T
+    | {
+        text?: T;
+        linkLabel?: T;
+        linkUrl?: T;
+      };
+  team?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        line?: T;
+        photo?: T;
+        show?: T;
+        order?: T;
+        id?: T;
+      };
+  offTheClock?:
+    | T
+    | {
+        title?: T;
+        line?: T;
+        id?: T;
+      };
+  credits?:
+    | T
+    | {
+        name?: T;
+        line?: T;
+        id?: T;
+      };
+  testimonials?: T;
   closing?:
     | T
     | {

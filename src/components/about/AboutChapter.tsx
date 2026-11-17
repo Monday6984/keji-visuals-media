@@ -1,8 +1,9 @@
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 import { Photo } from '@/components/Photo'
 import { RichText } from '@/components/RichText'
-import { type AboutChapter as Chapter, chapterImages } from '@/lib/about'
+import { type AboutChapter as Chapter, chapterImages, hasText, type TeamMember } from '@/lib/about'
 import { frameNo } from '@/lib/format'
 import type { About, Media } from '@/payload-types'
 
@@ -14,6 +15,8 @@ type Props = {
   values: NonNullable<About['values']>
   timeline: NonNullable<About['timeline']>
   places: string[]
+  nextOnMyList?: About['nextOnMyList']
+  team: TeamMember[]
   /** Reels placed after this chapter. */
   children?: ReactNode
 }
@@ -32,9 +35,28 @@ function Figure({ media, caption, number, sizes }: { media: Media; caption: stri
   )
 }
 
+function TeamCard({ member: t }: { member: TeamMember }) {
+  const photo = t.photo && typeof t.photo === 'object' ? t.photo : null
+  return (
+    <li className="flex gap-5 border-t border-olive py-6">
+      {photo && (
+        <div className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden rounded-[2px] bg-paper">
+          <Photo media={photo} fill sizes="96px" />
+        </div>
+      )}
+      <div className="min-w-0">
+        <p className="m-0 font-display text-[22px] leading-[1.15] text-ink">{t.name}</p>
+        <p className="cap m-0 mt-2 font-semibold text-olive-deep">{t.role}</p>
+        {t.line && <p className="m-0 mt-3 text-[15px] leading-relaxed">{t.line}</p>}
+      </div>
+    </li>
+  )
+}
+
 // One "frame" of the About page: label row, optional pull quote, body, photos by layout,
-// then an optional values list / timeline / places line.
-export function AboutChapter({ chapter: c, numbers, values, timeline, places, children }: Props) {
+// then an optional values list / timeline / places line / team, and an optional quieter
+// "aside" block. Empty parts render nothing.
+export function AboutChapter({ chapter: c, numbers, values, timeline, places, nextOnMyList, team, children }: Props) {
   const images = chapterImages(c)
   const quote = c.pullQuote?.text ? (
     <p
@@ -45,7 +67,7 @@ export function AboutChapter({ chapter: c, numbers, values, timeline, places, ch
       <Olive text={c.pullQuote.text} olive={c.pullQuote.olive} />
     </p>
   ) : null
-  const body = c.body ? <RichText data={c.body} className="max-w-[680px] text-lg leading-[1.8]" /> : null
+  const body = hasText(c.body) ? <RichText data={c.body} className="max-w-[680px] text-lg leading-[1.8]" /> : null
   const text = (
     <>
       {quote}
@@ -115,6 +137,37 @@ export function AboutChapter({ chapter: c, numbers, values, timeline, places, ch
 
       {c.extra === 'places' && places.length > 0 && (
         <p className="cap m-0 mt-7 leading-[2.2] text-muted">{places.join(' · ')}</p>
+      )}
+
+      {c.extra === 'places' && nextOnMyList?.text?.trim() && (
+        <p className="m-0 mt-6 max-w-[680px] text-base leading-[1.8]">
+          <span className="font-semibold text-ink">Next on my list:</span> {nextOnMyList.text.trim()}
+          {nextOnMyList.linkLabel && nextOnMyList.linkUrl && (
+            <>
+              {' '}
+              <Link href={nextOnMyList.linkUrl} className="text-olive-deep underline underline-offset-4 hover:text-ink">
+                {nextOnMyList.linkLabel}
+              </Link>
+            </>
+          )}
+        </p>
+      )}
+
+      {c.extra === 'team' && team.length > 0 && (
+        <ul className="m-0 mt-10 grid list-none gap-x-10 p-0 sm:grid-cols-2">
+          {team.map((t) => (
+            <TeamCard key={t.id ?? t.name} member={t} />
+          ))}
+        </ul>
+      )}
+
+      {c.aside && hasText(c.aside.body) && (
+        <div className="mt-14 max-w-[640px] border-t border-olive pt-6">
+          {c.aside.heading && (
+            <h3 className="cap m-0 mb-4 font-semibold text-olive-deep">{c.aside.heading}</h3>
+          )}
+          <RichText data={c.aside.body} className="text-[15px] leading-[1.8]" />
+        </div>
       )}
 
       {children}

@@ -11,6 +11,7 @@ import * as migration_20261115_220355_site_settings_drop_hero_slides from './202
 import * as migration_20261115_220421_home_landing from './20261115_220421_home_landing';
 import * as migration_20261116_091832_packages_badge_accent from './20261116_091832_packages_badge_accent';
 import * as migration_20261116_104410_home_landing_mobile_position from './20261116_104410_home_landing_mobile_position';
+import * as migration_20261117_125605_about_people_extras from './20261117_125605_about_people_extras';
 
 export const migrations = [
   {
@@ -76,6 +77,11 @@ export const migrations = [
   {
     up: migration_20261116_104410_home_landing_mobile_position.up,
     down: migration_20261116_104410_home_landing_mobile_position.down,
-    name: '20261116_104410_home_landing_mobile_position'
+    name: '20261116_104410_home_landing_mobile_position',
+  },
+  {
+    up: migration_20261117_125605_about_people_extras.up,
+    down: migration_20261117_125605_about_people_extras.down,
+    name: '20261117_125605_about_people_extras'
   },
 ];

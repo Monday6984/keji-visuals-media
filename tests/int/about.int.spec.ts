@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { type AboutChapter, layoutAbout, placesToShow, publishedChapters, splitOlive } from '@/lib/about'
-import type { Media } from '@/payload-types'
+import { type AboutChapter, hasText, layoutAbout, placesToShow, publishedChapters, splitOlive, teamToShow, testimonialsToShow } from '@/lib/about'
+import type { Media, Testimonial } from '@/payload-types'
 
 const m = (id: number) => ({ id, alt: `photo ${id}` }) as Media
 
@@ -68,5 +68,36 @@ describe('placesToShow', () => {
   it('needs at least two places', () => {
     expect(placesToShow([{ name: 'Lagos' }])).toEqual([])
     expect(placesToShow([{ name: 'Lagos' }, { name: ' Ibadan ' }])).toEqual(['Lagos', 'Ibadan'])
+  })
+})
+
+describe('teamToShow', () => {
+  it('hides unticked members and sorts by order, keeping list order for blanks', () => {
+    const team = [
+      { name: 'Daniel', role: 'Videographer', order: null },
+      { name: 'Films', role: 'Films', order: 1 },
+      { name: 'Hidden', role: 'x', show: false, order: 0 },
+      { name: 'Lekan', role: 'Lighting' },
+    ]
+    expect(teamToShow(team).map((t) => t.name)).toEqual(['Films', 'Daniel', 'Lekan'])
+    expect(teamToShow(null)).toEqual([])
+  })
+})
+
+describe('testimonialsToShow', () => {
+  it('keeps populated testimonials only', () => {
+    const t = { id: 1, names: 'A & B', quote: 'Lovely' } as Testimonial
+    expect(testimonialsToShow([t, 2, { ...t, id: 3, quote: ' ' }])).toEqual([t])
+    expect(testimonialsToShow(undefined)).toEqual([])
+  })
+})
+
+describe('hasText', () => {
+  const para = (text: string) => ({ root: { children: [{ type: 'paragraph', children: [{ type: 'text', text }] }] } })
+  it('detects visible text in rich text', () => {
+    expect(hasText(para('Hello'))).toBe(true)
+    expect(hasText(para('  '))).toBe(false)
+    expect(hasText({ root: { children: [] } })).toBe(false)
+    expect(hasText(null)).toBe(false)
   })
 })

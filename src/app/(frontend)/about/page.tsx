@@ -6,8 +6,9 @@ import { AboutHero } from '@/components/about/AboutHero'
 import { ChapterIndex } from '@/components/about/ChapterIndex'
 import { FilmReel } from '@/components/about/FilmReel'
 import { Olive } from '@/components/about/Olive'
+import { TestimonialSlider } from '@/components/home/TestimonialSlider'
 import { Photo } from '@/components/Photo'
-import { type AboutBlock, isMedia, layoutAbout, placesToShow } from '@/lib/about'
+import { type AboutBlock, isMedia, layoutAbout, placesToShow, teamToShow, testimonialsToShow } from '@/lib/about'
 import { getAbout, getSiteSettings } from '@/lib/data'
 import { frameNo } from '@/lib/format'
 import { BOOK_HREF, whatsappHref } from '@/lib/site'
@@ -27,8 +28,9 @@ export async function generateMetadata(): Promise<Metadata> {
 const LINKS = { book: BOOK_HREF, portfolio: '/portfolio', packages: '/packages' } as const
 
 // About page from docs/mockup/About.dc.html: hero, sticky chapter index ("the reel"),
-// chapters with film-strip reels between them, and a closing call to action. All content
-// comes from the About global; unpublished chapters never render.
+// chapters with film-strip reels between them, then testimonials, "Off the clock" and
+// credits, and a closing call to action. All content comes from the About global;
+// unpublished chapters and empty sections never render.
 export default async function AboutPage() {
   const [about, settings] = await Promise.all([getAbout(), getSiteSettings()])
   const hero = about.hero ?? {}
@@ -38,6 +40,10 @@ export default async function AboutPage() {
 
   const { heroNumber, blocks, closingNumber } = layoutAbout(about)
   const places = placesToShow(about.places)
+  const team = teamToShow(about.team)
+  const quotes = testimonialsToShow(about.testimonials).map((t) => ({ id: t.id, names: t.names, quote: t.quote }))
+  const offTheClock = (about.offTheClock ?? []).filter((o) => o.title?.trim() && o.line?.trim())
+  const credits = (about.credits ?? []).filter((c) => c.name?.trim() && c.line?.trim())
 
   // Reels are rendered inside the chapter they follow.
   const sections = blocks.reduce<{ chapter: Extract<AboutBlock, { kind: 'chapter' }>; reels: Extract<AboutBlock, { kind: 'reel' }>[] }[]>(
@@ -81,6 +87,8 @@ export default async function AboutPage() {
                 values={about.values ?? []}
                 timeline={about.timeline ?? []}
                 places={places}
+                nextOnMyList={about.nextOnMyList}
+                team={team}
               >
                 {reels.map((r) => (
                   <FilmReel key={r.reel.id ?? r.reel.label} label={r.reel.label} frames={r.frames} />
@@ -89,6 +97,54 @@ export default async function AboutPage() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Kind words: off until Keji shares testimonials the couples have approved. */}
+      {quotes.length > 0 && (
+        <section aria-labelledby="about-words-h" className="mx-auto max-w-[1100px] px-4 pb-24 text-center sm:px-6 lg:px-10 lg:pb-28">
+          <div className="strip mx-auto mb-10 max-w-55" aria-hidden="true" />
+          <h2 id="about-words-h" className="cap m-0 mb-8 font-semibold text-olive-deep">
+            Kind words
+          </h2>
+          <TestimonialSlider quotes={quotes} />
+        </section>
+      )}
+
+      {/* Off the clock */}
+      {offTheClock.length > 0 && (
+        <section aria-labelledby="off-clock-h" className="border-t border-ink/14 bg-paper">
+          <div className="mx-auto max-w-[1360px] px-4 py-20 sm:px-6 lg:px-10 lg:py-24">
+            <h2 id="off-clock-h" className="m-0 mb-10 font-display text-[clamp(28px,3vw,42px)] leading-[1.1] font-medium text-ink">
+              Off the <span className="text-olive-display">clock</span>
+            </h2>
+            <ul className="m-0 grid list-none gap-x-14 p-0 md:grid-cols-2">
+              {offTheClock.map((o) => (
+                <li key={o.id ?? o.title} className="border-t border-ink/14 py-6">
+                  <h3 className="cap m-0 mb-2.5 font-semibold text-olive-deep">{o.title}</h3>
+                  <p className="m-0 max-w-[520px] text-base leading-[1.75]">{o.line}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* Credits, like the end of a film */}
+      {credits.length > 0 && (
+        <section aria-labelledby="credits-h" className="mx-auto max-w-[760px] px-4 py-24 text-center sm:px-6 lg:py-30">
+          <div className="strip mx-auto mb-12 max-w-40" aria-hidden="true" />
+          <h2 id="credits-h" className="cap m-0 mb-14 font-semibold text-muted">
+            Credits
+          </h2>
+          <dl className="m-0 flex flex-col gap-12">
+            {credits.map((c) => (
+              <div key={c.id ?? c.name}>
+                <dt className="font-display text-[clamp(26px,3vw,36px)] leading-[1.1] text-ink">{c.name}</dt>
+                <dd className="cap m-0 mx-auto mt-3.5 max-w-[440px] leading-[1.9] text-muted">{c.line}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       )}
 
       {/* Closing */}

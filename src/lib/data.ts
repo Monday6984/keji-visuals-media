@@ -132,7 +132,7 @@ export const getAbout = unstable_cache(
     return payload.findGlobal({ slug: 'about', depth: 1, overrideAccess: false })
   },
   ['about'],
-  { tags: [globalTag('about'), collectionTag('media')] },
+  { tags: [globalTag('about'), collectionTag('media'), collectionTag('testimonials')] },
 )
 
 /** Home global: the landing's categories with their backgrounds and posters populated. */

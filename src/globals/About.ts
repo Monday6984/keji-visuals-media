@@ -6,7 +6,8 @@ import { revalidateGlobalAfterChange } from '@/lib/revalidate'
 
 // The About page (docs/mockup/About.dc.html): a hero, then "frames" (chapters) with a sticky
 // index, film-strip reels placed after chapters, a timeline, places and a closing call to
-// action. Unpublished chapters are kept for drafting but never rendered.
+// action, plus team, "off the clock", credits and testimonials. Unpublished chapters are kept
+// for drafting but never rendered; empty sections render nothing.
 
 /** Must the olive phrase appear in the text? Used by the two-tone headline fields. */
 const oliveIn =
@@ -191,6 +192,17 @@ export const About: GlobalConfig = {
                 },
                 { name: 'body', type: 'richText' },
                 {
+                  name: 'aside',
+                  type: 'group',
+                  admin: {
+                    description: 'Optional quieter block after the body, in smaller type with an olive rule above (e.g. "Before the weddings").',
+                  },
+                  fields: [
+                    { name: 'heading', type: 'text' },
+                    { name: 'body', type: 'richText' },
+                  ],
+                },
+                {
                   type: 'row',
                   fields: [
                     {
@@ -215,6 +227,7 @@ export const About: GlobalConfig = {
                         { label: 'Values', value: 'values' },
                         { label: 'Timeline', value: 'timeline' },
                         { label: 'Places', value: 'places' },
+                        { label: 'Team', value: 'team' },
                       ],
                     },
                   ],
@@ -302,6 +315,93 @@ export const About: GlobalConfig = {
               type: 'array',
               admin: { description: 'Places Keji has shot. The line only shows once there are at least two.' },
               fields: [{ name: 'name', type: 'text', required: true }],
+            },
+            {
+              name: 'nextOnMyList',
+              label: 'Next on my list',
+              type: 'group',
+              admin: { description: 'Shown under the places line. Hidden while the text is empty.' },
+              fields: [
+                { name: 'text', type: 'textarea', admin: { description: 'e.g. a week-long traditional northern wedding, and destination weddings in…' } },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'linkLabel', type: 'text', admin: { description: 'e.g. Planning one? Let’s talk.' } },
+                    {
+                      name: 'linkUrl',
+                      type: 'text',
+                      admin: { description: 'A page on this site, e.g. /packages#destination' },
+                      validate: (value: unknown) =>
+                        !value || (typeof value === 'string' && /^\/(?!\/)/.test(value)) || 'Use a path on this site, starting with /.',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'People',
+          fields: [
+            {
+              name: 'team',
+              type: 'array',
+              labels: { singular: 'Team member', plural: 'Team' },
+              admin: { description: 'Shown in the chapter set to "Also show: Team". Without a photo the card is text only.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', type: 'text', required: true },
+                    { name: 'role', type: 'text', required: true, admin: { description: 'e.g. Films · Abuja' } },
+                  ],
+                },
+                { name: 'line', type: 'text' },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'photo', type: 'upload', relationTo: 'media' },
+                    { name: 'show', type: 'checkbox', defaultValue: true },
+                    { name: 'order', type: 'number', admin: { description: 'Lower numbers first; blank keeps the list order.' } },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'offTheClock',
+              label: 'Off the clock',
+              type: 'array',
+              admin: { description: 'Short section before the closing. Hidden while empty.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'title', type: 'text', required: true },
+                    { name: 'line', type: 'text', required: true },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'credits',
+              type: 'array',
+              admin: { description: 'End credits before the closing. Hidden while empty.' },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', type: 'text', required: true },
+                    { name: 'line', type: 'text', required: true },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'testimonials',
+              type: 'relationship',
+              relationTo: 'testimonials',
+              hasMany: true,
+              admin: { description: 'Hidden while empty. Only testimonials the couple agreed to publish are shown.' },
             },
           ],
         },
